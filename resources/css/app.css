@@ -1,0 +1,43 @@
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/poppins-medium.ttf');
+}
+
+@font-face {
+    font-family: 'Poppins Black';
+    src: url('/fonts/poppins-semiBold.ttf');
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden !important;
+    scroll-behavior: smooth
+}
+
+.mw-95 {
+    max-width: 95% !important
+}
+
+.font-black {
+    font-family: 'Poppins Black', sans-serif
+}
+
+.backToTop {
+    max-height: 50px;
+    right: 3.5vw;
+    display: none
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.div_schedules {
+    box-shadow: 0 3px 6px #00000029;
+}
