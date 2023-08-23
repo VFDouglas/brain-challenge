@@ -34,7 +34,7 @@ class PageAccess
             if (!session()->has('event_access')) {
                 $access = DB::connection('brain_challenge')
                     ->table('users')
-                    ->join('events', 'users.event_id', '=', 'events.id')
+                    ->leftJoin('events', 'users.event_id', '=', 'events.id')
                     ->select([
                         'users.id as user_id',
                         'users.name',
@@ -45,8 +45,9 @@ class PageAccess
                     ])
                     ->where('users.id', '=', session('user_id'))
                     ->where('events.status', '=', 1)
-                    ->get();
-                session(['event_access' => (array)$access[0] ?? []]);
+                    ->get()
+                    ->toArray();
+                session(['event_access' => (array)reset($access) ?? []]);
             }
             $access = session('event_access');
 
@@ -57,10 +58,10 @@ class PageAccess
             }
 
             // If the user didn't accept the terms
-            if (!$access['accepted_terms'] && !$request->is('acceptance_terms')) {
+            if (!array_key_exists('accepted_terms', $access) && !$request->is('acceptance_terms')) {
                 $redirect['url'] = 'acceptance_terms';
                 throw new Exception(json_encode($redirect));
-            } elseif ($access['accepted_terms'] && $request->is('acceptance_terms')) {
+            } elseif (array_key_exists('accepted_terms', $access) && $request->is('acceptance_terms')) {
                 $redirect['url'] = 'home';
                 throw new Exception(json_encode($redirect));
             }
@@ -73,8 +74,8 @@ class PageAccess
                         'pages.name',
                         'pages.url',
                     ])
-                    ->where('page_user.user_id', '=', $access['user_id'])
-                    ->where('page_user.event_id', '=', $access['event_id'])
+                    ->where('page_user.user_id', '=', $access['user_id'] ?? '')
+                    ->where('page_user.event_id', '=', $access['event_id'] ?? '')
                     ->where('pages.status', '=', 1)
                     ->get();
                 session(['page_access' => $pages->all() ?? []]);
