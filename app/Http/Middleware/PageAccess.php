@@ -34,7 +34,10 @@ class PageAccess
             if (!session()->has('event_access')) {
                 $access = DB::connection('brain_challenge')
                     ->table('users')
-                    ->leftJoin('events', 'users.event_id', '=', 'events.id')
+                    ->leftJoin('events', function ($join) {
+                        $join->on('events.id', '=', 'users.event_id');
+                        $join->on('events.status', '=', DB::raw('1'));
+                    })
                     ->select([
                         'users.id as user_id',
                         'users.name',
@@ -44,7 +47,6 @@ class PageAccess
                         'events.name as event_name'
                     ])
                     ->where('users.id', '=', session('user_id'))
-                    ->where('events.status', '=', 1)
                     ->get()
                     ->toArray();
                 session(['event_access' => (array)reset($access) ?? []]);

@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Page;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -19,7 +19,7 @@ return new class extends Migration {
                 $table->boolean('status')->nullable(false);
                 $table->timestamps();
             });
-            Page::query()
+            DB::table('pages')
                 ->upsert(
                     [
                         ['name' => 'Schedules', 'url' => '/schedules', 'status' => 1],

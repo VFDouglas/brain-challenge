@@ -21,12 +21,4 @@ return new class extends Migration {
             Schema::createDatabase('brain_challenge');
         }
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropDatabaseIfExists('brain_challenge');
-    }
 };

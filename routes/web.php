@@ -28,11 +28,9 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
     Route::get('/', function () {
         return redirect('home');
     });
-    Route::get('home', function () {
-        return view('home');
-    });
 
     Route::controller(AppController::class)->group(function () {
+        Route::get('home', 'index');
         Route::post('log_access', 'logAccess');
     });
 
