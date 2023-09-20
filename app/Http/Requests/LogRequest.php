@@ -27,7 +27,7 @@ class LogRequest extends FormRequest
         switch (request()->path()) {
             case 'log_access':
                 $rules = [
-                    'page'        => 'required|alpha',
+                    'page'        => 'required|string',
                     'description' => 'required|string|max:500'
                 ];
                 break;

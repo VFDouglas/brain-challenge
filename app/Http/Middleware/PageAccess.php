@@ -60,10 +60,17 @@ class PageAccess
             }
 
             // If the user didn't accept the terms
-            if (!array_key_exists('accepted_terms', $access) && !$request->is('acceptance_terms')) {
+            if (
+                (!array_key_exists('accepted_terms', $access) || $access['accepted_terms'] != 1) &&
+                !$request->is('acceptance_terms')
+            ) {
                 $redirect['url'] = 'acceptance_terms';
                 throw new Exception(json_encode($redirect));
-            } elseif (array_key_exists('accepted_terms', $access) && $request->is('acceptance_terms')) {
+            } elseif (
+                array_key_exists('accepted_terms', $access) &&
+                $access['accepted_terms'] == 1 &&
+                $request->is('acceptance_terms')
+            ) {
                 $redirect['url'] = 'home';
                 throw new Exception(json_encode($redirect));
             }

@@ -55,8 +55,4 @@
             </div>
         </form>
     </div>
-    <script>
-        gera_log("Termo de Aceite", "Carregou página de termo de aceite.");
-        document.querySelectorAll(".menu_cabecalho").forEach(element => element.remove());
-    </script>
 @endsection
