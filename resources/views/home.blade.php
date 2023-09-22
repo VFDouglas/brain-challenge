@@ -9,9 +9,9 @@
 ?>
 @extends('header')
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
-            <div class="col-12 col-sm-6 col-md-4">
+            <div class="col-12 col-sm-6 rounded-pill bg-gradient-light p-5">
                 @if ($event->count() > 0)
                     <h6 class="fw-bold">{{__('home.current_event_label')}}</h6>
                     <div class="card">
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 @else
-                    <h6>{{__('home.no_event_found')}}</h6>
+                    <h5>{{__('home.no_event_found')}}</h5>
                 @endif
             </div>
         </div>
