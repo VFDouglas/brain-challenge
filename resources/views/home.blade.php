@@ -10,8 +10,8 @@
 @extends('header')
 @section('content')
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-12 col-sm-6 rounded-pill bg-gradient-light p-5">
+        <div class="row gap-5">
+            <div class="col-12 col-md rounded-pill bg-gradient-light p-5 text-center">
                 @if ($event->count() > 0)
                     <h6 class="fw-bold">{{__('home.current_event_label')}}</h6>
                     <div class="card">
@@ -27,6 +27,12 @@
                     </div>
                 @else
                     <h5>{{__('home.no_event_found')}}</h5>
+                @endif
+            </div>
+            <div class="col-12 col-md rounded-pill bg-gradient-light p-5 text-center">
+                @if ($score->count() > 0)
+                @else
+                    <h5>{{__('home.no_score_found')}}</h5>
                 @endif
             </div>
         </div>

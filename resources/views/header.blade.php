@@ -82,17 +82,20 @@ $pages = array_column(session('page_access'), 'url');
                             <i class="fa-solid fa-fw fa-gear"></i>
                             <span>{{__('header.control_panel_button_text')}}</span>
                         </button>
-                        <div id="collapsePages" class="collapse" data-bs-parent="#accordionSidebar">
-                            <div class="py-2 collapse-inner rounded">
+                        <div id="collapsePages" class="collapse bg" data-bs-parent="#accordionSidebar">
+                            <div class="py-2 collapse-inner rounded bg-gradient-primary">
                                 <a class="nav-link collapsed" href="/admin/events">
-                                    <i class="fa-solid fa-qrcode"></i>
+                                    <i class="fa-regular fa-calendar-check"></i>&nbsp;
                                     <span>{{__('header.admin_events_button_text')}}</span>
                                 </a>
                                 <a class="nav-link collapsed" href="/admin/presentations">
-                                    <i class="fa-solid fa-qrcode"></i>
+                                    <i class="fa-solid fa-chalkboard-user"></i>
                                     <span>{{__('header.presentations_button_text')}}</span>
                                 </a>
-                                <a class="nav-link collapse-item" href="login.html">Login</a>
+                                <a class="nav-link collapsed" href="/admin/schedules">
+                                    <i class="fa-regular fa-calendar-days me-1"></i>&nbsp;
+                                    <span>{{__('header.schedules_button_text')}}</span>
+                                </a>
                             </div>
                         </div>
                     </li>

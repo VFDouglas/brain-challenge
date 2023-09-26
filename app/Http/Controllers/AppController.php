@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LogRequest;
 use App\Models\Event;
+use App\Models\SimplifiedScore;
 use App\Models\StudentLog;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -17,7 +18,7 @@ class AppController extends Controller
 {
     public function index(): View|FoundationApplication|Factory|Application
     {
-        return view('home', ['event' => Event::getCurrentEvent()]);
+        return view('home', ['event' => Event::getCurrentEvent(), 'score' => SimplifiedScore::getScore()]);
     }
 
     public function logAccess(LogRequest $request): bool
