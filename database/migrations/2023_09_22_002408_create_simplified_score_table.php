@@ -12,13 +12,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create(self::TABLE, function (Blueprint $table) {
-            $table->foreignId('event_id')->constrained('events');
-            $table->foreignId('user_id')->constrained('users');
-            $table->float('score', 16);
-            $table->timestamp('updated_at');
-            $table->primary(['event_id', 'user_id']);
-        });
+        if (!Schema::hasTable(self::TABLE)) {
+            Schema::create(self::TABLE, function (Blueprint $table) {
+                $table->foreignId('event_id')->constrained('events');
+                $table->foreignId('user_id')->constrained('users');
+                $table->float('score', 16);
+                $table->timestamp('updated_at');
+                $table->primary(['event_id', 'user_id']);
+            });
+        }
     }
 
     /**

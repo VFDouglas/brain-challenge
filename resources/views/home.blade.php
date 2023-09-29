@@ -9,6 +9,25 @@
 ?>
 @extends('header')
 @section('content')
+    <div class="modal fade" id="modal_detailed_score" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{__('home.modal_detailed_score_title')}}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{__('home.modal_detailed_score_close_button_text')}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container mt-5">
         <div class="row gap-5">
             <div class="col-12 col-md-8 mx-auto rounded-pill bg-gradient-light p-5 text-center">
@@ -53,7 +72,30 @@
             @if ($event->count() > 0)
                 <div class="col-12 col-md-8 mx-auto rounded-pill bg-gradient-light p-5 text-center">
                     @if ($score->count() > 0)
-                        <h5>{{''}}</h5>
+                        @php($scoreData = $score->get()->toArray()[0])
+                        <table class="table table-hover table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="row">{{__('home.score_table_score_column_text')}}</th>
+                                    <td class="text-start ps-4">{{$scoreData['score']}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>{{__('home.score_table_updated_at_column_text')}}</th>
+                                    <td class="text-start ps-4">{{$scoreData['updated_at']}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <button class="btn bg-gradient-primary px-4 text-white" data-bs-toggle="modal"
+                                                data-bs-target="#modal_detailed_score">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                            {{__('home.score_detail_button_text')}}
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     @else
                         <h5>{{__('home.no_score_found')}}</h5>
                     @endif
