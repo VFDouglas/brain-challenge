@@ -1258,3 +1258,29 @@ Array.from(document.getElementsByClassName('descricao_parametro')).forEach(eleme
         }
     });
 });
+document.getElementById('btn_detailed_score_modal')?.addEventListener('click', function () {
+    this.querySelector('i').className = 'fa-solid fa-circle-notch fa-spin';
+
+    let options = {
+        headers: window.ajaxHeaders,
+        method : 'GET'
+    }
+
+    const params = new URLSearchParams({
+        a: 'b'
+    });
+
+    fetch(`./?${params.toString()}`, options).then(function (response) {
+        if (!response.ok) {
+            //
+            return false;
+        }
+        response.json().then(function (retorno) {
+            if (retorno) {
+                //
+            } else {
+                //
+            }
+        });
+    });
+});

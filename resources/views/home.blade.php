@@ -30,7 +30,7 @@
     </div>
     <div class="container mt-5">
         <div class="row gap-5">
-            <div class="col-12 col-md-8 mx-auto rounded-pill bg-gradient-light p-5 text-center">
+            <div class="col-12 col-md-8 mx-auto rounded-pill bg-gradient-light p-5 text-center mt-5">
                 @if ($event->count() > 0)
                     @php($eventData = $event->get()->toArray()[0])
                     <table class="table table-borderless">
@@ -88,7 +88,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <button class="btn bg-gradient-primary px-4 text-white" data-bs-toggle="modal"
-                                                data-bs-target="#modal_detailed_score">
+                                                data-bs-target="#modal_detailed_score" id="btn_detailed_score_modal">
                                             <i class="fa-solid fa-circle-info"></i>
                                             {{__('home.score_detail_button_text')}}
                                         </button>
