@@ -12,5 +12,6 @@ return [
     'score_table_updated_at_column_text'     => 'Última Atualização',
     'score_detail_button_text'               => 'Clique para ver mais detalhes',
     'modal_detailed_score_title'             => 'Pontuação Detalhada',
-    'modal_detailed_score_close_button_text' => 'Fechar'
+    'modal_detailed_score_close_button_text' => 'Fechar',
+    'error_fetch_detailed_score'             => 'Erro ao buscar a pontuação detalhada'
 ];

@@ -21,6 +21,7 @@ return new class extends Migration {
                 $table->foreignId('question_id')->nullable()->constrained('questions');
                 $table->foreignId('option_id')->nullable()->constrained('options');
                 $table->string('description', 500);
+                $table->integer('score')->default(0);
                 $table->timestamp('created_at')->useCurrent();
             });
         }

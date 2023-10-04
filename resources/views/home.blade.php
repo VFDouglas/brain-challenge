@@ -18,7 +18,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <div class="row">
+                        <div class="col">
+
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -28,6 +32,8 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="error_fetch_detailed_score" value="{{__('home.error_fetch_detailed_score')}}">
+    <input type="hidden" id="error_detailed_score_modal_title" value="{{__('home.modal_detailed_score_title')}}">
     <div class="container mt-5">
         <div class="row gap-5">
             <div class="col-12 col-md-8 mx-auto rounded-pill bg-gradient-light p-5 text-center mt-5">

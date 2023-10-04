@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LogRequest;
+use App\Models\DetailedScore;
 use App\Models\Event;
 use App\Models\SimplifiedScore;
 use App\Models\StudentLog;
@@ -24,5 +25,10 @@ class AppController extends Controller
     public function logAccess(LogRequest $request): bool
     {
         return StudentLog::saveLog($request);
+    }
+
+    public function detailedScore(): array
+    {
+        return DetailedScore::detailedScore();
     }
 }

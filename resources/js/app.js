@@ -1266,13 +1266,14 @@ document.getElementById('btn_detailed_score_modal')?.addEventListener('click', f
         method : 'GET'
     }
 
-    const params = new URLSearchParams({
-        a: 'b'
-    });
-
-    fetch(`./?${params.toString()}`, options).then(function (response) {
+    fetch(`./detailed_score`, options).then(function (response) {
         if (!response.ok) {
-            //
+            window.modalMessage({
+                title      : document.getElementById('error_detailed_score_modal_title').value,
+                description: document.getElementById('error_fetch_detailed_score').value,
+                type       : 'error',
+                show       : true
+            })
             return false;
         }
         response.json().then(function (retorno) {

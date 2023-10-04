@@ -12,5 +12,6 @@ return [
     'score_table_updated_at_column_text'     => 'Updated at',
     'score_detail_button_text'               => 'Click to view more details',
     'modal_detailed_score_title'             => 'Detailed Score',
-    'modal_detailed_score_close_button_text' => 'Close'
+    'modal_detailed_score_close_button_text' => 'Close',
+    'error_fetch_detailed_score'             => 'Error fetching detailed score',
 ];
