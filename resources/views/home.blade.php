@@ -17,13 +17,7 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">{{__('home.modal_detailed_score_title')}}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-
-                        </div>
-                    </div>
-                </div>
+                <div class="modal-body"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         {{__('home.modal_detailed_score_close_button_text')}}
@@ -34,6 +28,7 @@
     </div>
     <input type="hidden" id="error_fetch_detailed_score" value="{{__('home.error_fetch_detailed_score')}}">
     <input type="hidden" id="error_detailed_score_modal_title" value="{{__('home.modal_detailed_score_title')}}">
+    <input type="hidden" id="points_abbreviation" value="{{__('home.points_abbreviation')}}">
     <div class="container mt-5">
         <div class="row gap-5">
             <div class="col-12 col-md-8 mx-auto rounded-pill bg-gradient-light p-5 text-center mt-5">
@@ -88,13 +83,15 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>{{__('home.score_table_updated_at_column_text')}}</th>
-                                    <td class="text-start ps-4">{{$scoreData['updated_at']}}</td>
+                                    <th scope="row">{{__('home.score_table_updated_at_column_text')}}</th>
+                                    <td class="text-start ps-4">
+                                        {{date('d/m/Y H:i:s', strtotime($scoreData['updated_at']))}}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <button class="btn bg-gradient-primary px-4 text-white" data-bs-toggle="modal"
-                                                data-bs-target="#modal_detailed_score" id="btn_detailed_score_modal">
+                                        <button class="btn bg-gradient-primary px-4 text-white"
+                                                id="btn_detailed_score_modal">
                                             <i class="fa-solid fa-circle-info"></i>
                                             {{__('home.score_detail_button_text')}}
                                         </button>

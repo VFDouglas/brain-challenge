@@ -14,4 +14,5 @@ return [
     'modal_detailed_score_title'             => 'Detailed Score',
     'modal_detailed_score_close_button_text' => 'Close',
     'error_fetch_detailed_score'             => 'Error fetching detailed score',
+    'points_abbreviation'                    => 'pts'
 ];

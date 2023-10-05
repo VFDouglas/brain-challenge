@@ -1273,15 +1273,36 @@ document.getElementById('btn_detailed_score_modal')?.addEventListener('click', f
                 description: document.getElementById('error_fetch_detailed_score').value,
                 type       : 'error',
                 show       : true
-            })
+            });
+            document.querySelector('#btn_detailed_score_modal i').className = 'fa-solid fa-circle-info';
             return false;
         }
         response.json().then(function (retorno) {
-            if (retorno) {
-                //
+            let html = '';
+            if (retorno.length > 0) {
+                retorno.forEach(function (element) {
+                    html += `
+                        <div class='row align-items-center'>
+                            <div class="col-8">${element.description}</div>
+                            <div class="col-4 text-nowrap text-success">
+                                ${element.score}
+                                ${document.getElementById('points_abbreviation').value}
+                            </div>
+                        </div>
+                    `;
+                });
             } else {
-                //
+                html = `
+                    <div class='row'>
+                        <div class="col-12">
+                            <b>No detailed score found</b>
+                        </div>
+                    </div>
+                `;
             }
+            document.querySelector('#btn_detailed_score_modal i').className       = 'fa-solid fa-circle-info';
+            document.querySelector('#modal_detailed_score .modal-body').innerHTML = html;
+            bootstrap.Modal.getOrCreateInstance('#modal_detailed_score').show();
         });
     });
 });
