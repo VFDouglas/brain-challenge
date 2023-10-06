@@ -53,8 +53,8 @@ class PageAccess
             }
             $access = session('event_access');
 
-            // If the user doesn't have access to the home page
-            if (empty($access) && !$request->is('403')) {
+            // If the user doesn't have access to the home page and is not an administrator
+            if (empty($access) && !$request->is('403') && session('role') != 'A') {
                 $redirect['url'] = '403';
                 throw new Exception(json_encode($redirect));
             }
@@ -106,7 +106,7 @@ class PageAccess
                 }
             }
 
-            if (!$pageAccess) {
+            if (!$pageAccess && $request->segment(1) != 'admin') {
                 $redirect['url']    = '403';
                 $redirect['params'] = [
                     'page'    => Str::headline($request->path()),

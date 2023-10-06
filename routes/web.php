@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AcceptanceTermsController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AwardsController;
 use App\Http\Controllers\PresentationsController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\SchedulesController;
+use App\Http\Middleware\AdminAccess;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\PageAccess;
 use Illuminate\Support\Facades\Auth;
@@ -64,13 +66,13 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
         Route::get('schedules', 'index');
     });
 
+    Route::prefix('admin')->controller(AdminController::class)->group(function () {
+        Route::get('events', 'events');
+    })->middleware(AdminAccess::class);
+
     Route::get('403', function () {
         return view('403');
     })->withoutMiddleware(PageAccess::class)->name('403');
-
-    Route::prefix('admin')->group(function () {
-        //
-    });
 });
 
 Auth::routes();

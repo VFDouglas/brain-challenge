@@ -7,5 +7,6 @@ return [
         Ask a system admin to add you to an event, so you can participate in presentations, win prizes,
         answer questions and much more.',
     'page_access_message'  => 'You don\'t have access to the :page page. Ask an admin to give you access.',
-    'logout'               => 'Logout'
+    'logout'               => 'Logout',
+    'homepage_button_text' => 'Home'
 ];

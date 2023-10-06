@@ -8,5 +8,6 @@ return [
         ganhar prêmios, responder perguntas e muito mais.',
     'page_access_message'  => 'Você não possui permissão para acesasr a página :page. Peça a um administrador
         para lhe conceder acesso.',
-    'logout'               => 'Sair'
+    'logout'               => 'Sair',
+    'homepage_button_text' => 'Página Principal'
 ];

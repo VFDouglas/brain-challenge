@@ -20,13 +20,20 @@
             <div class="isi col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8">
                 {{__($message ?? '403.event_access_message')}}
             </div>
-            <div class="col-12">
-                <form action="logout" method="post">
-                    @csrf
-                    <button type="submit" class="btn bg-danger px-5 py-4 rounded-5 fs-5">
-                        {{strtoupper(__('403.logout'))}}
-                    </button>
-                </form>
+            <div class="row">
+                <div class="col-12 col-sm-6 my-2">
+                    <form action="logout" method="post">
+                        @csrf
+                        <button type="submit" class="col-12 btn bg-danger px-4 px-sm-5 py-4 rounded-5 fs-5 mx-2">
+                            {{strtoupper(__('403.logout'))}}
+                        </button>
+                    </form>
+                </div>
+                <div class="col-12 col-sm-6 my-2">
+                    <a href="/" class="col-12 btn bg-primary px-4 px-sm-5 py-4 rounded-5 fs-5 mx-2 text-dark">
+                        {{strtoupper(__('403.homepage_button_text'))}}
+                    </a>
+                </div>
             </div>
         </div>
     </body>
