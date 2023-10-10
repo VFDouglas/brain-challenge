@@ -12,6 +12,16 @@ class AdminController extends Controller
 {
     public function events(): View|FoundationApplication|Factory|Application
     {
-        return view('admin.events', ['events' => Event::all()]);
+        return view('admin.events', ['events' => Event::query()]);
+    }
+
+    public function getEvent($id): array
+    {
+        $event = Event::query()->find($id);
+
+        if (!$event) {
+            return [];
+        }
+        return $event->toArray() ?? [];
     }
 }

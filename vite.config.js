@@ -14,6 +14,7 @@ export default defineConfig({
                 'resources/js/questions.js',
                 'resources/js/schedules.js',
                 'resources/js/sidebar.js',
+                'resources/admin/js/events.js',
             ],
             refresh: true,
         }),
