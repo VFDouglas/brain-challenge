@@ -31,7 +31,7 @@
     <input type="hidden" id="points_abbreviation" value="{{__('home.points_abbreviation')}}">
     <div class="container mt-5">
         <div class="row gap-5">
-            <div class="col-12 col-md-8 mx-auto rounded-pill bg-gradient-light p-5 text-center mt-5">
+            <div class="col-12 col-md-8 mx-auto rounded-5 bg-gradient-light p-5 text-center mt-5">
                 @if ($event->count() > 0)
                     @php($eventData = $event->get()->toArray()[0])
                     <table class="table table-borderless">
@@ -71,7 +71,7 @@
                 @endif
             </div>
             @if ($event->count() > 0)
-                <div class="col-12 col-md-8 mx-auto rounded-pill bg-gradient-light p-5 text-center">
+                <div class="col-12 col-md-8 mx-auto rounded-5 bg-gradient-light p-5 text-center">
                     @if ($score->count() > 0)
                         @php($scoreData = $score->get()->toArray()[0])
                         <table class="table table-hover table-borderless">
