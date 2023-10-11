@@ -22,6 +22,6 @@ class AdminController extends Controller
         if (!$event) {
             return [];
         }
-        return $event->toArray() ?? [];
+        return $event->get()->toArray() ?? [];
     }
 }
