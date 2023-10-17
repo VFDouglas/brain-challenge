@@ -88,6 +88,10 @@ $pages = array_column(session('page_access'), 'url');
                                     <i class="fa-regular fa-calendar-check"></i>&nbsp;
                                     <span>{{__('header.admin_events_button_text')}}</span>
                                 </a>
+                                <a class="nav-link collapsed" href="/admin/users">
+                                    <i class="fa-regular fa-calendar-check"></i>&nbsp;
+                                    <span>{{__('header.admin_users_button_text')}}</span>
+                                </a>
                                 <a class="nav-link collapsed" href="/admin/presentations">
                                     <i class="fa-solid fa-chalkboard-user"></i>
                                     <span>{{__('header.presentations_button_text')}}</span>

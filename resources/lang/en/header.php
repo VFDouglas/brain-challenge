@@ -12,5 +12,6 @@ return [
     'settings_button_text'      => 'Settings',
     'activity_log_button_text'  => 'Activity Log',
     'logout_button_text'        => 'Logout',
-    'admin_events_button_text'  => 'Events'
+    'admin_events_button_text'  => 'Events',
+    'admin_users_button_text'   => 'Users',
 ];

@@ -69,6 +69,8 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
     Route::prefix('admin')->controller(AdminController::class)->group(function () {
         Route::get('events', 'events');
         Route::get('events/{id}', 'getEvent');
+        Route::post('events', 'createEvent');
+        Route::put('events/{id}', 'editEvent');
     })->middleware(AdminAccess::class);
 
     Route::get('403', function () {

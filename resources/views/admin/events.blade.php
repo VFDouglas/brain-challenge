@@ -11,9 +11,11 @@
     @vite(['resources/admin/js/events.js'])
     <input type="hidden" id="error_get_event" value="{{__('admin.events.error_get_event')}}">
     <input type="hidden" id="error_get_event_title" value="{{__('admin.events.error_get_event_title')}}">
+    <input type="hidden" id="error_save_event" value="{{__('admin.events.error_save_event')}}">
     <div class="modal fade" id="modal_edit_event" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+                <input type="hidden" id="mode_event_modal">
                 <form id="form_save_event">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5"
@@ -25,28 +27,28 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="event_name" placeholder="First Event">
+                                    <input class="form-control" id="event_name" placeholder="First Event" required>
                                     <label for="event_name">{{__('admin.events.event_name_text')}}</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
                                     <input class="form-control" id="event_location"
-                                           placeholder="São Paulo">
+                                           placeholder="São Paulo" required>
                                     <label for="event_location">{{__('admin.events.event_location_text')}}</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="datetime-local" class="form-control" id="event_starts_at"
-                                           placeholder="São Paulo">
+                                    <input type="datetime-local" step="any" class="form-control" id="event_starts_at"
+                                           required>
                                     <label for="event_starts_at">{{__('admin.events.event_starts_at_text')}}</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="datetime-local" class="form-control" id="event_ends_at"
-                                           placeholder="São Paulo">
+                                    <input type="datetime-local" step="any" class="form-control" id="event_ends_at"
+                                           required>
                                     <label for="event_ends_at">{{__('admin.events.event_ends_at_text')}}</label>
                                 </div>
                             </div>
@@ -72,24 +74,38 @@
     </div>
     <div class="container-fluid">
         <div class="row">
+            <div class="col-12 text-end my-4">
+                <button class="btn bg-gradient-primary text-white px-5" id="btn_create_event">
+                    {{__('admin.events.create_event_button_text')}}
+                </button>
+            </div>
             <div class="col-12">
                 @if($events->count() > 0)
                     @php($eventList = $events->get()->toArray())
                     <table class="table table-hover">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>{{__('admin.events.event_name_text')}}</th>
+                                <th>{{__('admin.events.event_location_text')}}</th>
                                 <th>{{__('admin.events.event_starts_at_text')}}</th>
                                 <th>{{__('admin.events.event_ends_at_text')}}</th>
+                                <th>{{__('admin.events.event_status_text')}}</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($eventList as $item)
-                                <tr class="align-middle">
+                                <tr class="align-middle text-center">
                                     <td>{{$item['name']}}</td>
+                                    <td>{{$item['location']}}</td>
                                     <td>{{date('d/M/Y H:i:s', strtotime($item['starts_at']))}}</td>
                                     <td>{{date('d/M/Y H:i:s', strtotime($item['ends_at']))}}</td>
+                                    <td>
+                                        <div class="form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                   {{$item['status'] ? 'checked' : ''}} disabled>
+                                        </div>
+                                    </td>
                                     <td>
                                         <button class="btn bg-gradient-warning" onclick="editEvent({{$item['id']}})">
                                             <i class="fa-solid fa-edit"></i>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminRequest;
 use App\Models\Event;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -23,5 +24,33 @@ class AdminController extends Controller
             return [];
         }
         return $event->get()->toArray() ?? [];
+    }
+
+    public function createEvent(AdminRequest $request): bool
+    {
+        $event            = new Event();
+        $event->name      = $request->name;
+        $event->location  = $request->location;
+        $event->starts_at = $request->starts_at;
+        $event->ends_at   = $request->ends_at;
+        $event->status    = $request->status;
+
+        return $event->save();
+    }
+
+    public function editEvent($id, AdminRequest $request): bool
+    {
+        $event = Event::query()->find($id);
+        if (!$event) {
+            return false;
+        }
+
+        $event->name      = $request->name;
+        $event->location  = $request->location;
+        $event->starts_at = $request->starts_at;
+        $event->ends_at   = $request->ends_at;
+        $event->status    = $request->status;
+
+        return $event->save();
     }
 }
