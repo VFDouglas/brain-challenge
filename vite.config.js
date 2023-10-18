@@ -15,6 +15,7 @@ export default defineConfig({
                 'resources/js/schedules.js',
                 'resources/js/sidebar.js',
                 'resources/admin/js/events.js',
+                'resources/admin/js/users.js',
             ],
             refresh: true,
         }),

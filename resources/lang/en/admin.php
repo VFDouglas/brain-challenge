@@ -16,4 +16,19 @@ return [
         'event_save_modal_button_text'  => 'Save',
         'create_event_button_text'      => 'Create Event',
     ],
+    'users'  => [
+        'no_user_found'                => 'No user found',
+        'edit_user_modal_title'        => 'Edit User',
+        'error_get_user'               => 'Error getting user',
+        'error_get_user_title'         => 'Users',
+        'error_get_user_description'   => 'No user found',
+        'error_save_user'              => 'Error saving the user or it already exists',
+        'user_name_text'               => 'Name',
+        'user_email_text'              => 'Email',
+        'user_role_text'               => 'Role',
+        'user_status_text'             => 'Status',
+        'user_close_modal_button_text' => 'Close',
+        'user_save_modal_button_text'  => 'Save',
+        'create_user_button_text'      => 'Create User',
+    ]
 ];

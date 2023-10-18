@@ -22,21 +22,6 @@ class AdminRequest extends FormRequest
      */
     public function rules(): array
     {
-        switch (request()->getPathInfo()) {
-            case ('events' && request()->isMethod('POST')) ||
-                 request()->isMethod('PUT') && is_numeric(request()->segment(2)):
-                $rules = [
-                    'name'      => 'required|string|max:50',
-                    'location'  => 'required|string|max:30',
-                    'starts_at' => 'required|date',
-                    'ends_at'   => 'required|date',
-                    'status'    => 'required|numeric|size:1',
-                ];
-                break;
-            default:
-                $rules = [];
-                break;
-        }
-        return $rules;
+        return [];
     }
 }

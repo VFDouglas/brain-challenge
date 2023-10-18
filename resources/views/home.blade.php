@@ -60,7 +60,7 @@
                                 <td class="text-start ps-4">
                                     <h6>
                                         <i class="fa-solid fa-clock text-danger"></i>
-                                        {{date('d/m/Y H:i:s', strtotime($eventData['starts_at']))}}
+                                        {{date('d/m/Y H:i:s', strtotime($eventData['ends_at']))}}
                                     </h6>
                                 </td>
                             </tr>

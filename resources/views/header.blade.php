@@ -5,7 +5,7 @@
  */
 $pages = array_column(session('page_access'), 'url');
 ?>
-    <!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf - 8">
@@ -89,7 +89,7 @@ $pages = array_column(session('page_access'), 'url');
                                     <span>{{__('header.admin_events_button_text')}}</span>
                                 </a>
                                 <a class="nav-link collapsed" href="/admin/users">
-                                    <i class="fa-regular fa-calendar-check"></i>&nbsp;
+                                    <i class="fa-regular fa-user"></i>&nbsp;
                                     <span>{{__('header.admin_users_button_text')}}</span>
                                 </a>
                                 <a class="nav-link collapsed" href="/admin/presentations">

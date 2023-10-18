@@ -16,6 +16,6 @@ class Event extends Model
         return self::query()
             ->join('users', 'users.event_id', '=', 'events.id')
             ->whereRaw('now() between starts_at and ends_at')
-            ->where('status', '=', 1);
+            ->where('events.status', '=', 1);
     }
 }
