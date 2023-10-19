@@ -13,6 +13,8 @@
     <input type="hidden" id="error_get_user_title" value="{{__('admin.users.error_get_user_title')}}">
     <input type="hidden" id="error_get_user_description" value="{{__('admin.users.error_get_user_description')}}">
     <input type="hidden" id="error_save_user" value="{{__('admin.users.error_save_user')}}">
+    <input type="hidden" id="create_user_modal_title" value="{{__('admin.users.create_user_modal_title')}}">
+    <input type="hidden" id="edit_user_modal_title" value="{{__('admin.users.edit_user_modal_title')}}">
     <div class="modal fade" id="modal_edit_user" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -20,7 +22,7 @@
                 <form id="form_save_user">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5"
-                            id="exampleModalLabel">{{__('admin.users.edit_user_modal_title')}}</h1>
+                            id="modal_user_title">{{__('admin.users.edit_user_modal_title')}}</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -44,6 +46,11 @@
                                     <input class="form-check-input" type="checkbox" role="switch" id="user_status">
                                     <label class="form-check-label" for="user_status">Status</label>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mt-4">
+                                <h6 class="text-center fw-bold" id="msg_error_modal"></h6>
                             </div>
                         </div>
                     </div>
@@ -90,8 +97,13 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <button class="btn bg-gradient-warning" onclick="editUser({{$item['id']}})">
+                                        <button class="btn" onclick="editUser({{$item['id']}})">
                                             <i class="fa-solid fa-edit"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn" onclick="deleteUser({{$item['id']}})">
+                                            <i class="fa-solid fa-trash-alt"></i>
                                         </button>
                                     </td>
                                 </tr>

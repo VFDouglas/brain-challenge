@@ -19,6 +19,7 @@ return [
     'users'  => [
         'no_user_found'                => 'No user found',
         'edit_user_modal_title'        => 'Edit User',
+        'create_user_modal_title'      => 'Create User',
         'error_get_user'               => 'Error getting user',
         'error_get_user_title'         => 'Users',
         'error_get_user_description'   => 'No user found',
@@ -30,5 +31,9 @@ return [
         'user_close_modal_button_text' => 'Close',
         'user_save_modal_button_text'  => 'Save',
         'create_user_button_text'      => 'Create User',
+        'user_already_exists'          => 'An user already exists with this email',
+        'user_not_found'               => 'User not found',
+        'cannot_delete_parent_user'    => 'The user is associated with an event or other system entity.
+            To delete it, delete all associations first.',
     ]
 ];

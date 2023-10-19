@@ -19,7 +19,8 @@ window.editUser = function (userId) {
                 document.getElementById('user_email').value    = jsonResponse[0].email;
                 document.getElementById('user_status').checked = !!jsonResponse[0].status;
 
-                document.getElementById('mode_user_modal').value = 'edit';
+                document.getElementById('mode_user_modal').value      = 'edit';
+                document.getElementById('modal_user_title').innerHTML = document.getElementById('edit_user_modal_title').value;
                 bootstrap.Modal.getOrCreateInstance('#modal_edit_user').show();
             } else {
                 window.modalMessage({
@@ -29,6 +30,32 @@ window.editUser = function (userId) {
             }
         });
     });
+}
+
+window.deleteUser = function (id) {
+    let options = {
+        method : 'DELETE',
+        headers: window.ajaxHeaders
+    }
+    fetch(`./users/${id}`, options).then(function (response) {
+        if (!response.ok) {
+            window.modalMessage({
+                title      : document.getElementById('error_get_user_title').value,
+                description: document.getElementById('error_get_user').value,
+            });
+            return false;
+        }
+        response.json().then(function (jsonResponse) {
+            if (jsonResponse.error) {
+                window.modalMessage({
+                    title      : document.getElementById('error_get_user_title').value,
+                    description: jsonResponse.error,
+                });
+            } else {
+                window.location.reload();
+            }
+        });
+    })
 }
 document.getElementById('form_save_user').addEventListener('submit', function (event) {
     event.preventDefault();
@@ -49,21 +76,22 @@ document.getElementById('form_save_user').addEventListener('submit', function (e
         if (!response.ok) {
             return false;
         }
-        response.json().then(function (retorno) {
-            if (retorno) {
+        response.json().then(function (jsonResponse) {
+            if (!jsonResponse.error) {
                 window.location.reload();
             } else {
-                window.modalMessage({
-                    title      : document.getElementById('error_get_user_title').value,
-                    description: document.getElementById('error_save_user').value
-                });
+                document.getElementById('msg_error_modal').innerHTML = jsonResponse.error;
+                setTimeout(() => {
+                    document.getElementById('msg_error_modal').innerHTML = '';
+                }, 2000);
             }
         });
     });
 });
 
 document.getElementById('btn_create_user').addEventListener('click', function () {
-    document.getElementById('mode_user_modal').value = 'create';
+    document.getElementById('mode_user_modal').value      = 'create';
+    document.getElementById('modal_user_title').innerHTML = document.getElementById('create_user_modal_title').value;
     document.getElementById('form_save_user').reset();
     bootstrap.Modal.getOrCreateInstance('#modal_edit_user').show();
 });
