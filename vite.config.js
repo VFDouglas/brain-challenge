@@ -16,6 +16,7 @@ export default defineConfig({
                 'resources/js/sidebar.js',
                 'resources/admin/js/events.js',
                 'resources/admin/js/users.js',
+                'resources/admin/js/presentations.js',
             ],
             refresh: true,
         }),

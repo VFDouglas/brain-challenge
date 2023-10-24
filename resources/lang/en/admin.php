@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'events' => [
+    'events'        => [
         'no_event_found'                => 'No event found',
         'edit_event_modal_title'        => 'Edit Event',
         'error_get_event'               => 'Error getting event',
@@ -16,7 +16,7 @@ return [
         'event_save_modal_button_text'  => 'Save',
         'create_event_button_text'      => 'Create Event',
     ],
-    'users'  => [
+    'users'         => [
         'no_user_found'                => 'No user found',
         'edit_user_modal_title'        => 'Edit User',
         'create_user_modal_title'      => 'Create User',
@@ -35,5 +35,18 @@ return [
         'user_not_found'               => 'User not found',
         'cannot_delete_parent_user'    => 'The user is associated with an event or other system entity.
             To delete it, delete all associations first.',
+    ],
+    'presentations' => [
+        'create_presentation_modal_title'      => 'Create Presentation',
+        'no_presentation_found'                => 'No presentation found',
+        'edit_presentation_modal_title'        => 'Edit Presentation',
+        'error_get_presentation'               => 'Error getting presentation',
+        'error_get_presentation_title'         => 'Presentation',
+        'error_save_presentation'              => 'Error saving the presentation',
+        'presentation_name_text'               => 'Name',
+        'presentation_description_text'        => 'Description',
+        'presentation_close_modal_button_text' => 'Close',
+        'presentation_save_modal_button_text'  => 'Save',
+        'create_presentation_button_text'      => 'Create Presentation',
     ]
 ];

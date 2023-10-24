@@ -76,6 +76,11 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
         Route::post('users', 'createUser');
         Route::put('users/{id}', 'editUser');
         Route::delete('users/{id}', 'deleteUser');
+        Route::get('presentations', 'presentations');
+        Route::get('presentations/{id}', 'getPresentation');
+        Route::post('presentations', 'createPresentation');
+        Route::put('presentations/{id}', 'editPresentation');
+        Route::delete('presentations/{id}', 'deletePresentation');
     })->middleware(AdminAccess::class);
 
     Route::get('403', function () {

@@ -67,7 +67,7 @@ document.getElementById('form_save_user').addEventListener('submit', function (e
         body   : JSON.stringify({
             name  : document.getElementById('user_name').value,
             email : document.getElementById('user_email').value,
-            status: document.getElementById('user_status').checked ? '1' : '0'
+            status: document.getElementById('user_status').checked
         })
     }
 
@@ -78,7 +78,7 @@ document.getElementById('form_save_user').addEventListener('submit', function (e
         }
         response.json().then(function (jsonResponse) {
             if (!jsonResponse.error) {
-                window.location.reload();
+                // window.location.reload();
             } else {
                 document.getElementById('msg_error_modal').innerHTML = jsonResponse.error;
                 setTimeout(() => {
