@@ -13,11 +13,13 @@ window.editUser = function (userId) {
             return false;
         }
         response.json().then(function (jsonResponse) {
-            if (jsonResponse.length > 0) {
-                document.getElementById('user_id').value       = jsonResponse[0].id;
-                document.getElementById('user_name').value     = jsonResponse[0].name;
-                document.getElementById('user_email').value    = jsonResponse[0].email;
-                document.getElementById('user_status').checked = !!jsonResponse[0].status;
+            console.log(jsonResponse)
+            if (jsonResponse.id) {
+                document.getElementById('user_id').value       = jsonResponse.id;
+                document.getElementById('user_name').value     = jsonResponse.name;
+                document.getElementById('user_email').value    = jsonResponse.email;
+                document.getElementById('user_role').value     = jsonResponse.role;
+                document.getElementById('user_status').checked = !!jsonResponse.status;
 
                 document.getElementById('mode_user_modal').value      = 'edit';
                 document.getElementById('modal_user_title').innerHTML = document.getElementById('edit_user_modal_title').value;
@@ -67,6 +69,7 @@ document.getElementById('form_save_user').addEventListener('submit', function (e
         body   : JSON.stringify({
             name  : document.getElementById('user_name').value,
             email : document.getElementById('user_email').value,
+            role  : document.getElementById('user_role').value,
             status: document.getElementById('user_status').checked
         })
     }
@@ -78,7 +81,7 @@ document.getElementById('form_save_user').addEventListener('submit', function (e
         }
         response.json().then(function (jsonResponse) {
             if (!jsonResponse.error) {
-                // window.location.reload();
+                window.location.reload();
             } else {
                 document.getElementById('msg_error_modal').innerHTML = jsonResponse.error;
                 setTimeout(() => {

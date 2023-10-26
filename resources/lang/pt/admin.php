@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'events' => [
+    'events'        => [
         'no_event_found'                => 'Nenhum evento encontrado',
         'edit_event_modal_title'        => 'Editar Evento',
         'error_get_event'               => 'Erro ao buscar evento',
@@ -16,7 +16,7 @@ return [
         'event_save_modal_button_text'  => 'Salvar',
         'create_event_button_text'      => 'Criar Evento',
     ],
-    'users'  => [
+    'users'         => [
         'no_user_found'                => 'Nenhum usuário encontrado',
         'edit_user_modal_title'        => 'Editar Usuário',
         'create_user_modal_title'      => 'Criar Usuário',
@@ -27,6 +27,9 @@ return [
         'user_name_text'               => 'Nome',
         'user_email_text'              => 'Email',
         'user_role_text'               => 'Cargo',
+        'user_role_A'                  => 'Administrador',
+        'user_role_P'                  => 'Professor',
+        'user_role_S'                  => 'Estudante',
         'user_status_text'             => 'Status',
         'user_close_modal_button_text' => 'Fechar',
         'user_save_modal_button_text'  => 'Salvar',
@@ -36,5 +39,26 @@ return [
         'cannot_delete_parent_user'    => 'O usuário está associado a um evento ou outra entidade do sistema.
             Para excluí-lo, remova todos os relacionamentos antes.',
         'duplicate_entry'              => 'Um usuário já existe com este email',
+    ],
+    'presentations' => [
+        'create_presentation_modal_title'      => 'Criar Apresentação',
+        'no_presentation_found'                => 'Nenhuma apresentação encontrada',
+        'event_not_found'                      => 'Evento não encontrado',
+        'edit_presentation_modal_title'        => 'Editar Apresentação',
+        'error_get_presentation'               => 'Erro ao buscar apresentação',
+        'error_get_presentation_title'         => 'Apresentação',
+        'error_get_presentation_description'   => 'Nenhuma apresentação encontrada',
+        'error_save_presentation'              => 'Erro ao salvar a apresentação',
+        'presentation_name_text'               => 'Nome',
+        'presentation_starts_at_text'          => 'Inicia Em',
+        'presentation_ends_at_text'            => 'Termina Em',
+        'presentation_status_text'             => 'Status',
+        'presentation_description_text'        => 'Descrição',
+        'presentation_close_modal_button_text' => 'Fechar',
+        'presentation_save_modal_button_text'  => 'Salvar',
+        'create_presentation_button_text'      => 'Criar Apresentação',
+        'presentation_user_text'               => 'Usuários',
+        'no_user_create_presentations'         => 'Nenhum professor encontrado. Crie um para poder criar uma
+            apresentação.'
     ]
 ];

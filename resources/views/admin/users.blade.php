@@ -4,7 +4,11 @@
 /**
  * @var Builder $users
  */
-
+$roleLabel = [
+    'A' => __('admin.users.user_role_A'),
+    'P' => __('admin.users.user_role_P'),
+    'S' => __('admin.users.user_role_S'),
+];
 ?>
 @extends('header')
 @section('content')
@@ -39,6 +43,18 @@
                                     <input type="email" class="form-control" id="user_email"
                                            placeholder="São Paulo" required>
                                     <label for="user_email">{{__('admin.users.user_email_text')}}</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="user_role">
+                                        @foreach($roleLabel as $key => $role)
+                                            <option value="{{$key}}">
+                                                {{$role}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label for="user_role">{{__('admin.users.user_role_text')}}</label>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -82,6 +98,7 @@
                                 <th>{{__('admin.users.user_name_text')}}</th>
                                 <th>{{__('admin.users.user_email_text')}}</th>
                                 <th>{{__('admin.users.user_status_text')}}</th>
+                                <th>{{__('admin.users.user_role_text')}}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -90,6 +107,7 @@
                                 <tr class="align-middle text-center">
                                     <td>{{$item['name']}}</td>
                                     <td>{{$item['email']}}</td>
+                                    <td>{{$roleLabel[$item['role']]}}</td>
                                     <td>
                                         <div class="form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch"

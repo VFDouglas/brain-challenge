@@ -27,6 +27,9 @@ return [
         'user_name_text'               => 'Name',
         'user_email_text'              => 'Email',
         'user_role_text'               => 'Role',
+        'user_role_A'                  => 'Administrator',
+        'user_role_P'                  => 'Professor',
+        'user_role_S'                  => 'Student',
         'user_status_text'             => 'Status',
         'user_close_modal_button_text' => 'Close',
         'user_save_modal_button_text'  => 'Save',
@@ -39,14 +42,20 @@ return [
     'presentations' => [
         'create_presentation_modal_title'      => 'Create Presentation',
         'no_presentation_found'                => 'No presentation found',
+        'event_not_found'                      => 'Event not found',
         'edit_presentation_modal_title'        => 'Edit Presentation',
         'error_get_presentation'               => 'Error getting presentation',
         'error_get_presentation_title'         => 'Presentation',
         'error_save_presentation'              => 'Error saving the presentation',
         'presentation_name_text'               => 'Name',
+        'presentation_starts_at_text'          => 'Starts At',
+        'presentation_ends_at_text'            => 'Ends At',
+        'presentation_status_text'             => 'Status',
         'presentation_description_text'        => 'Description',
         'presentation_close_modal_button_text' => 'Close',
         'presentation_save_modal_button_text'  => 'Save',
         'create_presentation_button_text'      => 'Create Presentation',
+        'presentation_user_text'               => 'Users',
+        'no_user_create_presentations'         => 'No professor found. Create one to be able to create a presentation.'
     ]
 ];

@@ -65,9 +65,11 @@ document.getElementById('form_save_presentation').addEventListener('submit', fun
         method : method,
         headers: window.ajaxHeaders,
         body   : JSON.stringify({
-            name  : document.getElementById('presentation_name').value,
-            email : document.getElementById('presentation_email').value,
-            status: document.getElementById('presentation_status').checked
+            name     : document.getElementById('presentation_name').value,
+            user_id  : document.getElementById('presentation_user').value,
+            starts_at: document.getElementById('presentation_starts_at').value,
+            ends_at  : document.getElementById('presentation_ends_at').value,
+            status   : document.getElementById('presentation_status').checked
         })
     }
 

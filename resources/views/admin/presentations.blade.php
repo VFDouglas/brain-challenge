@@ -3,6 +3,7 @@
 
 /**
  * @var Builder $presentations
+ * @var Builder $users
  */
 
 ?>
@@ -37,6 +38,27 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-floating mb-3">
+                                    @if($events->count() > 0)
+                                        <select id="presentation_user" class="form-select">
+                                            @php($eventList = $events->get()->all())
+                                            @foreach($eventList as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <select disabled class="form-select">
+                                            <option selected>
+                                                {{__('admin.presentations.event_not_found')}}
+                                            </option>
+                                        </select>
+                                    @endif
+                                    <label for="presentation_user">
+                                        {{__('admin.presentations.presentation_user_text')}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
                                     <input class="form-control" id="presentation_name" placeholder="First User"
                                            required>
                                     <label for="presentation_name">
@@ -46,10 +68,40 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="presentation_email"
-                                           placeholder="São Paulo" required>
-                                    <label for="presentation_email">
-                                        {{__('admin.presentations.presentation_email_text')}}
+                                    @if($users->count() > 0)
+                                        <select id="presentation_user" class="form-select">
+                                            @php($userList = $users->get()->all())
+                                            @foreach($userList as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    @else
+                                        <select disabled class="form-select">
+                                            <option selected>
+                                                {{__('admin.users.user_not_found')}}
+                                            </option>
+                                        </select>
+                                    @endif
+                                    <label for="presentation_user">
+                                        {{__('admin.presentations.presentation_user_text')}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="datetime-local" class="form-control" id="presentation_starts_at"
+                                           required>
+                                    <label for="presentation_starts_at">
+                                        {{__('admin.presentations.presentation_starts_at_text')}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="datetime-local" class="form-control" id="presentation_ends_at"
+                                           required>
+                                    <label for="presentation_ends_at">
+                                        {{__('admin.presentations.presentation_ends_at_text')}}
                                     </label>
                                 </div>
                             </div>
@@ -57,7 +109,9 @@
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" role="switch"
                                            id="presentation_status">
-                                    <label class="form-check-label" for="presentation_status">Status</label>
+                                    <label class="form-check-label" for="presentation_status">
+                                        {{__('admin.presentations.presentation_status_text')}}
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -66,12 +120,23 @@
                                 <h6 class="text-center fw-bold" id="msg_error_modal"></h6>
                             </div>
                         </div>
+                        @if($users->count() == 0)
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="text-center mt-5">
+                                        <i class="fa-solid fa-circle-exclamation text-danger"></i>
+                                        {{__('admin.presentations.no_user_create_presentations')}}
+                                    </h6>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             {{__('admin.presentations.presentation_close_modal_button_text')}}
                         </button>
-                        <button class="btn btn-primary" id="btn_save_presentation">
+                        <button class="btn btn-primary" id="btn_save_presentation"
+                                @if($users->count() == 0) disabled @endif>
                             {{__('admin.presentations.presentation_save_modal_button_text')}}
                         </button>
                     </div>

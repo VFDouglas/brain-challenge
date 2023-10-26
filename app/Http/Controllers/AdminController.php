@@ -72,7 +72,7 @@ class AdminController extends Controller
         if (!$user) {
             return [];
         }
-        return $user->get()->toArray() ?? [];
+        return $user->toArray() ?? [];
     }
 
     public function createUser(AdminRequest $request): array
@@ -87,6 +87,7 @@ class AdminController extends Controller
             $user              = User::query()->create([
                 'name'     => $request->name,
                 'email'    => $request->email,
+                'role'     => $request->role,
                 'password' => Hash::make(Str::uuid()),
                 'status'   => $request->input('status', false)
             ]);
@@ -110,6 +111,7 @@ class AdminController extends Controller
 
             $user->name   = $request->name;
             $user->email  = $request->email;
+            $user->role   = $request->role;
             $user->status = $request->status;
             $user->save();
 
@@ -157,34 +159,39 @@ class AdminController extends Controller
     public function presentations(): View|FoundationApplication|Factory|Application
     {
         return view('admin.presentations', [
-            'presentations' => Presentation::query()
+            'presentations' => Presentation::query(),
+            'users'         => User::query()->where('role', '=', 'P'),
+            'events'        => Event::query()->where('status', '=', 1)
         ]);
     }
 
-    public function getUser($id): array
+    public function getPresentation($id): array
     {
-        $user = User::query()->find($id);
+        $presentation = Presentation::query()->find($id);
 
-        if (!$user) {
+        if (!$presentation) {
             return [];
         }
-        return $user->get()->toArray() ?? [];
+        return $presentation->get()->toArray() ?? [];
     }
 
-    public function createUser(AdminRequest $request): array
+    public function createPresentation(AdminRequest $request): array
     {
         $response = [];
         try {
-            $checkUser = User::query()->where('email', $request->email)->first();
+            $checkPresentation = Presentation::query()
+                ->where('email', $request->email)->first();
 
-            if ($checkUser) {
+            if ($checkPresentation) {
                 throw new Exception(__('admin.users.user_already_exists'));
             }
-            $user              = User::query()->create([
-                'name'     => $request->name,
-                'email'    => $request->email,
-                'password' => Hash::make(Str::uuid()),
-                'status'   => $request->input('status', false)
+            $user              = Presentation::query()->create([
+                'event_id'  => session('event_access.event_id'),
+                'name'      => $request->name,
+                'user_id'   => $request->user_id,
+                'starts_at' => $request->starts_at,
+                'ends_at'   => $request->ends_at,
+                'status'    => $request->input('status', false)
             ]);
             $response['error'] = '';
             $response['user']  = $user->get()->toArray();
@@ -194,11 +201,11 @@ class AdminController extends Controller
         return $response;
     }
 
-    public function editUser($id, AdminRequest $request): array
+    public function editPresentation($id, AdminRequest $request): array
     {
         $response = [];
         try {
-            $user = User::query()->find($id);
+            $user = Presentation::query()->find($id);
 
             if (!$user) {
                 throw new Exception(__('admin.users.user_not_found'));
@@ -224,11 +231,11 @@ class AdminController extends Controller
         return $response;
     }
 
-    public function deleteUser($id): array
+    public function deletePresentation($id): array
     {
         $response = [];
         try {
-            $user = User::query()->find($id);
+            $user = Presentation::query()->find($id);
 
             if (!$user) {
                 throw new Exception(__('admin.users.user_not_found'));
