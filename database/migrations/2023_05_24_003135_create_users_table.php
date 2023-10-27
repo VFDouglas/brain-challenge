@@ -17,7 +17,7 @@ return new class extends Migration {
                 $table->id();
                 $table->foreignId('event_id')->nullable()->constrained('events');
                 $table->string('name')->nullable(false);
-                $table->string('email')->unique();
+                $table->string('email');
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');
                 $table->boolean('accepted_terms')->default(0);
@@ -28,6 +28,7 @@ return new class extends Migration {
                     ->default('S');
                 $table->rememberToken();
                 $table->timestamps();
+                $table->unique(['event_id', 'email'], 'users_email_unique');
             });
             DB::table('users')
                 ->insertOrIgnore([

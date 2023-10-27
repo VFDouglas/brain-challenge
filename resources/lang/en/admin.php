@@ -3,8 +3,12 @@
 return [
     'events'        => [
         'no_event_found'                => 'No event found',
+        'cannot_delete_parent_user'     => 'The event is associated with another instance of the system.
+            Remove the instance first.',
         'edit_event_modal_title'        => 'Edit Event',
         'error_get_event'               => 'Error getting event',
+        'error_delete_event'            => 'Error deleting the event',
+        'delete_event_tooltip'          => 'Click to delete the event',
         'error_get_event_title'         => 'Event',
         'error_save_event'              => 'Error saving the event',
         'event_name_text'               => 'Name',
@@ -48,6 +52,7 @@ return [
         'error_get_presentation_title'         => 'Presentation',
         'error_save_presentation'              => 'Error saving the presentation',
         'presentation_name_text'               => 'Name',
+        'presentation_username_text'           => 'User',
         'presentation_starts_at_text'          => 'Starts At',
         'presentation_ends_at_text'            => 'Ends At',
         'presentation_status_text'             => 'Status',
@@ -56,6 +61,10 @@ return [
         'presentation_save_modal_button_text'  => 'Save',
         'create_presentation_button_text'      => 'Create Presentation',
         'presentation_user_text'               => 'Users',
-        'no_user_create_presentations'         => 'No professor found. Create one to be able to create a presentation.'
+        'presentation_event_text'              => 'Event',
+        'presentation_professor_text'          => 'Professor',
+        'no_user_create_presentations'         => 'No event or professor found. Create one to be able to create
+            a presentation.',
+        'presentation_already_exists'          => 'A presentation already exists for this professor.',
     ]
 ];

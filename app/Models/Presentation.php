@@ -20,6 +20,8 @@ class Presentation extends Model
     protected $connection = 'brain_challenge';
     protected $table      = 'presentations';
 
+    protected $fillable = ['event_id', 'name', 'user_id', 'starts_at', 'ends_at', 'status'];
+
     /**
      * Get the questions of a presentation
      * @return Collection

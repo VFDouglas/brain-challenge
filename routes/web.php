@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AcceptanceTermsController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\EventsController;
+use App\Http\Controllers\Admin\PresentationsController as AdminPresentationsController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AwardsController;
 use App\Http\Controllers\PresentationsController;
@@ -66,22 +68,30 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
         Route::get('schedules', 'index');
     });
 
-    Route::prefix('admin')->controller(AdminController::class)->group(function () {
-        Route::get('events', 'events');
-        Route::get('events/{id}', 'getEvent');
-        Route::post('events', 'createEvent');
-        Route::put('events/{id}', 'editEvent');
-        Route::get('users', 'users');
-        Route::get('users/{id}', 'getUser');
-        Route::post('users', 'createUser');
-        Route::put('users/{id}', 'editUser');
-        Route::delete('users/{id}', 'deleteUser');
-        Route::get('presentations', 'presentations');
-        Route::get('presentations/{id}', 'getPresentation');
-        Route::post('presentations', 'createPresentation');
-        Route::put('presentations/{id}', 'editPresentation');
-        Route::delete('presentations/{id}', 'deletePresentation');
-    })->middleware(AdminAccess::class);
+    // -------------------- Admin Routes -------------------- //
+    Route::prefix('admin')->middleware(AdminAccess::class)->group(function () {
+        Route::controller(EventsController::class)->group(function () {
+            Route::get('events', 'events');
+            Route::get('events/{id}', 'getEvent');
+            Route::post('events', 'createEvent');
+            Route::put('events/{id}', 'editEvent');
+            Route::delete('events/{id}', 'deleteEvent');
+        });
+        Route::controller(UsersController::class)->group(function () {
+            Route::get('users', 'users');
+            Route::get('users/{id}', 'getUser');
+            Route::post('users', 'createUser');
+            Route::put('users/{id}', 'editUser');
+            Route::delete('users/{id}', 'deleteUser');
+        });
+        Route::controller(AdminPresentationsController::class)->group(function () {
+            Route::get('presentations', 'presentations');
+            Route::get('presentations/{id}', 'getPresentation');
+            Route::post('presentations', 'createPresentation');
+            Route::put('presentations/{id}', 'editPresentation');
+            Route::delete('presentations/{id}', 'deletePresentation');
+        });
+    });
 
     Route::get('403', function () {
         return view('403');

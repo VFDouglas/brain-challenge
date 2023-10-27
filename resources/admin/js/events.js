@@ -1,4 +1,4 @@
-window.editEvent = function (eventId) {
+window.editEvent   = function (eventId) {
     let options = {
         method : 'GET',
         headers: window.ajaxHeaders
@@ -13,13 +13,13 @@ window.editEvent = function (eventId) {
             return false;
         }
         response.json().then(function (jsonResponse) {
-            if (jsonResponse.length > 0) {
-                document.getElementById('event_id').value        = jsonResponse[0].id;
-                document.getElementById('event_name').value      = jsonResponse[0].name;
-                document.getElementById('event_location').value  = jsonResponse[0].location;
-                document.getElementById('event_starts_at').value = jsonResponse[0].starts_at;
-                document.getElementById('event_ends_at').value   = jsonResponse[0].ends_at;
-                document.getElementById('event_status').checked  = !!jsonResponse[0].status;
+            if (jsonResponse.id) {
+                document.getElementById('event_id').value        = jsonResponse.id;
+                document.getElementById('event_name').value      = jsonResponse.name;
+                document.getElementById('event_location').value  = jsonResponse.location;
+                document.getElementById('event_starts_at').value = jsonResponse.starts_at;
+                document.getElementById('event_ends_at').value   = jsonResponse.ends_at;
+                document.getElementById('event_status').checked  = !!jsonResponse.status;
 
                 document.getElementById('mode_event_modal').value = 'edit';
                 bootstrap.Modal.getOrCreateInstance('#modal_edit_event').show();
@@ -31,6 +31,31 @@ window.editEvent = function (eventId) {
             }
         });
     });
+}
+window.deleteEvent = function (id) {
+    let options = {
+        method : 'DELETE',
+        headers: window.ajaxHeaders
+    }
+    fetch(`./events/${id}`, options).then(function (response) {
+        if (!response.ok) {
+            window.modalMessage({
+                title      : document.getElementById('error_get_event_title').value,
+                description: document.getElementById('error_delete_event').value,
+            });
+            return false;
+        }
+        response.json().then(function (jsonResponse) {
+            if (jsonResponse.error) {
+                window.modalMessage({
+                    title      : document.getElementById('error_delete_event').value,
+                    description: jsonResponse.error,
+                });
+            } else {
+                window.location.reload();
+            }
+        });
+    })
 }
 document.getElementById('form_save_event').addEventListener('submit', function (event) {
     event.preventDefault();

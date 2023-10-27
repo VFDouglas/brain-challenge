@@ -22,11 +22,11 @@ return new class extends Migration {
                 $table->string('qrcode')->comment('QR Code for the presentation')->default(Str::random(8));
                 $table->dateTime('starts_at')->nullable(false);
                 $table->dateTime('ends_at')->nullable(false);
-                $table->boolean('confirmed')->comment('Determines if the professor confirmed presence');
-                $table->dateTime('confirmed_at');
+                $table->boolean('confirmed')->comment('Determines if the professor confirmed presence')->default(false);
+                $table->dateTime('confirmed_at')->nullable();
                 $table->boolean('award_indicator')->default(0)
                     ->comment('Determines if the professor is gonna give some kind of award to some students');
-                $table->string('award', 50);
+                $table->string('award', 50)->nullable();
                 $table->boolean('status')->default(1)->comment('Determines if the presentation is active or not');
                 $table->timestamps();
                 $table->index(['event_id', 'user_id'], 'idx_presentation_event_user');

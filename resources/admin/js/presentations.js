@@ -13,11 +13,13 @@ window.editPresentation = function (presentationId) {
             return false;
         }
         response.json().then(function (jsonResponse) {
-            if (jsonResponse.length > 0) {
-                document.getElementById('presentation_id').value       = jsonResponse[0].id;
-                document.getElementById('presentation_name').value     = jsonResponse[0].name;
-                document.getElementById('presentation_email').value    = jsonResponse[0].email;
-                document.getElementById('presentation_status').checked = !!jsonResponse[0].status;
+            if (jsonResponse.id) {
+                document.getElementById('presentation_event').value     = jsonResponse.event_id;
+                document.getElementById('presentation_name').value      = jsonResponse.name;
+                document.getElementById('presentation_user').value      = jsonResponse.user_id;
+                document.getElementById('presentation_starts_at').value = jsonResponse.starts_at;
+                document.getElementById('presentation_ends_at').value   = jsonResponse.ends_at;
+                document.getElementById('presentation_status').checked  = !!jsonResponse.status;
 
                 document.getElementById('mode_presentation_modal').value      = 'edit';
                 document.getElementById('modal_presentation_title').innerHTML = document.getElementById('edit_presentation_modal_title').value;
@@ -69,7 +71,8 @@ document.getElementById('form_save_presentation').addEventListener('submit', fun
             user_id  : document.getElementById('presentation_user').value,
             starts_at: document.getElementById('presentation_starts_at').value,
             ends_at  : document.getElementById('presentation_ends_at').value,
-            status   : document.getElementById('presentation_status').checked
+            status   : document.getElementById('presentation_status').checked,
+            event_id : +document.getElementById('presentation_event').value
         })
     }
 
@@ -80,7 +83,7 @@ document.getElementById('form_save_presentation').addEventListener('submit', fun
         }
         response.json().then(function (jsonResponse) {
             if (!jsonResponse.error) {
-                // window.location.reload();
+                window.location.reload();
             } else {
                 document.getElementById('msg_error_modal').innerHTML = jsonResponse.error;
                 setTimeout(() => {

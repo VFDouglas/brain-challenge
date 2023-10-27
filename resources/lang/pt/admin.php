@@ -3,8 +3,12 @@
 return [
     'events'        => [
         'no_event_found'                => 'Nenhum evento encontrado',
+        'cannot_delete_parent_user'     => 'O evento está associado a outra instância do sistema.
+            Remova a instância primeiro.',
         'edit_event_modal_title'        => 'Editar Evento',
         'error_get_event'               => 'Erro ao buscar evento',
+        'error_delete_event'            => 'Erro ao excluir o evento',
+        'delete_event_tooltip'          => 'Clique para excluir o evento',
         'error_get_event_title'         => 'Evento',
         'error_save_event'              => 'Erro ao salvar o evento',
         'event_name_text'               => 'Nome',
@@ -50,6 +54,7 @@ return [
         'error_get_presentation_description'   => 'Nenhuma apresentação encontrada',
         'error_save_presentation'              => 'Erro ao salvar a apresentação',
         'presentation_name_text'               => 'Nome',
+        'presentation_username_text'           => 'Usuário',
         'presentation_starts_at_text'          => 'Inicia Em',
         'presentation_ends_at_text'            => 'Termina Em',
         'presentation_status_text'             => 'Status',
@@ -58,7 +63,10 @@ return [
         'presentation_save_modal_button_text'  => 'Salvar',
         'create_presentation_button_text'      => 'Criar Apresentação',
         'presentation_user_text'               => 'Usuários',
-        'no_user_create_presentations'         => 'Nenhum professor encontrado. Crie um para poder criar uma
-            apresentação.'
+        'presentation_event_text'              => 'Evento',
+        'presentation_professor_text'          => 'Professor',
+        'no_user_create_presentations'         => 'Nenhum evento ou professor encontrado. Crie um para poder criar uma
+            apresentação.',
+        'presentation_already_exists'          => 'Uma apresentação já existe para este professor.',
     ]
 ];

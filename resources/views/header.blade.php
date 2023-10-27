@@ -76,28 +76,41 @@ $pages = array_column(session('page_access'), 'url');
                 </li>
                 @if (session('event_access.role') === 'A')
                     <li class="nav-item">
-                        <button type="button" class="nav-link collapsed"
+                        <button type="button"
+                                class="nav-link collapsed @if(request()->segment(1) == 'admin')text-white @endif"
                                 data-bs-toggle="collapse" data-bs-target="#collapsePages"
                                 aria-expanded="true" aria-controls="collapsePages">
-                            <i class="fa-solid fa-fw fa-gear"></i>
+                            <i class="fa-solid fa-fw fa-gear @if(request()->segment(1) == 'admin')text-white @endif">
+                            </i>
                             <span>{{__('header.control_panel_button_text')}}</span>
                         </button>
                         <div id="collapsePages" class="collapse bg" data-bs-parent="#accordionSidebar">
                             <div class="py-2 collapse-inner rounded bg-gradient-primary">
-                                <a class="nav-link collapsed" href="/admin/events">
-                                    <i class="fa-regular fa-calendar-check"></i>&nbsp;
+                                <a class="nav-link collapsed
+                                @if(request()->path() =='admin/events')text-white pe-none @endif"
+                                   href="/admin/events">
+                                    <i class="fa-regular fa-calendar-check
+                                    @if(request()->path() =='admin/events')text-white @endif"></i>&nbsp;
                                     <span>{{__('header.admin_events_button_text')}}</span>
                                 </a>
-                                <a class="nav-link collapsed" href="/admin/users">
-                                    <i class="fa-regular fa-user"></i>&nbsp;
+                                <a class="nav-link collapsed
+                                @if(request()->path() =='admin/users')text-white pe-none @endif" href="/admin/users">
+                                    <i class="fa-regular fa-user
+                                    @if(request()->path() =='admin/users')text-white @endif"></i>&nbsp;
                                     <span>{{__('header.admin_users_button_text')}}</span>
                                 </a>
-                                <a class="nav-link collapsed" href="/admin/presentations">
-                                    <i class="fa-solid fa-chalkboard-user"></i>
+                                <a class="nav-link collapsed
+                                @if(request()->path() =='admin/presentations')text-white pe-none @endif"
+                                   href="/admin/presentations">
+                                    <i class="fa-solid fa-chalkboard-user
+                                    @if(request()->path() =='admin/presentations')text-white @endif"></i>
                                     <span>{{__('header.presentations_button_text')}}</span>
                                 </a>
-                                <a class="nav-link collapsed" href="/admin/schedules">
-                                    <i class="fa-regular fa-calendar-days me-1"></i>&nbsp;
+                                <a class="nav-link collapsed
+                                @if(request()->path() =='admin/schedules')text-white pe-none @endif"
+                                   href="/admin/schedules">
+                                    <i class="fa-regular fa-calendar-days me-1
+                                    @if(request()->path() =='admin/schedules')text-white @endif"></i>&nbsp;
                                     <span>{{__('header.schedules_button_text')}}</span>
                                 </a>
                             </div>

@@ -11,6 +11,7 @@
     @vite(['resources/admin/js/events.js'])
     <input type="hidden" id="error_get_event" value="{{__('admin.events.error_get_event')}}">
     <input type="hidden" id="error_get_event_title" value="{{__('admin.events.error_get_event_title')}}">
+    <input type="hidden" id="error_delete_event" value="{{__('admin.events.error_delete_event')}}">
     <input type="hidden" id="error_save_event" value="{{__('admin.events.error_save_event')}}">
     <div class="modal fade" id="modal_edit_event" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -91,6 +92,7 @@
                                 <th>{{__('admin.events.event_ends_at_text')}}</th>
                                 <th>{{__('admin.events.event_status_text')}}</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,8 +109,15 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <button class="btn bg-gradient-warning" onclick="editEvent({{$item['id']}})">
+                                        <button class="btn" onclick="editEvent({{$item['id']}})">
                                             <i class="fa-solid fa-edit"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn text-danger" onclick="deleteEvent({{$item['id']}})"
+                                                data-bs-toggle="tooltip"
+                                                title="{{__('admin.events.delete_event_tooltip')}}">
+                                            <i class="fa-solid fa-trash-alt"></i>
                                         </button>
                                     </td>
                                 </tr>

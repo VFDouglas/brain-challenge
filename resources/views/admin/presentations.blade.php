@@ -4,6 +4,8 @@
 /**
  * @var Builder $presentations
  * @var Builder $users
+ * @var Builder $events
+ * @var integer $eventId
  */
 
 ?>
@@ -15,7 +17,7 @@
            value="{{__('admin.presentations.error_get_presentation_title')}}">
     <input type="hidden" id="error_get_presentation_description"
            value="{{__('admin.presentations.error_get_presentation_description')}}">
-    <input type="hidden" id="error_save_presentation" value="{{__('admin.resentations.error_save_presentation')}}">
+    <input type="hidden" id="error_save_presentation" value="{{__('admin.presentations.error_save_presentation')}}">
     <input type="hidden" id="create_presentation_modal_title"
            value="{{__('admin.presentations.create_presentation_modal_title')}}">
     <input type="hidden" id="edit_presentation_modal_title"
@@ -38,27 +40,6 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    @if($events->count() > 0)
-                                        <select id="presentation_user" class="form-select">
-                                            @php($eventList = $events->get()->all())
-                                            @foreach($eventList as $item)
-                                                <option value="{{$item->id}}">{{$item->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    @else
-                                        <select disabled class="form-select">
-                                            <option selected>
-                                                {{__('admin.presentations.event_not_found')}}
-                                            </option>
-                                        </select>
-                                    @endif
-                                    <label for="presentation_user">
-                                        {{__('admin.presentations.presentation_user_text')}}
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating mb-3">
                                     <input class="form-control" id="presentation_name" placeholder="First User"
                                            required>
                                     <label for="presentation_name">
@@ -76,21 +57,21 @@
                                             @endforeach
                                         </select>
                                     @else
-                                        <select disabled class="form-select">
+                                        <select id="presentation_user" disabled class="form-select">
                                             <option selected>
                                                 {{__('admin.users.user_not_found')}}
                                             </option>
                                         </select>
                                     @endif
                                     <label for="presentation_user">
-                                        {{__('admin.presentations.presentation_user_text')}}
+                                        {{__('admin.presentations.presentation_professor_text')}}
                                     </label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="datetime-local" class="form-control" id="presentation_starts_at"
-                                           required>
+                                    <input type="datetime-local" step="any" class="form-control"
+                                           id="presentation_starts_at" required>
                                     <label for="presentation_starts_at">
                                         {{__('admin.presentations.presentation_starts_at_text')}}
                                     </label>
@@ -98,8 +79,8 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="datetime-local" class="form-control" id="presentation_ends_at"
-                                           required>
+                                    <input type="datetime-local" step="any" class="form-control"
+                                           id="presentation_ends_at" required>
                                     <label for="presentation_ends_at">
                                         {{__('admin.presentations.presentation_ends_at_text')}}
                                     </label>
@@ -120,7 +101,7 @@
                                 <h6 class="text-center fw-bold" id="msg_error_modal"></h6>
                             </div>
                         </div>
-                        @if($users->count() == 0)
+                        @if($users->count() == 0 || $events->count() == 0)
                             <div class="row">
                                 <div class="col-12">
                                     <h6 class="text-center mt-5">
@@ -136,7 +117,7 @@
                             {{__('admin.presentations.presentation_close_modal_button_text')}}
                         </button>
                         <button class="btn btn-primary" id="btn_save_presentation"
-                                @if($users->count() == 0) disabled @endif>
+                                @if($users->count() == 0 || $events->count() == 0) disabled @endif>
                             {{__('admin.presentations.presentation_save_modal_button_text')}}
                         </button>
                     </div>
@@ -145,20 +126,34 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 text-end my-4">
-                <button class="btn bg-gradient-primary text-white px-5" id="btn_create_presentation">
+        <div class="row align-items-center justify-content-end">
+            <div class="col-12 col-sm-5 col-lg-5 col-xxl-3">
+                <form>
+                    <select name="eventId" id="presentation_event" class="form-select" onchange="this.form.submit()">
+                        @php($eventList = $events->get()->all())
+                        @foreach($eventList as $item)
+                            <option value="{{$item['id']}}" @if($item['id'] == $eventId) selected @endif>
+                                {{$item['name']}}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
+            </div>
+            <div class="col-12 col-sm-7 col-lg-5 col-xxl-3 text-end my-4">
+                <button class="btn bg-gradient-primary col-12 text-white px-5" id="btn_create_presentation">
                     {{__('admin.presentations.create_presentation_button_text')}}
                 </button>
             </div>
+        </div>
+        <div class="row">
             <div class="col-12">
                 @if($presentations->count() > 0)
                     @php($presentationList = $presentations->get()->toArray())
                     <table class="table table-hover">
                         <thead>
                             <tr class="text-center">
-                                <th>{{__('admin.presentations.resentation_name_text')}}</th>
-                                <th>{{__('admin.presentations.presentation_email_text')}}</th>
+                                <th>{{__('admin.presentations.presentation_name_text')}}</th>
+                                <th>{{__('admin.presentations.presentation_username_text')}}</th>
                                 <th>{{__('admin.presentations.presentation_status_text')}}</th>
                                 <th></th>
                             </tr>
@@ -167,7 +162,7 @@
                             @foreach($presentationList as $item)
                                 <tr class="align-middle text-center">
                                     <td>{{$item['name']}}</td>
-                                    <td>{{$item['email']}}</td>
+                                    <td>{{$item['username']}}</td>
                                     <td>
                                         <div class="form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch"
@@ -175,12 +170,12 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <button class="btn" onclick="editUser({{$item['id']}})">
+                                        <button class="btn" onclick="editPresentation({{$item['id']}})">
                                             <i class="fa-solid fa-edit"></i>
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="btn" onclick="deleteUser({{$item['id']}})">
+                                        <button class="btn" onclick="deletePresentation({{$item['id']}})">
                                             <i class="fa-solid fa-trash-alt"></i>
                                         </button>
                                     </td>

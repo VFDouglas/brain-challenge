@@ -26,7 +26,8 @@ class User extends Authenticatable
         'email',
         'password',
         'status',
-        'role'
+        'role',
+        'event_id'
     ];
 
     /**

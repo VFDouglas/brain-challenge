@@ -67,10 +67,11 @@ document.getElementById('form_save_user').addEventListener('submit', function (e
         method : method,
         headers: window.ajaxHeaders,
         body   : JSON.stringify({
-            name  : document.getElementById('user_name').value,
-            email : document.getElementById('user_email').value,
-            role  : document.getElementById('user_role').value,
-            status: document.getElementById('user_status').checked
+            name    : document.getElementById('user_name').value,
+            email   : document.getElementById('user_email').value,
+            role    : document.getElementById('user_role').value,
+            status  : document.getElementById('user_status').checked,
+            event_id: +document.getElementById('user_event').value
         })
     }
 
