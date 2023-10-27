@@ -84,9 +84,11 @@ class PresentationsController extends Controller
                 throw new Exception(__('admin.users.user_not_found'));
             }
 
-            $user->name   = $request->name;
-            $user->email  = $request->email;
-            $user->status = $request->status;
+            $user->name      = $request->name;
+            $user->user_id   = $request->user_id;
+            $user->starts_at = $request->starts_at;
+            $user->ends_at   = $request->ends_at;
+            $user->status    = $request->status;
             $user->save();
 
             $response['error'] = '';

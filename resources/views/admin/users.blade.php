@@ -9,6 +9,8 @@ $roleLabel = [
     'P' => __('admin.users.user_role_P'),
     'S' => __('admin.users.user_role_S'),
 ];
+
+$pageTitle = __('admin.users.page_title');
 ?>
 @extends('header')
 @section('content')

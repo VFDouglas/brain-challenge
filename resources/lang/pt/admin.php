@@ -2,6 +2,7 @@
 
 return [
     'events'        => [
+        'page_title'                    => 'Eventos',
         'no_event_found'                => 'Nenhum evento encontrado',
         'cannot_delete_parent_user'     => 'O evento está associado a outra instância do sistema.
             Remova a instância primeiro.',
@@ -21,6 +22,7 @@ return [
         'create_event_button_text'      => 'Criar Evento',
     ],
     'users'         => [
+        'page_title'                   => 'Usuários',
         'no_user_found'                => 'Nenhum usuário encontrado',
         'edit_user_modal_title'        => 'Editar Usuário',
         'create_user_modal_title'      => 'Criar Usuário',
@@ -45,6 +47,7 @@ return [
         'duplicate_entry'              => 'Um usuário já existe com este email',
     ],
     'presentations' => [
+        'page_title'                           => 'Apresentações',
         'create_presentation_modal_title'      => 'Criar Apresentação',
         'no_presentation_found'                => 'Nenhuma apresentação encontrada',
         'event_not_found'                      => 'Evento não encontrado',

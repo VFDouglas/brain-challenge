@@ -2,6 +2,7 @@
 
 return [
     'events'        => [
+        'page_title'                    => 'Events',
         'no_event_found'                => 'No event found',
         'cannot_delete_parent_user'     => 'The event is associated with another instance of the system.
             Remove the instance first.',
@@ -21,6 +22,7 @@ return [
         'create_event_button_text'      => 'Create Event',
     ],
     'users'         => [
+        'page_title'                   => 'Users',
         'no_user_found'                => 'No user found',
         'edit_user_modal_title'        => 'Edit User',
         'create_user_modal_title'      => 'Create User',
@@ -44,6 +46,7 @@ return [
             To delete it, delete all associations first.',
     ],
     'presentations' => [
+        'page_title'                           => 'Presentations',
         'create_presentation_modal_title'      => 'Create Presentation',
         'no_presentation_found'                => 'No presentation found',
         'event_not_found'                      => 'Event not found',

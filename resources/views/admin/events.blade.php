@@ -5,6 +5,7 @@
  * @var Builder $events
  */
 
+$pageTitle = __('admin.events.page_title');
 ?>
 @extends('header')
 @section('content')

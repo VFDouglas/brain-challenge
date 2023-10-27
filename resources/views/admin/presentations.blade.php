@@ -8,6 +8,7 @@
  * @var integer $eventId
  */
 
+$pageTitle = __('admin.presentations.page_title');
 ?>
 @extends('header')
 @section('content')
@@ -154,6 +155,8 @@
                             <tr class="text-center">
                                 <th>{{__('admin.presentations.presentation_name_text')}}</th>
                                 <th>{{__('admin.presentations.presentation_username_text')}}</th>
+                                <th>{{__('admin.presentations.presentation_starts_at_text')}}</th>
+                                <th>{{__('admin.presentations.presentation_ends_at_text')}}</th>
                                 <th>{{__('admin.presentations.presentation_status_text')}}</th>
                                 <th></th>
                             </tr>
@@ -163,6 +166,8 @@
                                 <tr class="align-middle text-center">
                                     <td>{{$item['name']}}</td>
                                     <td>{{$item['username']}}</td>
+                                    <td>{{date('d/M/Y H:i:s', strtotime($item['starts_at']))}}</td>
+                                    <td>{{date('d/M/Y H:i:s', strtotime($item['ends_at']))}}</td>
                                     <td>
                                         <div class="form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch"

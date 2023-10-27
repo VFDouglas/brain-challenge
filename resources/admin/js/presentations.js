@@ -14,6 +14,7 @@ window.editPresentation = function (presentationId) {
         }
         response.json().then(function (jsonResponse) {
             if (jsonResponse.id) {
+                document.getElementById('presentation_id').value        = jsonResponse.id;
                 document.getElementById('presentation_event').value     = jsonResponse.event_id;
                 document.getElementById('presentation_name').value      = jsonResponse.name;
                 document.getElementById('presentation_user').value      = jsonResponse.user_id;
