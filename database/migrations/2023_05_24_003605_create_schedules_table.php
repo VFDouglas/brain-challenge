@@ -19,6 +19,7 @@ return new class extends Migration {
                 $table->dateTime('starts_at')->nullable(false);
                 $table->dateTime('ends_at')->nullable(false);
                 $table->timestamp('created_at')->useCurrent();
+                $table->unique(['event_id', 'title'], 'schedules_event_title');
             });
         }
     }

@@ -17,6 +17,7 @@ export default defineConfig({
                 'resources/admin/js/events.js',
                 'resources/admin/js/users.js',
                 'resources/admin/js/presentations.js',
+                'resources/admin/js/schedules.js',
             ],
             refresh: true,
         }),

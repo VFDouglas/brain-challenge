@@ -71,5 +71,27 @@ return [
         'no_user_create_presentations'         => 'Nenhum evento ou professor encontrado. Crie um para poder criar uma
             apresentação.',
         'presentation_already_exists'          => 'Uma apresentação já existe para este professor.',
+    ],
+    'schedules'     => [
+        'page_title'                       => 'Programação',
+        'no_schedule_found'                => 'Nenhuma programação encontrada',
+        'create_schedule'                  => 'Criar Programação',
+        'edit_schedule'                    => 'Editar Programação',
+        'error_get_schedule'               => 'Erro ao buscar programação',
+        'error_get_schedule_title'         => 'Programação',
+        'error_get_schedule_description'   => 'Nenhuma programação encontrada',
+        'error_save_schedule'              => 'Erro ao salvar a programação',
+        'schedule_title_text'              => 'Título',
+        'schedule_description_text'        => 'Descrição',
+        'schedule_username_text'           => 'Usuário',
+        'schedule_starts_at_text'          => 'Inicia Em',
+        'schedule_ends_at_text'            => 'Termina Em',
+        'schedule_status_text'             => 'Status',
+        'schedule_close_modal_button_text' => 'Fechar',
+        'schedule_save_modal_button_text'  => 'Salvar',
+        'create_schedule_button_text'      => 'Criar Programação',
+        'schedule_event_text'              => 'Evento',
+        'no_user_create_schedules'         => 'Nenhum evento encontrado. Crie um para poder criar uma programação.',
+        'schedule_already_exists'          => 'Uma programação com esse título já existe.'
     ]
 ];

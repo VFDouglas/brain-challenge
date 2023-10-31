@@ -15,6 +15,8 @@ class Schedule extends Model
 
     protected $connection = 'brain_challenge';
     protected $table      = 'schedules';
+    protected $fillable   = ['event_id', 'title', 'description', 'starts_at', 'ends_at'];
+    public    $timestamps = false;
 
     public static function getScheduleDays(): Collection|array
     {

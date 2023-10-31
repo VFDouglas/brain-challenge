@@ -69,5 +69,26 @@ return [
         'no_user_create_presentations'         => 'No event or professor found. Create one to be able to create
             a presentation.',
         'presentation_already_exists'          => 'A presentation already exists for this professor.',
+    ],
+    'schedules'     => [
+        'page_title'                       => 'Schedules',
+        'no_schedule_found'                => 'No schedule found',
+        'create_schedule'                  => 'Create Schedule',
+        'edit_schedule'                    => 'Edit Schedule',
+        'error_get_schedule'               => 'Error getting schedule',
+        'error_get_schedule_title'         => 'Schedule',
+        'error_save_schedule'              => 'Error saving the schedule',
+        'schedule_title_text'              => 'Title',
+        'schedule_description_text'        => 'Description',
+        'schedule_username_text'           => 'User',
+        'schedule_starts_at_text'          => 'Starts At',
+        'schedule_ends_at_text'            => 'Ends At',
+        'schedule_status_text'             => 'Status',
+        'schedule_close_modal_button_text' => 'Close',
+        'schedule_save_modal_button_text'  => 'Save',
+        'create_schedule_button_text'      => 'Create Schedule',
+        'schedule_event_text'              => 'Event',
+        'no_user_create_schedules'         => 'No event found. Create one to be able to create a schedule.',
+        'schedule_already_exists'          => 'A schedule with this name already exists for this event.',
     ]
 ];

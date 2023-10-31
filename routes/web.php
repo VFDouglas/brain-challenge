@@ -3,6 +3,7 @@
 use App\Http\Controllers\AcceptanceTermsController;
 use App\Http\Controllers\Admin\EventsController;
 use App\Http\Controllers\Admin\PresentationsController as AdminPresentationsController;
+use App\Http\Controllers\Admin\SchedulesController as AdminSchedulesController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AwardsController;
@@ -90,6 +91,13 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
             Route::post('presentations', 'createPresentation');
             Route::put('presentations/{id}', 'editPresentation');
             Route::delete('presentations/{id}', 'deletePresentation');
+        });
+        Route::controller(AdminSchedulesController::class)->group(function () {
+            Route::get('schedules', 'schedules');
+            Route::get('schedules/{id}', 'getSchedule');
+            Route::post('schedules', 'createSchedule');
+            Route::put('schedules/{id}', 'editSchedule');
+            Route::delete('schedules/{id}', 'deleteSchedule');
         });
     });
 
