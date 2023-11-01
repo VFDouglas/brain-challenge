@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcceptanceTermsController;
+use App\Http\Controllers\Admin\AwardsController as AdminAwardsController;
 use App\Http\Controllers\Admin\EventsController;
 use App\Http\Controllers\Admin\PresentationsController as AdminPresentationsController;
 use App\Http\Controllers\Admin\SchedulesController as AdminSchedulesController;
@@ -98,6 +99,9 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
             Route::post('schedules', 'createSchedule');
             Route::put('schedules/{id}', 'editSchedule');
             Route::delete('schedules/{id}', 'deleteSchedule');
+        });
+        Route::controller(AdminAwardsController::class)->group(function () {
+            Route::get('awards', 'awards');
         });
     });
 
