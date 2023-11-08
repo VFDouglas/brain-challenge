@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
 use App\Models\Event;
+use App\Models\Presentation;
 use App\Models\PresentationAward;
+use App\Models\User;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -15,17 +18,31 @@ class AwardsController extends Controller
 {
     public function awards(): View|FoundationApplication|Factory|Application
     {
-        $events     = Event::query();
-        $firstEvent = $events->count() > 0 ? $events->get()->toArray()[0]['id'] : null;
-        $eventId    = request('eventId') ?? $firstEvent;
+        $events        = Event::query();
+        $firstEvent    = $events->count() > 0 ? $events->get()->toArray()[0]['id'] : null;
+        $eventId       = request('eventId') ?? $firstEvent;
+        $presentations = Presentation::query()
+            ->where('event_id', '=', $eventId);
+        $users         = User::query()
+            ->where('event_id', '=', $eventId)
+            ->where('role', '=', 'S');
 
         $awards = PresentationAward::query()
-            ->where('event_id', '=', $eventId);
+            ->select([
+                'presentation_awards.*',
+                'presentations.name as presentation_name',
+                'users.name as user_name',
+            ])
+            ->join('presentations', 'presentation_awards.presentation_id', '=', 'presentations.id')
+            ->join('users', 'presentation_awards.user_id', '=', 'users.id')
+            ->where('presentation_awards.event_id', '=', $eventId);
 
         return view('admin.awards', [
-            'awards'  => $awards,
-            'events'  => $events,
-            'eventId' => $eventId
+            'awards'        => $awards,
+            'events'        => $events,
+            'eventId'       => $eventId,
+            'presentations' => $presentations,
+            'users'         => $users
         ]);
     }
 
@@ -44,20 +61,20 @@ class AwardsController extends Controller
         $response = [];
         try {
             $checkAward = PresentationAward::query()
-                ->where('event_id', '=', $request->event_id);
+                ->where('event_id', '=', $request->event_id)
+                ->where('presentation_id', '=', $request->presentation_id)
+                ->where('user_id', '=', $request->user_id);
 
             if ($checkAward->count() > 0) {
-                throw new Exception(__('admin.awards.schedule_already_exists'));
+                throw new Exception(__('admin.awards.award_already_exists'));
             }
-            $user              = PresentationAward::query()->create([
-                'event_id'    => $request->event_id,
-                'title'       => $request->title,
-                'description' => $request->description,
-                'starts_at'   => $request->starts_at,
-                'ends_at'     => $request->ends_at
+            $award             = PresentationAward::query()->create([
+                'event_id'        => $request->event_id,
+                'presentation_id' => $request->presentation_id,
+                'user_id'         => $request->user_id,
             ]);
             $response['error'] = '';
-            $response['user']  = $user->get()->toArray();
+            $response['awrad'] = $award->get()->toArray();
         } catch (Exception $e) {
             $response['error'] = $e->getMessage();
         }
@@ -68,24 +85,23 @@ class AwardsController extends Controller
     {
         $response = [];
         try {
-            $schedule = PresentationAward::query()->find($id);
+            $award = PresentationAward::query()->find($id);
 
-            if (!$schedule) {
+            if (!$award) {
                 throw new Exception(__('admin.users.user_not_found'));
             }
 
-            $schedule->title       = $request->title;
-            $schedule->description = $request->description;
-            $schedule->starts_at   = $request->starts_at;
-            $schedule->ends_at     = $request->ends_at;
-            $schedule->save();
+            $award->event_id        = $request->event_id;
+            $award->presentation_id = $request->presentation_id;
+            $award->user_id         = $request->user_id;
+            $award->save();
 
             $response['error'] = '';
-            $response['user']  = $schedule->get()->toArray();
+            $response['user']  = $award->get()->toArray();
         } catch (Exception $e) {
             switch (true) {
                 case str_contains(strtoupper($e->getMessage()), 'DUPLICATE ENTRY'):
-                    $response['error'] = __('admin.users.user_already_exists');
+                    $response['error'] = __('admin.users.award_already_exists');
                     break;
                 default:
                     $response['error'] = $e->getMessage();

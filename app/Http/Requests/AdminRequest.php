@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
 
-class AdminRequest extends FormRequest
+class AdminRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,6 +21,39 @@ class AdminRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        $rules = [];
+
+        switch (request()->segment(2)) {
+            case 'awards':
+                $rules = [
+                    'id'              => self::NULLABLE_NUMERIC,
+                    'event_id'        => self::NULLABLE_NUMERIC,
+                    'presentation_id' => self::NULLABLE_NUMERIC,
+                    'user_id'         => self::NULLABLE_NUMERIC,
+                ];
+                break;
+            case 'events':
+                $rules = [
+                    'name'      => self::NULLABLE_STRING,
+                    'location'  => self::NULLABLE_STRING,
+                    'starts_at' => self::NULLABLE_DATE,
+                    'ends_at'   => self::NULLABLE_DATE,
+                    'status'    => self::NULLABLE_NUMERIC,
+                ];
+                break;
+            case 'users':
+                $rules = [
+                    'name'     => self::NULLABLE_STRING,
+                    'email'    => self::NULLABLE_EMAIL,
+                    'role'     => self::NULLABLE_STRING,
+                    'status'   => self::NULLABLE_NUMERIC,
+                    'event_id' => self::NULLABLE_NUMERIC,
+                    'password' => self::NULLABLE_PASSWORD
+                ];
+                break;
+            default:
+                break;
+        }
+        return $rules;
     }
 }

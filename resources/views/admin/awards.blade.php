@@ -4,6 +4,8 @@
 /**
  * @var Builder $awards
  * @var Builder $events
+ * @var Builder $presentations
+ * @var Builder $users
  * @var integer $eventId
  */
 
@@ -40,45 +42,43 @@ $pageTitle = __('admin.awards.page_title');
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="award_title" required>
+                                    <select id="award_presentation" class="form-select" required>
+                                        <option value="">&rarr; {{__('admin.general.select_choose')}} &larr;</option>
+                                        @php($presentationList = $presentations->get()->toArray())
+                                        @foreach($presentationList as $item)
+                                            <option value="{{$item['id']}}">
+                                                {{$item['name']}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     <label for="award_title">
-                                        {{__('admin.awards.award_title_text')}}
+                                        {{__('admin.awards.award_presentation_text')}}
                                     </label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input class="form-control" id="award_description" required>
-                                    <label for="award_description">
-                                        {{__('admin.awards.award_description_text')}}
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <input type="datetime-local" step="any" class="form-control"
-                                           id="award_starts_at" required>
-                                    <label for="award_starts_at">
-                                        {{__('admin.awards.award_starts_at_text')}}
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <input type="datetime-local" step="any" class="form-control"
-                                           id="award_ends_at" required>
-                                    <label for="award_ends_at">
-                                        {{__('admin.awards.award_ends_at_text')}}
+                                    <select id="award_user" class="form-select" required>
+                                        <option value="">&rarr; {{__('admin.general.select_choose')}} &larr;</option>
+                                        @php($userList = $users->get()->toArray())
+                                        @foreach($userList as $item)
+                                            <option value="{{$item['id']}}">
+                                                {{$item['name']}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label for="award_user">
+                                        {{__('admin.awards.award_username_text')}}
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 mt-4">
+                            <div class="col-12 mt-2">
                                 <h6 class="text-center fw-bold" id="msg_error_modal"></h6>
                             </div>
                         </div>
-                        @if($events->count() == 0)
+                        @if($presentations->count() == 0 || $users->count() == 0)
                             <div class="row">
                                 <div class="col-12">
                                     <h6 class="text-center mt-5">
@@ -129,20 +129,15 @@ $pageTitle = __('admin.awards.page_title');
                     <table class="table table-hover">
                         <thead>
                             <tr class="text-center">
-                                <th>{{__('admin.awards.award_title_text')}}</th>
                                 <th>{{__('admin.awards.award_description_text')}}</th>
-                                <th>{{__('admin.awards.award_starts_at_text')}}</th>
-                                <th>{{__('admin.awards.award_ends_at_text')}}</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($awardList as $item)
                                 <tr class="align-middle text-center">
-                                    <td>{{$item['title']}}</td>
-                                    <td>{{$item['description']}}</td>
-                                    <td>{{date('d/M/Y H:i:s', strtotime($item['starts_at']))}}</td>
-                                    <td>{{date('d/M/Y H:i:s', strtotime($item['ends_at']))}}</td>
+                                    <td>{{$item['presentation_name']}}</td>
+                                    <td>{{$item['user_name']}}</td>
                                     <td>
                                         <button class="btn" onclick="editAward({{$item['id']}})">
                                             <i class="fa-solid fa-edit"></i>

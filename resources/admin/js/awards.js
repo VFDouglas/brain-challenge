@@ -1,56 +1,54 @@
-window.editSchedule = function (scheduleId) {
+window.editAward = function (awardId) {
     let options = {
         method : 'GET',
         headers: window.ajaxHeaders
     }
 
-    fetch(`./schedules/${scheduleId}`, options).then(function (response) {
+    fetch(`./awards/${awardId}`, options).then(function (response) {
         if (!response.ok) {
             window.modalMessage({
-                title      : document.getElementById('error_get_schedule_title').value,
-                description: document.getElementById('error_get_schedule').value,
+                title      : document.getElementById('error_get_award_title').value,
+                description: document.getElementById('error_get_award').value,
             });
             return false;
         }
         response.json().then(function (jsonResponse) {
             if (jsonResponse.id) {
-                document.getElementById('schedule_id').value          = jsonResponse.id;
-                document.getElementById('schedule_event').value       = jsonResponse.event_id;
-                document.getElementById('schedule_title').value       = jsonResponse.title;
-                document.getElementById('schedule_description').value = jsonResponse.description;
-                document.getElementById('schedule_starts_at').value   = jsonResponse.starts_at;
-                document.getElementById('schedule_ends_at').value     = jsonResponse.ends_at;
+                document.getElementById('award_id').value           = jsonResponse.id;
+                document.getElementById('award_event').value        = jsonResponse.event_id;
+                document.getElementById('award_presentation').value = jsonResponse.presentation_id;
+                document.getElementById('award_user').value         = jsonResponse.user_id;
 
-                document.getElementById('mode_schedule_modal').value      = 'edit';
-                document.getElementById('modal_schedule_title').innerHTML = document.getElementById('edit_schedule_modal_title').value;
-                bootstrap.Modal.getOrCreateInstance('#modal_edit_schedule').show();
+                document.getElementById('mode_award_modal').value      = 'edit';
+                document.getElementById('modal_award_title').innerHTML = document.getElementById('edit_award_modal_title').value;
+                bootstrap.Modal.getOrCreateInstance('#modal_edit_award').show();
             } else {
                 window.modalMessage({
-                    title      : document.getElementById('error_get_schedule_title').value,
-                    description: document.getElementById('error_get_schedule_description').value
+                    title      : document.getElementById('error_get_award_title').value,
+                    description: document.getElementById('error_get_award_description').value
                 });
             }
         });
     });
 }
 
-window.deleteSchedule = function (id) {
+window.deleteAward = function (id) {
     let options = {
         method : 'DELETE',
         headers: window.ajaxHeaders
     }
-    fetch(`./schedules/${id}`, options).then(function (response) {
+    fetch(`./awards/${id}`, options).then(function (response) {
         if (!response.ok) {
             window.modalMessage({
-                title      : document.getElementById('error_get_schedule_title').value,
-                description: document.getElementById('error_get_schedule').value,
+                title      : document.getElementById('error_get_award_title').value,
+                description: document.getElementById('error_get_award').value,
             });
             return false;
         }
         response.json().then(function (jsonResponse) {
             if (jsonResponse.error) {
                 window.modalMessage({
-                    title      : document.getElementById('error_get_schedule_title').value,
+                    title      : document.getElementById('error_get_award_title').value,
                     description: jsonResponse.error,
                 });
             } else {
@@ -59,23 +57,21 @@ window.deleteSchedule = function (id) {
         });
     })
 }
-document.getElementById('form_save_schedule').addEventListener('submit', function (event) {
+document.getElementById('form_save_award').addEventListener('submit', function (event) {
     event.preventDefault();
-    let method = document.getElementById('mode_schedule_modal').value === 'edit' ? 'PUT' : 'POST'
+    let method = document.getElementById('mode_award_modal').value === 'edit' ? 'PUT' : 'POST'
 
     let options = {
         method : method,
         headers: window.ajaxHeaders,
         body   : JSON.stringify({
-            title      : document.getElementById('schedule_title').value,
-            description: document.getElementById('schedule_description').value,
-            starts_at  : document.getElementById('schedule_starts_at').value,
-            ends_at    : document.getElementById('schedule_ends_at').value,
-            event_id   : +document.getElementById('schedule_event').value
+            event_id       : document.getElementById('award_event').value,
+            presentation_id: document.getElementById('award_presentation').value,
+            user_id        : document.getElementById('award_user').value,
         })
     }
 
-    let url = method === 'PUT' ? `./schedules/${document.getElementById('schedule_id').value}` : `./schedules`;
+    let url = method === 'PUT' ? `./awards/${document.getElementById('award_id').value}` : `./awards`;
     fetch(url, options).then(function (response) {
         if (!response.ok) {
             return false;
@@ -93,9 +89,9 @@ document.getElementById('form_save_schedule').addEventListener('submit', functio
     });
 });
 
-document.getElementById('btn_create_schedule').addEventListener('click', function () {
-    document.getElementById('mode_schedule_modal').value      = 'create';
-    document.getElementById('modal_schedule_title').innerHTML = document.getElementById('create_schedule_modal_title').value;
-    document.getElementById('form_save_schedule').reset();
-    bootstrap.Modal.getOrCreateInstance('#modal_edit_schedule').show();
+document.getElementById('btn_create_award').addEventListener('click', function () {
+    document.getElementById('mode_award_modal').value      = 'create';
+    document.getElementById('modal_award_title').innerHTML = document.getElementById('create_award_modal_title').value;
+    document.getElementById('form_save_award').reset();
+    bootstrap.Modal.getOrCreateInstance('#modal_edit_award').show();
 });

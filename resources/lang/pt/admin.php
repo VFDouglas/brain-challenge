@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'general'       => [
+        'select_choose' => 'Escolha',
+    ],
     'events'        => [
         'page_title'                    => 'Eventos',
         'no_event_found'                => 'Nenhum evento encontrado',
@@ -97,20 +100,20 @@ return [
     'awards'        => [
         'page_title'                    => 'Premios',
         'no_award_found'                => 'Nenhum premio encontrado',
-        'create_award'                  => 'Criar Premio',
+        'create_award_modal_title'      => 'Criar Premio',
         'edit_award'                    => 'Editar Premio',
         'error_get_award'               => 'Erro ao buscar premio',
         'error_get_award_title'         => 'Premio',
         'error_get_award_description'   => 'Nenhum premio encontrado',
         'error_save_award'              => 'Erro ao salvar o premio',
-        'award_title_text'              => 'Título',
+        'award_presentation_text'       => 'Apresentação',
         'award_description_text'        => 'Descrição',
-        'award_username_text'           => 'Usuário',
+        'award_username_text'           => 'Estudante',
         'award_close_modal_button_text' => 'Fechar',
         'award_save_modal_button_text'  => 'Salvar',
         'create_award_button_text'      => 'Criar Premio',
         'award_event_text'              => 'Evento',
         'no_user_create_awards'         => 'Nenhum evento encontrado. Crie um para poder criar um premio.',
-        'award_already_exists'          => 'Um premio já existe para este evento.'
+        'award_already_exists'          => 'Um premio já existe para este estudante nessa apresentação.'
     ]
 ];

@@ -14,6 +14,7 @@ return new class extends Migration {
     {
         if (!Schema::hasTable(self::TABLE)) {
             Schema::create(self::TABLE, function (Blueprint $table) {
+                $table->id();
                 $table->foreignId('event_id')->constrained('events');
                 $table->foreignId('presentation_id')->constrained('presentations');
                 $table->foreignId('user_id')->constrained('users');

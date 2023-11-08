@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'general'       => [
+        'select_choose' => 'Choose',
+    ],
     'events'        => [
         'page_title'                    => 'Events',
         'no_event_found'                => 'No event found',
@@ -94,19 +97,19 @@ return [
     'awards'        => [
         'page_title'                    => 'Awards',
         'no_award_found'                => 'No award found',
-        'create_award'                  => 'Create Award',
+        'create_award_modal_title'      => 'Create Award',
         'edit_award'                    => 'Edit Award',
         'error_get_award'               => 'Error getting award',
         'error_get_award_title'         => 'Award',
         'error_save_award'              => 'Error saving the award',
-        'award_title_text'              => 'Title',
+        'award_presentation_text'       => 'Presentation',
         'award_description_text'        => 'Description',
-        'award_username_text'           => 'User',
+        'award_username_text'           => 'Student',
         'award_close_modal_button_text' => 'Close',
         'award_save_modal_button_text'  => 'Save',
         'create_award_button_text'      => 'Create Award',
         'award_event_text'              => 'Event',
         'no_user_create_awards'         => 'No event found. Create one to be able to create an award.',
-        'award_already_exists'          => 'An award with this name already exists for this event.',
+        'award_already_exists'          => 'There is already an award for this user in this presentation.',
     ],
 ];

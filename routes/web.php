@@ -74,34 +74,38 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
     Route::prefix('admin')->middleware(AdminAccess::class)->group(function () {
         Route::controller(EventsController::class)->group(function () {
             Route::get('events', 'events');
-            Route::get('events/{id}', 'getEvent');
+            Route::get('events/{id}', 'getEvent')->whereNumber('id');
             Route::post('events', 'createEvent');
-            Route::put('events/{id}', 'editEvent');
-            Route::delete('events/{id}', 'deleteEvent');
+            Route::put('events/{id}', 'editEvent')->whereNumber('id');
+            Route::delete('events/{id}', 'deleteEvent')->whereNumber('id');
         });
         Route::controller(UsersController::class)->group(function () {
             Route::get('users', 'users');
-            Route::get('users/{id}', 'getUser');
+            Route::get('users/{id}', 'getUser')->whereNumber('id');
             Route::post('users', 'createUser');
-            Route::put('users/{id}', 'editUser');
-            Route::delete('users/{id}', 'deleteUser');
+            Route::put('users/{id}', 'editUser')->whereNumber('id');
+            Route::delete('users/{id}', 'deleteUser')->whereNumber('id');
         });
         Route::controller(AdminPresentationsController::class)->group(function () {
             Route::get('presentations', 'presentations');
-            Route::get('presentations/{id}', 'getPresentation');
+            Route::get('presentations/{id}', 'getPresentation')->whereNumber('id');
             Route::post('presentations', 'createPresentation');
-            Route::put('presentations/{id}', 'editPresentation');
-            Route::delete('presentations/{id}', 'deletePresentation');
+            Route::put('presentations/{id}', 'editPresentation')->whereNumber('id');
+            Route::delete('presentations/{id}', 'deletePresentation')->whereNumber('id');
         });
         Route::controller(AdminSchedulesController::class)->group(function () {
             Route::get('schedules', 'schedules');
-            Route::get('schedules/{id}', 'getSchedule');
+            Route::get('schedules/{id}', 'getSchedule')->whereNumber('id');
             Route::post('schedules', 'createSchedule');
-            Route::put('schedules/{id}', 'editSchedule');
-            Route::delete('schedules/{id}', 'deleteSchedule');
+            Route::put('schedules/{id}', 'editSchedule')->whereNumber('id');
+            Route::delete('schedules/{id}', 'deleteSchedule')->whereNumber('id');
         });
         Route::controller(AdminAwardsController::class)->group(function () {
             Route::get('awards', 'awards');
+            Route::get('awards/{id}', 'getAward')->whereNumber('id');
+            Route::post('awards', 'createAward');
+            Route::put('awards/{id}', 'editAward')->whereNumber('id');
+            Route::delete('awards/{id}', 'deleteAward')->whereNumber('id');
         });
     });
 

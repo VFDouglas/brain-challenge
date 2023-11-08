@@ -14,4 +14,6 @@ class PresentationAward extends Model
 
     protected $connection = 'brain_challenge';
     protected $table      = 'presentation_awards';
+    protected $fillable   = ['event_id', 'presentation_id', 'user_id'];
+    public    $timestamps = false;
 }
