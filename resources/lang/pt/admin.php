@@ -115,5 +115,8 @@ return [
         'award_event_text'              => 'Evento',
         'no_user_create_awards'         => 'Nenhum evento encontrado. Crie um para poder criar um premio.',
         'award_already_exists'          => 'Um premio já existe para este estudante nessa apresentação.'
+    ],
+    'pages' => [
+        'page_title' => 'Página',
     ]
 ];

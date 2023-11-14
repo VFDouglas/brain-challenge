@@ -3,6 +3,7 @@
 use App\Http\Controllers\AcceptanceTermsController;
 use App\Http\Controllers\Admin\AwardsController as AdminAwardsController;
 use App\Http\Controllers\Admin\EventsController;
+use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PresentationsController as AdminPresentationsController;
 use App\Http\Controllers\Admin\SchedulesController as AdminSchedulesController;
 use App\Http\Controllers\Admin\UsersController;
@@ -106,6 +107,13 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
             Route::post('awards', 'createAward');
             Route::put('awards/{id}', 'editAward')->whereNumber('id');
             Route::delete('awards/{id}', 'deleteAward')->whereNumber('id');
+        });
+        Route::controller(PagesController::class)->group(function () {
+            Route::get('pages', 'pages');
+            Route::get('pages/{id}', 'getPage')->whereNumber('id');
+            Route::post('pages', 'createPage');
+            Route::put('pages/{id}', 'editPage')->whereNumber('id');
+            Route::delete('pages/{id}', 'deletePage')->whereNumber('id');
         });
     });
 

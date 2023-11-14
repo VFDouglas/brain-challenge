@@ -120,6 +120,13 @@ $pages = array_column(session('page_access'), 'url');
                                     @if(request()->path() =='admin/awards')text-white @endif"></i>&nbsp;
                                     <span>{{__('header.awards_button_text')}}</span>
                                 </a>
+                                <a class="nav-link collapsed
+                                @if(request()->path() =='admin/pages')text-white pe-none @endif"
+                                   href="/admin/pages">
+                                    <i class="fa-solid fa-file-lines me-1
+                                    @if(request()->path() =='admin/pages')text-white @endif"></i>&nbsp;
+                                    <span>{{__('header.pages_button_text')}}</span>
+                                </a>
                             </div>
                         </div>
                     </li>

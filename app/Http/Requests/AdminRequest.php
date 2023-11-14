@@ -51,6 +51,15 @@ class AdminRequest extends BaseRequest
                     'password' => self::NULLABLE_PASSWORD
                 ];
                 break;
+            case 'schedules':
+                $rules = [
+                    'event_id'    => self::NULLABLE_NUMERIC,
+                    'title'       => self::NULLABLE_STRING,
+                    'description' => self::NULLABLE_STRING,
+                    'starts_at'   => self::NULLABLE_DATE,
+                    'ends_at'     => self::NULLABLE_DATE
+                ];
+                break;
             default:
                 break;
         }

@@ -8,6 +8,7 @@ return [
     'questions_button_text'     => 'Questions',
     'qrcode_button_text'        => 'QR Code',
     'control_panel_button_text' => 'Control Panel',
+    'pages_button_text'         => 'Pages',
     'profile_button_text'       => 'Profile',
     'settings_button_text'      => 'Settings',
     'activity_log_button_text'  => 'Activity Log',
