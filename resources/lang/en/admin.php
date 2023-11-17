@@ -112,7 +112,10 @@ return [
         'no_user_create_awards'         => 'No event found. Create one to be able to create an award.',
         'award_already_exists'          => 'There is already an award for this user in this presentation.',
     ],
-    'pages' => [
-        'page_title'                    => 'Pages',
+    'pages'         => [
+        'page_title'       => 'Pages',
+        'page_name_text'   => 'Name',
+        'page_url_text'    => 'URL',
+        'page_status_text' => 'Status',
     ]
 ];

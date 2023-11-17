@@ -19,6 +19,7 @@ export default defineConfig({
                 'resources/admin/js/presentations.js',
                 'resources/admin/js/schedules.js',
                 'resources/admin/js/awards.js',
+                'resources/admin/js/pages.js',
             ],
             refresh: true,
         }),
