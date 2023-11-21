@@ -3,11 +3,23 @@ import './bootstrap';
  * @function bootstrap.Modal.getOrCreateInstance
  */
 
+window.onload = function () {
+    /**
+     * Destroying all tooltips when clicking, in case they get stuck.
+     */
+    document.addEventListener('click', function () {
+        for (const tooltip of document.querySelectorAll('.tooltip.bs-tooltip-auto')) {
+            tooltip.remove();
+        }
+    });
+}
+
 /**
  * Interval to read the next QR Code
  * @type number
  */
 let interval;
+
 
 // Hiding hamburger menu for small screens
 if (window.screen.availWidth < 768) {
@@ -202,7 +214,7 @@ function busca_detalhe_ranking(codrepresentante) {
 }
 
 /** Busca as notificações do RCA **/
-function busca_notificacao_rca(modal = "N") {
+function getNotifications(modal = "N") {
     if (location.href.includes("/admin")) {
         return false;
     }

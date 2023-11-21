@@ -113,9 +113,12 @@ return [
         'award_already_exists'          => 'There is already an award for this user in this presentation.',
     ],
     'pages'         => [
-        'page_title'       => 'Pages',
-        'page_name_text'   => 'Name',
-        'page_url_text'    => 'URL',
-        'page_status_text' => 'Status',
+        'page_title'          => 'Pages',
+        'page_name_text'      => 'Name',
+        'page_url_text'       => 'URL',
+        'page_status_text'    => 'Status',
+        'create_page_tooltip' => 'Since the programmer has to set up every page, it doesn\'t make sense
+            to have a button to create or delete one',
+        'edit_page_tooltip'   => 'Associate students'
     ]
 ];

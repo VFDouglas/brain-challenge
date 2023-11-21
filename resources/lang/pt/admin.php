@@ -116,7 +116,13 @@ return [
         'no_user_create_awards'         => 'Nenhum evento encontrado. Crie um para poder criar um premio.',
         'award_already_exists'          => 'Um premio já existe para este estudante nessa apresentação.'
     ],
-    'pages' => [
-        'page_title' => 'Página',
+    'pages'         => [
+        'page_title'          => 'Página',
+        'page_name_text'      => 'Nome',
+        'page_url_text'       => 'URL',
+        'page_status_text'    => 'Status',
+        'create_page_tooltip' => 'Como o programador tem que configurar cada página, não faz sentido haver um
+            botão para criar ou excluir uma.',
+        'edit_page_tooltip'   => 'Associar estudantes'
     ]
 ];

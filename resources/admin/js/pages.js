@@ -1,4 +1,4 @@
-window.editEvent   = function (pageId) {
+window.editPage = function (pageId) {
     let options = {
         method : 'GET',
         headers: window.ajaxHeaders
@@ -32,31 +32,6 @@ window.editEvent   = function (pageId) {
         });
     });
 }
-window.deleteEvent = function (id) {
-    let options = {
-        method : 'DELETE',
-        headers: window.ajaxHeaders
-    }
-    fetch(`./pages/${id}`, options).then(function (response) {
-        if (!response.ok) {
-            window.modalMessage({
-                title      : document.getElementById('error_get_page_title').value,
-                description: document.getElementById('error_delete_page').value,
-            });
-            return false;
-        }
-        response.json().then(function (jsonResponse) {
-            if (jsonResponse.error) {
-                window.modalMessage({
-                    title      : document.getElementById('error_delete_page').value,
-                    description: jsonResponse.error,
-                });
-            } else {
-                window.location.reload();
-            }
-        });
-    })
-}
 document.getElementById('form_save_page').addEventListener('submit', function (event) {
     event.preventDefault();
     let method = document.getElementById('mode_page_modal').value === 'edit' ? 'PUT' : 'POST';
@@ -89,10 +64,4 @@ document.getElementById('form_save_page').addEventListener('submit', function (e
             }
         });
     });
-});
-
-document.getElementById('btn_create_page').addEventListener('click', function () {
-    document.getElementById('mode_page_modal').value = 'create';
-    document.getElementById('form_save_page').reset();
-    bootstrap.Modal.getOrCreateInstance('#modal_edit_page').show();
 });
