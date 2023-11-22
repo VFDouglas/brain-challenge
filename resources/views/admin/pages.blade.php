@@ -27,15 +27,29 @@ $pageTitle = __('admin.pages.page_title');
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{__()}}</h5>
+                    <h5 class="modal-title">{{__('admin.pages.modal_associate_student_title')}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-hover text-center" id="table_associate_user">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>{{__('admin.pages.edit_page_user_name')}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{__('admin.pages.edit_page_cancel_button')}}
+                    </button>
+                    <button type="button" class="btn btn-primary">{{__('admin.pages.edit_page_save_button')}}</button>
                 </div>
             </div>
         </div>

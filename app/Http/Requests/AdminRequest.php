@@ -38,7 +38,7 @@ class AdminRequest extends BaseRequest
                     'location'  => self::NULLABLE_STRING,
                     'starts_at' => self::NULLABLE_DATE,
                     'ends_at'   => self::NULLABLE_DATE,
-                    'status'    => self::NULLABLE_NUMERIC,
+                    'status'    => 'nullable|boolean',
                 ];
                 break;
             case 'users':
@@ -46,7 +46,7 @@ class AdminRequest extends BaseRequest
                     'name'     => self::NULLABLE_STRING,
                     'email'    => self::NULLABLE_EMAIL,
                     'role'     => self::NULLABLE_STRING,
-                    'status'   => self::NULLABLE_NUMERIC,
+                    'status'   => 'nullable|boolean',
                     'event_id' => self::NULLABLE_NUMERIC,
                     'password' => self::NULLABLE_PASSWORD
                 ];

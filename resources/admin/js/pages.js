@@ -13,17 +13,23 @@ window.editPage = function (pageId) {
             return false;
         }
         response.json().then(function (jsonResponse) {
-            if (jsonResponse.id) {
-                document.getElementById('page_id').value        = jsonResponse.id;
-                document.getElementById('page_name').value      = jsonResponse.name;
-                document.getElementById('page_location').value  = jsonResponse.location;
-                document.getElementById('page_starts_at').value = jsonResponse.starts_at;
-                document.getElementById('page_ends_at').value   = jsonResponse.ends_at;
-                document.getElementById('page_status').checked  = !!jsonResponse.status;
-
-                document.getElementById('mode_page_modal').value = 'edit';
+            if (jsonResponse.length > 0) {
+                let html = '';
+                for (const item of jsonResponse) {
+                    html += `
+                        <tr>
+                            <td>
+                                <input type="checkbox" ${item.user_id == item.id ? 'checked' : ''}
+                                       id="user_${item.id}" class="form-check-input">
+                            </td>
+                            <td><label for="user_${item.id}">${item.name}</label></td>
+                        </tr>
+                    `;
+                }
+                document.querySelector('#table_associate_user tbody').innerHTML = html;
                 bootstrap.Modal.getOrCreateInstance('#modal_edit_page').show();
             } else {
+                document.getElementById('table_associate_user').innerHTML = '';
                 window.modalMessage({
                     title      : document.getElementById('error_get_page_title').value,
                     description: 'No page found'

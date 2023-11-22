@@ -117,12 +117,18 @@ return [
         'award_already_exists'          => 'Um premio já existe para este estudante nessa apresentação.'
     ],
     'pages'         => [
-        'page_title'          => 'Página',
-        'page_name_text'      => 'Nome',
-        'page_url_text'       => 'URL',
-        'page_status_text'    => 'Status',
-        'create_page_tooltip' => 'Como o programador tem que configurar cada página, não faz sentido haver um
+        'page_title'                    => 'Página',
+        'page_name_text'                => 'Nome',
+        'page_url_text'                 => 'URL',
+        'page_status_text'              => 'Status',
+        'create_page_tooltip'           => 'Como o programador tem que configurar cada página, não faz sentido haver um
             botão para criar ou excluir uma.',
-        'edit_page_tooltip'   => 'Associar estudantes'
+        'edit_page_tooltip'             => 'Associar estudantes',
+        'modal_associate_student_title' => 'Associar Estudante',
+        'error_get_page_title'          => 'Página',
+        'error_get_page'                => 'Erro ao buscar página',
+        'edit_page_user_name'           => 'Usuário',
+        'edit_page_save_button'         => 'Salvar',
+        'edit_page_cancel_button'       => 'Cancelar'
     ]
 ];
