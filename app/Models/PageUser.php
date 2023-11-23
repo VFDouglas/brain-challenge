@@ -9,5 +9,7 @@ class PageUser extends Model
 {
     use HasFactory;
 
-    protected $table = 'page_user';
+    protected $table      = 'page_user';
+    protected $fillable   = ['page_id', 'user_id', 'event_id'];
+    public    $timestamps = false;
 }

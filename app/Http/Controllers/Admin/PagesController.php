@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\Page;
 use App\Models\PageUser;
 use App\Models\User;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -41,5 +42,24 @@ class PagesController extends Controller
             ->where('users.role', '=', 'S')
             ->get()
             ->toArray();
+    }
+
+    public function savePage($id, AdminRequest $request): array
+    {
+        $response = [];
+        try {
+            PageUser::query()->where('page_id', '=', $id)->delete();
+
+            foreach ($request->users as $user) {
+                PageUser::query()->create([
+                    'page_id'  => $id,
+                    'user_id'  => $user,
+                    'event_id' => $request->eventId,
+                ]);
+            }
+        } catch (Exception $e) {
+            $response['error'] = $e->getMessage();
+        }
+        return $response;
     }
 }

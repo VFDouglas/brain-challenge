@@ -111,7 +111,7 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
         Route::controller(PagesController::class)->group(function () {
             Route::get('pages', 'pages');
             Route::get('pages/{id}', 'getPage')->whereNumber('id');
-            Route::put('pages/{id}', 'editPage')->whereNumber('id');
+            Route::post('pages/{id}', 'savePage')->whereNumber('id');
         });
     });
 

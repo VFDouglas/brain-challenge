@@ -14,13 +14,15 @@ window.editPage = function (pageId) {
         }
         response.json().then(function (jsonResponse) {
             if (jsonResponse.length > 0) {
+                document.getElementById('page_id').value = pageId;
+
                 let html = '';
                 for (const item of jsonResponse) {
                     html += `
                         <tr>
                             <td>
                                 <input type="checkbox" ${item.user_id == item.id ? 'checked' : ''}
-                                       id="user_${item.id}" class="form-check-input">
+                                       data-page-id="${item.id}" class="form-check-input" id="user_${item.id}">
                             </td>
                             <td><label for="user_${item.id}">${item.name}</label></td>
                         </tr>
@@ -40,27 +42,30 @@ window.editPage = function (pageId) {
 }
 document.getElementById('form_save_page').addEventListener('submit', function (event) {
     event.preventDefault();
-    let method = document.getElementById('mode_page_modal').value === 'edit' ? 'PUT' : 'POST';
+
+    let users = [];
+    for (const row of document.querySelectorAll('#table_associate_user tbody tr')) {
+        if (row.querySelector('input[type="checkbox"]:checked')) {
+            users.push(row.querySelector('input[type="checkbox"]:checked').getAttribute('data-page-id'));
+        }
+    }
 
     let options = {
-        method : method,
+        method : 'POST',
         headers: window.ajaxHeaders,
         body   : JSON.stringify({
-            name     : document.getElementById('page_name').value,
-            location : document.getElementById('page_location').value,
-            starts_at: document.getElementById('page_starts_at').value,
-            ends_at  : document.getElementById('page_ends_at').value,
-            status   : document.getElementById('page_status').checked ? '1' : '0'
+            pageId : document.getElementById('page_id').value,
+            eventId: document.getElementById('page_event').value,
+            users  : users
         })
     }
 
-    let url = method === 'PUT' ? `./pages/${document.getElementById('page_id').value}` : `./pages`;
-    fetch(url, options).then(function (response) {
+    fetch(`./pages/${document.getElementById('page_id').value}`, options).then(function (response) {
         if (!response.ok) {
             return false;
         }
-        response.json().then(function (retorno) {
-            if (retorno) {
+        response.json().then(function (response) {
+            if (!response.error) {
                 window.location.reload();
             } else {
                 window.modalMessage({

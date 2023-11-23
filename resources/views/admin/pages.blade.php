@@ -30,27 +30,32 @@ $pageTitle = __('admin.pages.page_title');
                     <h5 class="modal-title">{{__('admin.pages.modal_associate_student_title')}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <table class="table table-hover text-center" id="table_associate_user">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>{{__('admin.pages.edit_page_user_name')}}</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+                <form id="form_save_page">
+                    <input type="hidden" id="page_id">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-hover text-center" id="table_associate_user">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>{{__('admin.pages.edit_page_user_name')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        {{__('admin.pages.edit_page_cancel_button')}}
-                    </button>
-                    <button type="button" class="btn btn-primary">{{__('admin.pages.edit_page_save_button')}}</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            {{__('admin.pages.edit_page_cancel_button')}}
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            {{__('admin.pages.edit_page_save_button')}}
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
