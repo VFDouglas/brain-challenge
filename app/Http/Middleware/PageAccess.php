@@ -100,6 +100,9 @@ class PageAccess
              * Determines if the user has access to the requested page
              */
             $pageAccess = false;
+            if (session('role') == 'A') {
+                $pageAccess = true;
+            }
             foreach (session('page_access') as $item) {
                 if ($item->url == $request->getPathInfo()) {
                     $pageAccess = true;

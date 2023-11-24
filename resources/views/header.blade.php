@@ -3,7 +3,13 @@
 /**
  * Array with the pages user has access
  */
+
+use App\Models\Notification;
+
 $pages = array_column(session('page_access'), 'url');
+
+$notifications = Notification::query();
+dd($notifications->count());
 ?>
         <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
