@@ -130,5 +130,20 @@ return [
         'edit_page_user_name'           => 'Usuário',
         'edit_page_save_button'         => 'Salvar',
         'edit_page_cancel_button'       => 'Cancelar'
-    ]
-];
+    ],
+    'notifications' => [
+        'page_title'                           => 'Notificações',
+        'no_notification_found'                => 'Nenhuma notificação encontrada',
+        'create_notification_modal_title'      => 'Criar Notificação',
+        'edit_notification_modal_title'        => 'Editar Notificação',
+        'error_get_notification'               => 'Erro ao buscar notificação',
+        'error_get_notification_title'         => 'Notificação',
+        'error_get_notification_description'   => 'Nenhuma notificação encontrada',
+        'error_save_notification'              => 'Erro ao salvar a notificação',
+        'notification_title_text'              => 'Título',
+        'notification_description_text'        => 'Descrição',
+        'notification_status_text'             => 'Status',
+        'notification_close_modal_button_text' => 'Fechar',
+        'notification_save_modal_button_text'  => 'Salvar',
+        'create_notification_button_text'      => 'Criar Notificação',
+    ];

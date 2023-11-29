@@ -15,4 +15,5 @@ return [
     'logout_button_text'        => 'Logout',
     'admin_events_button_text'  => 'Events',
     'admin_users_button_text'   => 'Users',
+    'notifications_button_text' => 'Notifications',
 ];

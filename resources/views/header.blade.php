@@ -9,7 +9,6 @@ use App\Models\Notification;
 $pages = array_column(session('page_access'), 'url');
 
 $notifications = Notification::query();
-dd($notifications->count());
 ?>
         <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -132,6 +131,13 @@ dd($notifications->count());
                                     <i class="fa-solid fa-file-lines me-1
                                     @if(request()->path() =='admin/pages')text-white @endif"></i>&nbsp;
                                     <span>{{__('header.pages_button_text')}}</span>
+                                </a>
+                                <a class="nav-link collapsed
+                                @if(request()->path() =='admin/notifications')text-white pe-none @endif"
+                                   href="/admin/notifications">
+                                    <i class="fa-solid fa-bell
+                                    @if(request()->path() =='admin/notifications')text-white @endif"></i>&nbsp;
+                                    <span>{{__('header.notifications_button_text')}}</span>
                                 </a>
                             </div>
                         </div>

@@ -125,6 +125,21 @@ return [
         'error_get_page'                => 'Error getting page',
         'edit_page_user_name'           => 'User',
         'edit_page_save_button'         => 'Save',
-        'edit_page_cancel_button'         => 'Cancel'
+        'edit_page_cancel_button'       => 'Cancel'
+    ],
+    'notifications' => [
+        'page_title'                           => 'Notifications',
+        'no_notification_found'                => 'No notification found',
+        'create_notification_modal_title'      => 'Create Notification',
+        'edit_notification_modal_title'        => 'Edit Notification',
+        'error_get_notification'               => 'Error getting notification',
+        'error_get_notification_title'         => 'Notification',
+        'error_save_notification'              => 'Error saving the notification',
+        'notification_title_text'              => 'Title',
+        'notification_description_text'        => 'Description',
+        'notification_status_text'             => 'Status',
+        'notification_close_modal_button_text' => 'Close',
+        'notification_save_modal_button_text'  => 'Save',
+        'create_notification_button_text'      => 'Create Notification',
     ]
 ];

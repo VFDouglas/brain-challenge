@@ -3,6 +3,7 @@
 use App\Http\Controllers\AcceptanceTermsController;
 use App\Http\Controllers\Admin\AwardsController as AdminAwardsController;
 use App\Http\Controllers\Admin\EventsController;
+use App\Http\Controllers\Admin\NotificationsController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PresentationsController as AdminPresentationsController;
 use App\Http\Controllers\Admin\SchedulesController as AdminSchedulesController;
@@ -112,6 +113,13 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
             Route::get('pages', 'pages');
             Route::get('pages/{id}', 'getPage')->whereNumber('id');
             Route::post('pages/{id}', 'savePage')->whereNumber('id');
+        });
+        Route::controller(NotificationsController::class)->group(function () {
+            Route::get('notifications', 'notifications');
+            Route::get('notifications/{id}', 'getNotification')->whereNumber('id');
+            Route::post('notifications', 'createNotification');
+            Route::put('notifications/{id}', 'editNotification')->whereNumber('id');
+            Route::delete('notifications/{id}', 'deleteNotification')->whereNumber('id');
         });
     });
 
