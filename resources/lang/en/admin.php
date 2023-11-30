@@ -141,5 +141,7 @@ return [
         'notification_close_modal_button_text' => 'Close',
         'notification_save_modal_button_text'  => 'Save',
         'create_notification_button_text'      => 'Create Notification',
+        'notification_already_exists'          => 'A notification with this title already exists.',
+        'cannot_delete_parent_user'            => 'The notification has already been sent to a user.'
     ]
 ];

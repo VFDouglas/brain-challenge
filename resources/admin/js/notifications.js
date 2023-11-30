@@ -1,4 +1,4 @@
-window.editNotification = function (notificationId) {
+window.editNotification   = function (notificationId) {
     let options = {
         method : 'GET',
         headers: window.ajaxHeaders
@@ -28,6 +28,31 @@ window.editNotification = function (notificationId) {
             }
         });
     });
+}
+window.deleteNotification = function (id) {
+    let options = {
+        method : 'DELETE',
+        headers: window.ajaxHeaders
+    }
+    fetch(`./notifications/${id}`, options).then(function (response) {
+        if (!response.ok) {
+            window.modalMessage({
+                title      : document.getElementById('error_get_event_title').value,
+                description: document.getElementById('error_delete_event').value,
+            });
+            return false;
+        }
+        response.json().then(function (jsonResponse) {
+            if (jsonResponse.error) {
+                window.modalMessage({
+                    title      : document.getElementById('error_delete_event').value,
+                    description: jsonResponse.error,
+                });
+            } else {
+                window.location.reload();
+            }
+        });
+    })
 }
 document.getElementById('form_save_notification').addEventListener('submit', function (event) {
     event.preventDefault();
