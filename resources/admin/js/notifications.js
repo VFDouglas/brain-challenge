@@ -1,4 +1,6 @@
 window.editNotification   = function (notificationId) {
+    document.getElementById('mode_notification_modal').value = 'edit';
+
     let options = {
         method : 'GET',
         headers: window.ajaxHeaders
@@ -57,20 +59,17 @@ window.deleteNotification = function (id) {
 document.getElementById('form_save_notification').addEventListener('submit', function (event) {
     event.preventDefault();
 
-    let users = [];
-    for (const row of document.querySelectorAll('#table_associate_user tbody tr')) {
-        if (row.querySelector('input[type="checkbox"]:checked')) {
-            users.push(row.querySelector('input[type="checkbox"]:checked').getAttribute('data-notification-id'));
-        }
-    }
+    let method = document.getElementById('mode_notification_modal').value === 'edit' ? 'PUT' : 'POST'
 
     let options = {
-        method : 'POST',
+        method : method,
         headers: window.ajaxHeaders,
         body   : JSON.stringify({
             notificationId: document.getElementById('notification_id').value,
+            title         : document.getElementById('notification_title').value,
+            description   : document.getElementById('notification_description').value,
             eventId       : document.getElementById('notification_event').value,
-            users         : users
+            status        : document.getElementById('notification_status').checked
         })
     }
 
@@ -94,4 +93,5 @@ document.getElementById('form_save_notification').addEventListener('submit', fun
 document.getElementById('btn_create_notification').addEventListener('click', function (event) {
     bootstrap.Modal.getOrCreateInstance('#modal_edit_notification').show();
     document.getElementById('form_save_notification').reset();
+    document.getElementById('mode_notification_modal').value = 'create';
 });

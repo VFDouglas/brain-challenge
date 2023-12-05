@@ -57,6 +57,10 @@ window.deleteAward = function (id) {
         });
     })
 }
+
+window.associateUser = function (notificationId) {
+
+}
 document.getElementById('form_save_award').addEventListener('submit', function (event) {
     event.preventDefault();
     let method = document.getElementById('mode_award_modal').value === 'edit' ? 'PUT' : 'POST'

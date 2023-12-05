@@ -146,5 +146,8 @@ return [
         'notification_close_modal_button_text' => 'Fechar',
         'notification_save_modal_button_text'  => 'Salvar',
         'create_notification_button_text'      => 'Criar Notificação',
-        'notification_already_exists'          => 'Uma notificação com esse título já existe.'
+        'notification_already_exists'          => 'Uma notificação com esse título já existe.',
+        'edit_tooltip'                         => 'Editar Notificação',
+        'delete_tooltip'                       => 'Excluir Notificação',
+        'bind_tooltip'                         => 'Associar Usários',
     ];

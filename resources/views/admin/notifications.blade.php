@@ -96,6 +96,29 @@ $pageTitle = __('admin.notifications.page_title');
             </div>
         </div>
     </div>
+    <div class="modal fade" id="bind_user_modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="bind_user_modalLabel">
+                        {{__('admin.notifications.bind_tooltip')}}
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row align-items-center justify-content-end">
             <div class="col-12 col-sm-5 col-lg-5 col-xxl-3">
@@ -125,6 +148,8 @@ $pageTitle = __('admin.notifications.page_title');
                             <tr class="text-center">
                                 <th>{{__('admin.notifications.notification_title_text')}}</th>
                                 <th>{{__('admin.notifications.notification_description_text')}}</th>
+                                <th>{{__('admin.notifications.notification_status_text')}}</th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -135,12 +160,29 @@ $pageTitle = __('admin.notifications.page_title');
                                     <td>{{$item['title']}}</td>
                                     <td>{{$item['description']}}</td>
                                     <td>
-                                        <button class="btn" onclick="editNotification({{$item['id']}})">
+                                        <div class="form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                   {{$item['status'] ? 'checked' : ''}} disabled>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn" onclick="associateUser({{$item['id']}})"
+                                                data-bs-toggle="tooltip"
+                                                title="{{__('admin.notifications.bind_tooltip')}}">
+                                            <i class="fa-solid fa-user"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn" onclick="editNotification({{$item['id']}})"
+                                                data-bs-toggle="tooltip"
+                                                title="{{__('admin.notifications.edit_tooltip')}}">
                                             <i class="fa-solid fa-edit"></i>
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="btn" onclick="deleteNotification({{$item['id']}})">
+                                        <button class="btn" onclick="deleteNotification({{$item['id']}})"
+                                                data-bs-toggle="tooltip"
+                                                title="{{__('admin.notifications.delete_tooltip')}}">
                                             <i class="fa-solid fa-trash-alt"></i>
                                         </button>
                                     </td>
