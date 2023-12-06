@@ -146,5 +146,11 @@ return [
         'edit_tooltip'                         => 'Edit Notification',
         'delete_tooltip'                       => 'Delete Notification',
         'bind_tooltip'                         => 'Bind Users',
+        'modal_bind_user_name'                 => 'User',
+        'modal_bind_save_button'               => 'Save',
+        'modal_bind_cancel_button'             => 'Cancel',
+        'no_user_found'                        => 'No user found',
+        'error_bind_notification_user'         => 'Error binding notification to user',
+        'success_bind_notification_user'       => 'Notification successfully bound to user',
     ]
 ];

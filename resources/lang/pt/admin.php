@@ -150,4 +150,11 @@ return [
         'edit_tooltip'                         => 'Editar Notificação',
         'delete_tooltip'                       => 'Excluir Notificação',
         'bind_tooltip'                         => 'Associar Usários',
-    ];
+        'modal_bind_user_name'                 => 'Usúario',
+        'modal_bind_save_button'               => 'Salvar',
+        'modal_bind_cancel_button'             => 'Cancelar',
+        'no_user_found'                        => 'Nenhum usuário encontrado',
+        'error_bind_notification_user'         => 'Erro ao associar notificação ao usuário',
+        'success_bind_notification_user'       => 'Notificação associada ao usuário com sucesso'
+    ]
+];

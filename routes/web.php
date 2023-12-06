@@ -117,6 +117,8 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
         Route::controller(NotificationsController::class)->group(function () {
             Route::get('notifications', 'notifications');
             Route::get('notifications/{id}', 'getNotification')->whereNumber('id');
+            Route::get('notification_users', 'notificationUsers');
+            Route::post('notification_users', 'postNotificationUsers');
             Route::post('notifications', 'createNotification');
             Route::put('notifications/{id}', 'editNotification')->whereNumber('id');
             Route::delete('notifications/{id}', 'deleteNotification')->whereNumber('id');

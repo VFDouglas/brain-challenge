@@ -45,6 +45,7 @@ window.ajaxHeaders = new Headers({
  * @param {string} params.description Message for the modal body.
  * @param {string} params.type Type of the message to be displayed. Info, success, warning or error. Default: info.
  * @param {number} params.time Time for the modal to close.
+ * @param {Function} params.callback Callback function.
  **/
 window.modalMessage = function (params = {}) {
     if (!params.title || !params.description) {
@@ -72,6 +73,16 @@ window.modalMessage = function (params = {}) {
         setTimeout(() => {
             bootstrap.Modal.getOrCreateInstance('#modalMessage').hide();
         }, params.time);
+    }
+
+    if (typeof params.callback === 'function') {
+        if (typeof params.time === 'number') {
+            setTimeout(() => {
+                params.callback();
+            }, params.time);
+        } else {
+            params.callback();
+        }
     }
 }
 

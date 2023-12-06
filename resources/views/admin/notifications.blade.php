@@ -23,6 +23,7 @@ $pageTitle = __('admin.notifications.page_title');
            value="{{__('admin.notifications.create_notification_modal_title')}}">
     <input type="hidden" id="edit_notification_modal_title"
            value="{{__('admin.notifications.edit_notification_modal_title')}}">
+    <input type="hidden" id="no_user_found" value="{{__('admin.notifications.no_user_found')}}">
     <div class="modal fade" id="modal_edit_notification" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -99,23 +100,44 @@ $pageTitle = __('admin.notifications.page_title');
     <div class="modal fade" id="bind_user_modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="bind_user_modalLabel">
-                        {{__('admin.notifications.bind_tooltip')}}
-                    </h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-
+                <form id="form_bind_user_notification">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="bind_user_modalLabel">
+                            {{__('admin.notifications.bind_tooltip')}}
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-sm table-hover text-center" id="table_bind_user">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <input type="checkbox" class="form-check-input" id="check_all"
+                                                       onclick="checkAllUsers(this)">
+                                            </th>
+                                            <th class="text-start">
+                                                <label for="check_all">
+                                                    {{__('admin.notifications.modal_bind_user_name')}}
+                                                </label>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            {{__('admin.notifications.modal_bind_cancel_button')}}
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            {{__('admin.notifications.modal_bind_save_button')}}
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -41,3 +41,7 @@ html {
 .div_schedules {
     box-shadow: 0 3px 6px #00000029;
 }
+
+#modalMessage {
+    z-index: 2000 !important;
+}

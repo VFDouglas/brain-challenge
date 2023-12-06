@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminRequest;
 use App\Models\Event;
 use App\Models\Notification;
+use App\Models\NotificationUser;
 use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Foundation\Application as FoundationApplication;
@@ -28,6 +29,42 @@ class NotificationsController extends Controller
             'eventId'       => $eventId,
             'notifications' => $notifications,
         ]);
+    }
+
+    public function notificationUsers(): array
+    {
+        return User::query()
+            ->leftJoin('notification_user', 'users.id', '=', 'notification_user.user_id')
+            ->where('role', '=', 'S')
+            ->where('status', '=', 1)
+            ->orderBy('name')
+            ->get()
+            ->toArray();
+    }
+
+    public function postNotificationUsers(): array
+    {
+        $response = [];
+        try {
+            NotificationUser::query()
+                ->where('event_id', '=', request('eventId'))
+                ->where('notification_id', '=', request('notificationId'))
+                ->delete();
+
+            foreach (request('users') as $user) {
+                NotificationUser::query()->create([
+                    'event_id'        => request('eventId'),
+                    'notification_id' => request('notificationId'),
+                    'user_id'         => $user
+                ]);
+            }
+            $response['error']   = '';
+            $response['message'] = __('admin.notifications.success_bind_notification_user');
+        } catch (Exception $e) {
+            $response['error'] = /*__('admin.notifications.error_bind_notification_user') ??*/
+                $e->getMessage();
+        }
+        return $response;
     }
 
     public function getNotification($id): array
@@ -81,14 +118,10 @@ class NotificationsController extends Controller
             $response['error'] = '';
             $response['user']  = $notification->get()->toArray();
         } catch (Exception $e) {
-            switch (true) {
-                case str_contains(strtoupper($e->getMessage()), 'DUPLICATE ENTRY'):
-                    $response['error'] = __('admin.users.user_already_exists');
-                    break;
-                default:
-                    $response['error'] = $e->getMessage();
-                    break;
-            }
+            $response['error'] = match (true) {
+                str_contains(strtoupper($e->getMessage()), 'DUPLICATE ENTRY') => __('admin.users.user_already_exists'),
+                default => $e->getMessage(),
+            };
         }
         return $response;
     }
@@ -107,14 +140,12 @@ class NotificationsController extends Controller
             $response['error']        = '';
             $response['notification'] = $notification->get()->toArray();
         } catch (Exception $e) {
-            switch (true) {
-                case str_contains($e->getMessage(), 'Cannot delete or update a parent row'):
-                    $response['error'] = __('admin.notifications.cannot_delete_parent_user');
-                    break;
-                default:
-                    $response['error'] = $e->getMessage();
-                    break;
-            }
+            $response['error'] = match (true) {
+                str_contains($e->getMessage(), 'Cannot delete or update a parent row') => __(
+                    'admin.notifications.cannot_delete_parent_user'
+                ),
+                default => $e->getMessage(),
+            };
         }
         return $response;
     }
