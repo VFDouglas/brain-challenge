@@ -45,3 +45,7 @@ html {
 #modalMessage {
     z-index: 2000 !important;
 }
+
+#li_notifications .accordion-button::after {
+    display: none;
+}

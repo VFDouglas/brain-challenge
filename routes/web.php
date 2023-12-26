@@ -41,6 +41,7 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
         Route::get('home', 'index');
         Route::post('log_access', 'logAccess');
         Route::get('detailed_score', 'detailedScore');
+        Route::put('read_notification/{id}', 'readNotification')->whereNumber('id');
     });
 
     Route::controller(AcceptanceTermsController::class)->group(function () {

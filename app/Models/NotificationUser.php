@@ -10,7 +10,7 @@ class NotificationUser extends Model
     use HasFactory;
 
     protected $table    = 'notification_user';
-    protected $fillable = ['event_id', 'notification_id', 'user_id'];
+    protected $fillable = ['event_id', 'notification_id', 'user_id', 'read_at'];
 
     public $timestamps = false;
 }

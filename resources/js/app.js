@@ -114,7 +114,8 @@ window.logAccess = function (page, description) {
  * @author Douglas Vicentini Ferreira
  * @since 28/06/2021
  **/
-function confirma_participacao(valor) {
+function confirma_participacao(valor)
+{
     gera_log("Boas Vindas", "Clicou para confirmar participação.");
     modalMessage("Aguarde um momento...", "alert-warning", "N", "S", null, "spinner-grow");
 
@@ -148,7 +149,8 @@ const DATA = new Intl.DateTimeFormat("pt-BR", {
     hour12: false
 });
 
-function busca_detalhe_ranking(codrepresentante) {
+function busca_detalhe_ranking(codrepresentante)
+{
     document.querySelector(".spinner").classList.remove("d-none");
     document.body.classList.add("pe-none");
 
@@ -200,10 +202,12 @@ function busca_detalhe_ranking(codrepresentante) {
                 let cor_pontuacao = "";
                 if (retorno.debitocredito[i] === "C" && retorno.pontuacao[i] > 0) {
                     cor_pontuacao = `<h5 class='text-success'>+ ${parseInt(retorno.pontuacao[i])}`;
-                } else if (retorno.debitocredito[i] === "D" && retorno.pontuacao[i] > 0) {
-                    cor_pontuacao = `<h5 class='text-danger'>- ${parseInt(retorno.pontuacao[i])}`;
                 } else {
-                    cor_pontuacao = `<h5>+ ${parseInt(retorno.pontuacao[i])}`;
+                    if (retorno.debitocredito[i] === "D" && retorno.pontuacao[i] > 0) {
+                        cor_pontuacao = `<h5 class='text-danger'>- ${parseInt(retorno.pontuacao[i])}`;
+                    } else {
+                        cor_pontuacao = `<h5>+ ${parseInt(retorno.pontuacao[i])}`;
+                    }
                 }
                 html_pontuacao += `
 					<div class='row'>
@@ -225,7 +229,8 @@ function busca_detalhe_ranking(codrepresentante) {
 }
 
 /** Busca as notificações do RCA **/
-function getNotifications(modal = "N") {
+function getNotifications(modal = "N")
+{
     if (location.href.includes("/admin")) {
         return false;
     }
@@ -251,7 +256,8 @@ function getNotifications(modal = "N") {
 
             if (modal === "S") {
                 gera_log("Geral", "Erro ao buscar notificações.");
-                modalMessage("Dados n&atilde;o encontrados.", "alert-danger", "S", "S", null, "far fa-times-circle", 2000);
+                modalMessage(
+                    "Dados n&atilde;o encontrados.", "alert-danger", "S", "S", null, "far fa-times-circle", 2000);
             }
             return false;
         }
@@ -259,11 +265,16 @@ function getNotifications(modal = "N") {
             document.querySelector(".spinner").classList.add("d-none");
             document.body.classList.remove("pe-none");
             if (retorno.msg === "sucesso") {
-                if (modal === "S") gera_log("Geral", "Notificações carregadas com sucesso.");
+                if (modal === "S") {
+                    gera_log("Geral", "Notificações carregadas com sucesso.");
+                }
 
                 let html_msg_notificacao = `
 					${retorno.qtdnaolida > 0 ? "VOC&Ecirc; TEM <span id='qtd_notificacao'>" + retorno.qtdnaolida.toString().
-                    padStart(2, "0") + "</span>" + (retorno.qtdnaolida > 1 ? " NOVAS MENSAGENS" : " NOVA MENSAGEM") : "VOC&Ecirc; N&Atilde;O TEM NENHUMA NOVA MENSAGEM"}
+                    padStart(
+                        2,
+                        "0"
+                    ) + "</span>" + (retorno.qtdnaolida > 1 ? " NOVAS MENSAGENS" : " NOVA MENSAGEM") : "VOC&Ecirc; N&Atilde;O TEM NENHUMA NOVA MENSAGEM"}
 				`;
 
                 document.getElementById("msg_notificacao").innerHTML = html_msg_notificacao;
@@ -291,7 +302,9 @@ function getNotifications(modal = "N") {
                 }
 
                 document.getElementById("div_notificacoes_rca").innerHTML = retorno.html;
-                if (modal == "S") $("#modal_notificacao_rca").modal();
+                if (modal == "S") {
+                    $("#modal_notificacao_rca").modal();
+                }
             } else {
                 if (modal == "S") {
                     gera_log("Geral", "Erro ao buscar notificações.");
@@ -302,75 +315,47 @@ function getNotifications(modal = "N") {
     })
 }
 
-function leitura_notificacao(idnotificacao) {
-    gera_log("Geral", "Script acionado para ler notificação.");
-    if (document.getElementById("notificacao" + idnotificacao).getAttribute("lida") === "S") {
-        return false;
-    }
+window.readNotification = function (notificationId) {
+    window.logAccess('*', 'Clicked to read notification');
 
-    let qtd_notificacao = document.getElementById("qtd_notificacao").innerHTML;
-
-    let headers = new Headers();
-    headers.append("pragma", "no-cache");
-    headers.append("cache-control", "no-cache");
+    let qttUnread = +document.getElementById('unread_notifications').getAttribute('data-unread-notifications');
 
     let options = {
-        method : "POST",
-        headers: headers,
-        body   : JSON.stringify({"idnotificacao": idnotificacao})
+        method : 'PUT',
+        headers: window.ajaxHeaders
     }
 
-    fetch("client/leitura_notificacao_rca.php", options).then(function (response) {
-        if (response.status == 200) {
-            response.json().then(function (retorno) {
-                if (retorno.msg == "sucesso") {
-                    gera_log("Geral", "Notificação " + idnotificacao + " marcada como lida.");
-                    document.getElementById("notificacao" + idnotificacao).setAttribute("lida", "S");
-                    document.getElementById("icone_notificacao" + idnotificacao).remove();
-                    qtd_notificacao -= 1;
-
-                    let html_msg_notificacao                             = `
-						${qtd_notificacao > 0 ? "VOC&Ecirc; TEM <span id='qtd_notificacao'>" + qtd_notificacao.toString().
-                        padStart(2, "0") + "</span>" + (qtd_notificacao > 1 ? " NOVAS MENSAGENS" : " NOVA MENSAGEM") : "VOC&Ecirc; N&Atilde;O TEM NENHUMA NOVA MENSAGEM"}
-					`;
-                    document.getElementById("msg_notificacao").innerHTML = html_msg_notificacao;
-
-                    if (qtd_notificacao > 0) {
-                        document.getElementById("div_msg_notificacao").
-                            classList.
-                            add("bg-amarelo-notificacao", "cor_texto_com_notificacao");
-                        document.getElementById("div_msg_notificacao").
-                            classList.
-                            remove("bg-light", "cor_texto_sem_notificacao");
-
-                        document.getElementById("icone_notificacao_home").classList.add("fa-bell");
-                        document.getElementById("icone_notificacao_home").classList.remove("fa-bell-slash");
-                    } else {
-                        document.getElementById("div_msg_notificacao").
-                            classList.
-                            remove("bg-amarelo-notificacao", "cor_texto_com_notificacao");
-                        document.getElementById("div_msg_notificacao").
-                            classList.
-                            add("bg-light", "cor_texto_sem_notificacao");
-
-                        document.getElementById("icone_notificacao_home").classList.remove("fa-bell");
-                        document.getElementById("icone_notificacao_home").classList.add("fa-bell-slash");
-                    }
-                } else {
-                    gera_log("Geral", "Erro ao ler notificação.");
-                }
-            });
-        } else {
-            gera_log("Geral", "Erro ao ler notificação.");
+    fetch(`./read_notification/${notificationId}`, options).then(function (response) {
+        if (!response.ok) {
+            window.logAccess('*', 'Failed to read notification');
         }
+        response.json().then(function (jsonResponse) {
+            if (!jsonResponse.error) {
+                document.getElementById('unread_notifications').setAttribute(
+                    'data-unread-notifications', (qttUnread - 1).toString()
+                );
+                document.getElementById(`btn_notification_${notificationId}`).removeAttribute('onclick');
+                document.getElementById(`icon_notification_${notificationId}`).remove();
+
+                if (qttUnread - 1 === 0) {
+                    document.getElementById('unread_notifications').remove();
+                } else {
+                    document.querySelector('#unread_notifications b').innerHTML = '0';
+                }
+            } else {
+                window.logAccess('*', 'Failed to read notification');
+            }
+        });
     })
 }
+
 
 /**
  * Salva o parãmetro da convenção
  * @param id
  */
-function salva_parametro(id) {
+function salva_parametro(id)
+{
     document.getElementById(`btn_salvar_${id}`).querySelector('i').classList.add('d-none');
     document.getElementById(`btn_salvar_${id}`).querySelector('span').classList.remove('d-none');
 
@@ -398,7 +383,10 @@ function salva_parametro(id) {
     }
     fetch('/site/convencao/client/salva_parametro.php', options).then(function (response) {
         if (!response.ok) {
-            modalMessage("Erro ao realizar requisi&ccedil;&atilde;o.", "alert-danger", "S", "S", '', "far fa-times-circle", 2000);
+            modalMessage(
+                "Erro ao realizar requisi&ccedil;&atilde;o.", "alert-danger", "S", "S", '', "far fa-times-circle",
+                2000
+            );
             document.getElementById(`btn_salvar_${id}`).querySelector('i').classList.remove('d-none');
             document.getElementById(`btn_salvar_${id}`).querySelector('span').classList.add('d-none');
             return false;
@@ -449,7 +437,9 @@ $(".btn_viagem").click(function () {
 $("#form_pergunta_quiz").submit(function (e) {
     e.preventDefault();
     $("#btn_envia_resposta").prop("disabled", true);
-    gera_log("Quiz", `Clicou para responder a pergunta '${document.getElementById("nome_pergunta").innerText}' do fornecedor '${document.getElementById("nome_apresentacao").innerText}'.`);
+    gera_log(
+        "Quiz", `Clicou para responder a pergunta '${document.getElementById(
+            "nome_pergunta").innerText}' do fornecedor '${document.getElementById("nome_apresentacao").innerText}'.`);
 
     let valor    = $(".radio_opcao_pergunta:checked").attr("correta");
     let codopcao = $(".radio_opcao_pergunta:checked").attr("codopcao");
@@ -464,7 +454,10 @@ $("#form_pergunta_quiz").submit(function (e) {
         success : function (retorno) {
             let data_atual = new Date();
             if (retorno.msg === "sucesso") {
-                gera_log("Quiz", `Respondeu a pergunta '${document.getElementById("nome_pergunta").innerText}' do fornecedor '${document.getElementById("nome_apresentacao").innerText}' com sucesso.`);
+                gera_log(
+                    "Quiz", `Respondeu a pergunta '${document.getElementById(
+                        "nome_pergunta").innerText}' do fornecedor '${document.getElementById(
+                        "nome_apresentacao").innerText}' com sucesso.`);
                 if (valor === "S") {
                     modalMessage("Resposta correta.", "alert-success", "N", "S", null, "far fa-check-circle", 2000);
                 } else {
@@ -474,22 +467,29 @@ $("#form_pergunta_quiz").submit(function (e) {
                     window.location.href = "quiz.php?v=" + data_atual.getSeconds();
                 }, 1500);
             } else {
-                gera_log("Quiz", `Erro ao responder a pergunta '${document.getElementById("nome_pergunta").innerText}' do fornecedor '${document.getElementById("nome_apresentacao").innerText}'.`);
+                gera_log(
+                    "Quiz", `Erro ao responder a pergunta '${document.getElementById(
+                        "nome_pergunta").innerText}' do fornecedor '${document.getElementById(
+                        "nome_apresentacao").innerText}'.`);
                 modalMessage(retorno.msg, "alert-danger", "S", "S", null, null, 2000);
                 $("#btn_envia_resposta").prop("disabled", false);
             }
         },
         error   : function () {
-            gera_log("Quiz", `Erro ao responder a pergunta '${document.getElementById("nome_pergunta").innerText}' do fornecedor '${document.getElementById("nome_apresentacao").innerText}'.`);
+            gera_log(
+                "Quiz", `Erro ao responder a pergunta '${document.getElementById(
+                    "nome_pergunta").innerText}' do fornecedor '${document.getElementById(
+                    "nome_apresentacao").innerText}'.`);
             $("#btn_envia_resposta").prop("disabled", false);
         }
     });
 });
 $("#form_busca_apresentacao").submit(function (e) {
     e.preventDefault();
-    gera_log("QR Code", `Clicou para buscar a apresentação com o QR Code ${document.getElementById("codigo_apresentacao").
-        value.
-        toUpperCase()}.`);
+    gera_log(
+        "QR Code", `Clicou para buscar a apresentação com o QR Code ${document.getElementById("codigo_apresentacao").
+            value.
+            toUpperCase()}.`);
     insere_visita_estande(document.getElementById("codigo_apresentacao").value.toUpperCase());
 });
 $("#btn_modo_ranking").click(function () {
@@ -500,7 +500,9 @@ $("#btn_modo_ranking").click(function () {
 });
 $("#select_convencao").change(function () {
     let tipo = $("#btn_modo_ranking").attr("tipo");
-    if (tipo === "convencao") window.location.href = "ranking.php?codintroducao=" + $(this).val();
+    if (tipo === "convencao") {
+        window.location.href = "ranking.php?codintroducao=" + $(this).val();
+    }
 });
 
 $(".btn_curte_foto").click(function () {
@@ -642,7 +644,8 @@ if (document.getElementById("form_dados_fornecedor")) {
             }
             response.json().then(function (retorno) {
                 if (retorno.msg === "sucesso") {
-                    modalMessage("Dados salvos com sucesso.", "alert-success", "N", "S", null, "far fa-check-circle", 2000);
+                    modalMessage(
+                        "Dados salvos com sucesso.", "alert-success", "N", "S", null, "far fa-check-circle", 2000);
                     setTimeout(() => {
                         window.location.href = "fornecedor_resp_receb.php";
                     }, 1500);
@@ -664,15 +667,24 @@ if (document.getElementById("form_participante_fornecedor")) {
             let codintroducao = element.querySelector(".codintroducao_participante").value;
             let nome          = element.querySelector(".nome_participante").value;
             let cpf           = element.querySelector(".cpf_participante").value.replace(/\D/g, "");
-            let dia1almoco    = element.querySelector(".dia1almoco") ? (element.querySelector(".dia1almoco").checked ? "S" : "N") : null;
-            let dia1jantar    = element.querySelector(".dia1jantar") ? (element.querySelector(".dia1jantar").checked ? "S" : "N") : null;
-            let dia1palestra  = element.querySelector(".dia1palestra") ? (element.querySelector(".dia1palestra").checked ? "S" : "N") : null;
-            let dia2almoco    = element.querySelector(".dia2almoco") ? (element.querySelector(".dia2almoco").checked ? "S" : "N") : null;
-            let dia2jantar    = element.querySelector(".dia2jantar") ? (element.querySelector(".dia2jantar").checked ? "S" : "N") : null;
-            let dia2palestra  = element.querySelector(".dia2palestra") ? (element.querySelector(".dia2palestra").checked ? "S" : "N") : null;
-            let dia3almoco    = element.querySelector(".dia3almoco") ? (element.querySelector(".dia3almoco").checked ? "S" : "N") : null;
-            let dia3jantar    = element.querySelector(".dia3jantar") ? (element.querySelector(".dia3jantar").checked ? "S" : "N") : null;
-            let dia3palestra  = element.querySelector(".dia3palestra") ? (element.querySelector(".dia3palestra").checked ? "S" : "N") : null;
+            let dia1almoco    = element.querySelector(".dia1almoco") ? (element.querySelector(
+                ".dia1almoco").checked ? "S" : "N") : null;
+            let dia1jantar    = element.querySelector(".dia1jantar") ? (element.querySelector(
+                ".dia1jantar").checked ? "S" : "N") : null;
+            let dia1palestra  = element.querySelector(".dia1palestra") ? (element.querySelector(
+                ".dia1palestra").checked ? "S" : "N") : null;
+            let dia2almoco    = element.querySelector(".dia2almoco") ? (element.querySelector(
+                ".dia2almoco").checked ? "S" : "N") : null;
+            let dia2jantar    = element.querySelector(".dia2jantar") ? (element.querySelector(
+                ".dia2jantar").checked ? "S" : "N") : null;
+            let dia2palestra  = element.querySelector(".dia2palestra") ? (element.querySelector(
+                ".dia2palestra").checked ? "S" : "N") : null;
+            let dia3almoco    = element.querySelector(".dia3almoco") ? (element.querySelector(
+                ".dia3almoco").checked ? "S" : "N") : null;
+            let dia3jantar    = element.querySelector(".dia3jantar") ? (element.querySelector(
+                ".dia3jantar").checked ? "S" : "N") : null;
+            let dia3palestra  = element.querySelector(".dia3palestra") ? (element.querySelector(
+                ".dia3palestra").checked ? "S" : "N") : null;
 
             if (nome) {
                 dados.push({
@@ -713,7 +725,8 @@ if (document.getElementById("form_participante_fornecedor")) {
                 if (retorno.erros.length > 0) {
                     modalMessage(retorno.erros.join("<br>"), "alert-danger", "N", "S", null, "far fa-times-circle");
                 } else {
-                    modalMessage("Dados salvos com sucesso.", "alert-success", "N", "S", null, "far fa-check-circle", 2000);
+                    modalMessage(
+                        "Dados salvos com sucesso.", "alert-success", "N", "S", null, "far fa-check-circle", 2000);
                     setTimeout(() => {
                         window.location.href = "fornecedor_resp_receb.php";
                     }, 1000);
@@ -768,10 +781,12 @@ if (document.getElementById("btn_associacao")) {
                     if (element.querySelector(".radio_apresentacao").checked) {
                         count_inicial++;
                     }
-                } else if (tipo == "participante") {
-                    json.push({
-                        "codparticipante": element.querySelector(".codigo").innerText
-                    });
+                } else {
+                    if (tipo == "participante") {
+                        json.push({
+                            "codparticipante": element.querySelector(".codigo").innerText
+                        });
+                    }
                 }
             }
         })
@@ -780,7 +795,10 @@ if (document.getElementById("btn_associacao")) {
             dados.excluir = "S";
         }
         if (count_inicial == 0 && tipo == "apresentacao" && count > 0) {
-            modalMessage("Informe a apresenta&ccedil;&atilde;o inicial.", "alert-danger", "S", "S", null, "far fa-times-circle", 2500);
+            modalMessage(
+                "Informe a apresenta&ccedil;&atilde;o inicial.", "alert-danger", "S", "S", null, "far fa-times-circle",
+                2500
+            );
             return false;
         }
         dados.json = json;
@@ -799,7 +817,10 @@ if (document.getElementById("btn_associacao")) {
             if (!response.ok) {
                 document.querySelector(".spinner").classList.add("d-none");
                 document.getElementById("input_arquivo").value = "";
-                modalMessage("Erro ao realizar requisi&ccedil;&atilde;o.", "alert-danger", "S", "S", null, "far fa-times-circle", 2500);
+                modalMessage(
+                    "Erro ao realizar requisi&ccedil;&atilde;o.", "alert-danger", "S", "S", null, "far fa-times-circle",
+                    2500
+                );
                 return false;
             }
             response.json().then(function (retorno) {
@@ -808,7 +829,8 @@ if (document.getElementById("btn_associacao")) {
                 if (retorno.erros.length > 0) {
                     modalMessage(retorno.erros.join("<br>"), "alert-danger", "N", "S", null, "far fa-times-circle");
                 } else {
-                    modalMessage("Dados associados com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
+                    modalMessage(
+                        "Dados associados com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
                     setTimeout(() => {
                         window.location.reload();
                     }, 2000);
@@ -852,7 +874,10 @@ if (document.getElementById("btn_associacao_pagina")) {
         fetch("../client/associa_pagina_participante.php", options).then(function (response) {
             if (!response.ok) {
                 document.querySelector(".spinner").classList.add("d-none");
-                modalMessage("Erro ao realizar requisi&ccedil;&atilde;o.", "alert-danger", "S", "S", null, "far fa-times-circle", 2500);
+                modalMessage(
+                    "Erro ao realizar requisi&ccedil;&atilde;o.", "alert-danger", "S", "S", null, "far fa-times-circle",
+                    2500
+                );
                 return false;
             }
             response.json().then(function (retorno) {
@@ -860,7 +885,8 @@ if (document.getElementById("btn_associacao_pagina")) {
                 if (retorno.erros.length > 0) {
                     modalMessage(retorno.erros.join("<br>"), "alert-danger", "N", "S", null, "far fa-times-circle");
                 } else {
-                    modalMessage("Dados associados com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
+                    modalMessage(
+                        "Dados associados com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
                     setTimeout(() => {
                         window.location.reload();
                     }, 2000);
@@ -888,14 +914,20 @@ if (document.getElementsByClassName("btn_modal_trilha")) {
                         response.json().then(function (retorno) {
                             if (retorno) {
                                 if (retorno.status == 200) {
-                                    document.getElementById("codtrilha_modal").value  = retorno.dados.codtrilha;
-                                    document.getElementById("descricaotrilha").value  = retorno.dados.descricao;
-                                    document.getElementById("datainiciotrilha").value = retorno.dados.datainicio.replace(" ", "T");
-                                    document.getElementById("datafimtrilha").value    = retorno.dados.datafim.replace(" ", "T");
+                                    document.getElementById("codtrilha_modal").value = retorno.dados.codtrilha;
+                                    document.getElementById("descricaotrilha").value = retorno.dados.descricao;
+                                    document.getElementById(
+                                        "datainiciotrilha").value                    = retorno.dados.datainicio.replace(
+                                        " ", "T");
+                                    document.getElementById("datafimtrilha").value   = retorno.dados.datafim.replace(
+                                        " ", "T");
                                 } else {
                                     $(".modal").modal("hide");
                                     setTimeout(() => {
-                                        modalMessage("Erro ao buscar os dados da trilha.", "alert-danger", "S", "S", null, null, 2000);
+                                        modalMessage(
+                                            "Erro ao buscar os dados da trilha.", "alert-danger", "S", "S", null, null,
+                                            2000
+                                        );
                                     }, 500);
                                 }
                             }
@@ -925,13 +957,17 @@ if (document.getElementsByClassName("btn_modal_pagina")) {
                         response.json().then(function (retorno) {
                             if (retorno) {
                                 if (retorno.status == 200) {
-                                    document.getElementById("idpagina_modal").value  = retorno.dados.idpagina;
-                                    document.getElementById("nomepagina").value      = retorno.dados.nome;
-                                    document.getElementById("status_pagina").checked = retorno.dados.status == "A" ? true : false;
+                                    document.getElementById("idpagina_modal").value = retorno.dados.idpagina;
+                                    document.getElementById("nomepagina").value     = retorno.dados.nome;
+                                    document.getElementById(
+                                        "status_pagina").checked                    = retorno.dados.status == "A" ? true : false;
                                 } else {
                                     $(".modal").modal("hide");
                                     setTimeout(() => {
-                                        modalMessage("Erro ao buscar os dados da p&aacute;gina.", "alert-danger", "S", "S", null, null, 2000);
+                                        modalMessage(
+                                            "Erro ao buscar os dados da p&aacute;gina.", "alert-danger", "S", "S", null,
+                                            null, 2000
+                                        );
                                     }, 500);
                                 }
                             }
@@ -970,7 +1006,10 @@ if (document.getElementsByClassName("btn_exclui_trilha")) {
                     if (retorno.erros.length > 0) {
                         modalMessage(retorno.erros.join("<br>"), "alert-danger", "S", "S", null, null, 2000);
                     } else {
-                        modalMessage("Trilha exclu&iacute;da com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
+                        modalMessage(
+                            "Trilha exclu&iacute;da com sucesso.", "alert-success", "S", "S", null,
+                            "far fa-check-circle", 2000
+                        );
                         setTimeout(() => {
                             window.location.reload();
                         }, 2000);
@@ -1015,7 +1054,10 @@ if (document.getElementById("form_nova_trilha")) {
                 if (retorno.erros.length > 0) {
                     modalMessage(retorno.erros.join("<br>"), "alert-danger", "S", "S", null, null, 2000);
                 } else {
-                    modalMessage("Trilha " + comando + " com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
+                    modalMessage(
+                        "Trilha " + comando + " com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle",
+                        2000
+                    );
                     setTimeout(() => {
                         window.location.reload();
                     }, 2000);
@@ -1057,7 +1099,10 @@ if (document.getElementById("form_pagina_acesso")) {
                 if (retorno.erros.length > 0) {
                     modalMessage(retorno.erros.join("<br>"), "alert-danger", "S", "S", null, null, 2000);
                 } else {
-                    modalMessage("P&aacute;gina " + comando + " com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
+                    modalMessage(
+                        "P&aacute;gina " + comando + " com sucesso.", "alert-success", "S", "S", null,
+                        "far fa-check-circle", 2000
+                    );
                     setTimeout(() => {
                         window.location.reload();
                     }, 2000);
@@ -1092,7 +1137,8 @@ if (document.getElementById("btn_confirma_termo_fornecedor")) {
                 document.getElementById("btn_confirma_termo_fornecedor").disabled = false;
 
                 if (retorno.msg == "sucesso") {
-                    modalMessage("Termo confirmado com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
+                    modalMessage(
+                        "Termo confirmado com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
                     setTimeout(() => {
                         window.location.href = retorno.link;
                     }, 2000);
@@ -1133,7 +1179,8 @@ if (document.getElementById("form_pergunta_extra")) {
             codopcao: document.querySelector(".radio_opcao_pergunta:checked").getAttribute("codopcao")
         }
 
-        gera_log("Quiz", `Clicou para responder a pergunta extra '${document.getElementById("nome_pergunta").innerText}'.`);
+        gera_log(
+            "Quiz", `Clicou para responder a pergunta extra '${document.getElementById("nome_pergunta").innerText}'.`);
 
         let headers = new Headers();
         headers.append("pragma", "no-cache");
@@ -1147,10 +1194,14 @@ if (document.getElementById("form_pergunta_extra")) {
 
         fetch("./client/responde_pergunta_extra.php", options).then(function (response) {
             if (!response.ok) {
-                gera_log("Quiz", `Erro ao responder a pergunta extra '${document.getElementById("nome_pergunta").innerText}'.`);
+                gera_log(
+                    "Quiz",
+                    `Erro ao responder a pergunta extra '${document.getElementById("nome_pergunta").innerText}'.`
+                );
                 document.querySelector(".spinner").classList.add("d-none");
                 document.body.classList.remove("pe-none");
-                modalMessage("Erro ao responder a pergunta extra.", "alert-danger", "S", "S", null, "far fa-times-circle", 2000);
+                modalMessage(
+                    "Erro ao responder a pergunta extra.", "alert-danger", "S", "S", null, "far fa-times-circle", 2000);
             }
             response.json().then(function (retorno) {
                 document.querySelector(".spinner").classList.add("d-none");
@@ -1158,17 +1209,22 @@ if (document.getElementById("form_pergunta_extra")) {
 
                 let data_atual = new Date();
                 if (retorno.msg == "sucesso") {
-                    gera_log("Quiz", `Respondeu a pergunta extra '${document.getElementById("nome_pergunta").innerText}'.`);
+                    gera_log(
+                        "Quiz", `Respondeu a pergunta extra '${document.getElementById("nome_pergunta").innerText}'.`);
                     if (dados.valor == "S") {
                         modalMessage("Resposta correta.", "alert-success", "N", "S", null, "far fa-check-circle", 2000);
                     } else {
-                        modalMessage("Resposta incorreta.", "alert-danger", "S", "S", null, "far fa-times-circle", 2000);
+                        modalMessage(
+                            "Resposta incorreta.", "alert-danger", "S", "S", null, "far fa-times-circle", 2000);
                     }
                     setTimeout(() => {
                         window.location.href = "quiz_extra.php?v=" + data_atual.getMilliseconds();
                     }, 1500);
                 } else {
-                    gera_log("Quiz", `Erro ao responder a pergunta extra '${document.getElementById("nome_pergunta").innerText}'.`);
+                    gera_log(
+                        "Quiz",
+                        `Erro ao responder a pergunta extra '${document.getElementById("nome_pergunta").innerText}'.`
+                    );
                     modalMessage(retorno.msg, "alert-danger", "S", "S", null, null, 2000);
                 }
             });
@@ -1179,7 +1235,8 @@ if (document.getElementById("form_pergunta_extra")) {
 
 document.addEventListener("click", function (event) {
     // Se o elemento clicado da página não é filho do menu hamburguer, deve fechá-lo caso o menu esteja aberto
-    if (document.getElementById("menu_dropdown") && !event.target.closest("#cabecalho") && document.getElementById("menu_dropdown").
+    if (document.getElementById("menu_dropdown") && !event.target.closest("#cabecalho") && document.getElementById(
+        "menu_dropdown").
         classList.
         contains("show")) {
         document.querySelector("#btn_hamburguer i").click();
@@ -1214,10 +1271,13 @@ let ExcelToJSON = function () {
     };
 };
 
-if (document.getElementById("input_arquivo")) document.getElementById("input_arquivo").
-    addEventListener("change", gera_json, false);
+if (document.getElementById("input_arquivo")) {
+    document.getElementById("input_arquivo").
+        addEventListener("change", gera_json, false);
+}
 
-function gera_json(event) {
+function gera_json(event)
+{
     let arquivos  = event.target.files; // Objeto de arquivos
     let conversao = new ExcelToJSON();
 
@@ -1226,7 +1286,8 @@ function gera_json(event) {
     });
 }
 
-function upload_arquivo(json) {
+function upload_arquivo(json)
+{
     let tipo = document.getElementById("input_arquivo").getAttribute("tipo");
     document.querySelector(".spinner").classList.remove("d-none");
 
@@ -1248,7 +1309,10 @@ function upload_arquivo(json) {
         if (!response.ok) {
             document.querySelector(".spinner").classList.add("d-none");
             document.getElementById("input_arquivo").value = "";
-            modalMessage("Erro ao realizar requisi&ccedil;&atilde;o.", "alert-danger", "S", "S", null, "far fa-times-circle", 2500);
+            modalMessage(
+                "Erro ao realizar requisi&ccedil;&atilde;o.", "alert-danger", "S", "S", null, "far fa-times-circle",
+                2500
+            );
             return false;
         }
         response.json().then(function (retorno) {
@@ -1257,7 +1321,8 @@ function upload_arquivo(json) {
             if (retorno.erros.length > 0) {
                 modalMessage(retorno.erros.join("<br>"), "alert-danger", "N", "S", null, "far fa-times-circle");
             } else {
-                modalMessage("Planilha inserida com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
+                modalMessage(
+                    "Planilha inserida com sucesso.", "alert-success", "S", "S", null, "far fa-check-circle", 2000);
                 setTimeout(() => {
                     window.location.reload();
                 }, 2000);

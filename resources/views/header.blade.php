@@ -8,9 +8,20 @@ use App\Models\Notification;
 
 $pages = array_column(session('page_access'), 'url');
 
-$notifications = Notification::query();
+$notifications          = Notification::query()
+    ->join('notification_user', 'notifications.id', '=', 'notification_user.notification_id')
+    ->where('notification_user.event_id', '=', session('event_access.event_id'))
+    ->where('user_id', '=', session('user_id'))
+    ->orderByDesc('notifications.created_at')
+    ->get()
+    ->toArray();
+$qttUnreadNotifications = count(
+    array_filter($notifications, function ($item) {
+        return empty($item['read_at']);
+    })
+);
 ?>
-        <!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf - 8">
@@ -175,73 +186,74 @@ $notifications = Notification::query();
                         </div>
                     </div>
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <!-- Sidebar Toggle (Topbar) -->
                         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle me-3">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <!-- Topbar Navbar -->
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item align-self-center pt-2">
                                 <h4 class="text-primary-emphasis">{{$pageTitle ?? 'Home'}}</h4>
                             </li>
                         </ul>
                         <ul class="navbar-nav ms-auto">
-                            <!-- Nav Item - Alerts -->
-                            <li class="nav-item dropdown no-arrow mx-1">
+                            <li class="nav-item dropdown no-arrow mx-1" id="li_notifications">
                                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                   data-bs-auto-close="outside">
                                     <i class="fas fa-bell fa-fw">
-                                        <span id="qtd_notificacao"
-                                              class="position-absolute start-100 translate-middle
-                                             badge rounded-pill bg-danger">
-                                            99+
-                                            <span class="visually-hidden">unread messages</span>
-                                        </span>
+                                        @if ($qttUnreadNotifications > 0)
+                                            <span class="position-absolute start-100 translate-middle
+                                                  badge rounded-pill bg-danger" id="unread_notifications"
+                                                  data-unread-notifications="{{$qttUnreadNotifications}}">
+                                                <b>
+                                                    @if ($qttUnreadNotifications < 100)
+                                                        {{$qttUnreadNotifications}}
+                                                    @else
+                                                        99+
+                                                    @endif
+                                                </b>
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        @endif
                                     </i>
                                 </a>
                                 <div class="dropdown-list dropdown-menu dropdown-menu-end shadow animated--grow-in"
                                      aria-labelledby="alertsDropdown">
                                     <h6 class="dropdown-header">
-                                        Alerts Center
+                                        {{__('header.notifications_tab_title')}}
                                     </h6>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="me-3">
-                                            <div class="icon-circle bg-primary">
-                                                <i class="fas fa-file-alt text-white"></i>
-                                            </div>
+                                    @if (count($notifications) > 0)
+                                        <div class="accordion" id="accordionNotifications">
+                                            @foreach($notifications as $notification)
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button collapsed position-relative"
+                                                                type="button"
+                                                                id="btn_notification_{{$notification['id']}}"
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#notification_{{$notification['id']}}"
+                                                                onclick="readNotification({{$notification['id']}})">
+                                                            {{$notification['title']}}
+                                                            @if (!$notification['read_at'])
+                                                                <i class="fa-solid fa-circle fs-6 text-warning
+                                                                   position-absolute end-0 me-2"
+                                                                   id="icon_notification_{{$notification['id']}}"></i>
+                                                            @endif
+                                                        </button>
+                                                    </h2>
+                                                    <div id="notification_{{$notification['id']}}"
+                                                         class="accordion-collapse collapse">
+                                                        <div class="accordion-body">
+                                                            {{$notification['description']}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 12, 2019</div>
-                                            <span class="font-weight-bold">
-                                                A new monthly report is ready to download!
-                                            </span>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="me-3">
-                                            <div class="icon-circle bg-success">
-                                                <i class="fas fa-donate text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 7, 2019</div>
-                                            $290.29 has been deposited into your account!
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <div class="me-3">
-                                            <div class="icon-circle bg-warning">
-                                                <i class="fas fa-exclamation-triangle text-white"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 2, 2019</div>
-                                            Spending Alert: We've noticed unusually high spending for your account.
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item text-center small text-gray-500" href="#">
-                                        Show All Alerts
-                                    </a>
+                                    @endif
+                                    <button class="dropdown-item text-center small text-gray-500"
+                                            id="btn_show_all_notifications">
+                                        {{__('header.show_all_notifications_button_text')}}
+                                    </button>
                                 </div>
                             </li>
                             <!-- Nav Item - Messages -->

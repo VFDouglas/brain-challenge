@@ -61,8 +61,7 @@ class NotificationsController extends Controller
             $response['error']   = '';
             $response['message'] = __('admin.notifications.success_bind_notification_user');
         } catch (Exception $e) {
-            $response['error'] = /*__('admin.notifications.error_bind_notification_user') ??*/
-                $e->getMessage();
+            $response['error'] = __('admin.notifications.error_bind_notification_user') ?? $e->getMessage();
         }
         return $response;
     }
