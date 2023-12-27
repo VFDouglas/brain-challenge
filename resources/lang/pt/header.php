@@ -19,4 +19,6 @@ return [
     'show_all_notifications_button_text' => 'Mostrar todas as notificações',
     'notifications_tab_title'            => 'Notificações',
     'notification_read_error'            => 'Erro ao ler notificação',
+    'modal_profile_name_label'           => 'Nome',
+    'save_profile_button_text'           => 'Salvar',
 ];

@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\NotificationUser;
 use App\Models\SimplifiedScore;
 use App\Models\StudentLog;
+use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -47,5 +48,12 @@ class AppController extends Controller
             $response['error'] = __('admin.notifications.error_read_notification') ?? $e->getMessage();
         }
         return $response;
+    }
+
+    public function getLoggedUser(): array
+    {
+        $user = User::query()->find(session('user_id'));
+
+        return $user->toArray();
     }
 }

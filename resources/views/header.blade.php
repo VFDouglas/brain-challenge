@@ -177,12 +177,39 @@ $qttUnreadNotifications = count(
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" style="z-index: 999999999999 !important" role="dialog"
-                         aria-hidden="true">
+                    <div class="modal fade" tabindex="-1" id="modalEditProfile">
                         <div class="modal-dialog">
-                            <div class="modal-header" id="modalMessageHeader">
+                            <div class="modal-content">
+                                <form id="form_edit_profile">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">{{__('header.profile_button_text')}}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" class="form-control" id="profile_name"
+                                                           placeholder="Douglas Vicentini">
+                                                    <label for="profile_name">
+                                                        {{__('header.modal_profile_name_label')}}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <img src="" class="img-thumbnail" alt="Profile image"
+                                                     id="profile_image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn bg-gradient-success">
+                                            {{__('header.save_profile_button_text')}}
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="modal-body m-0 p-0"></div>
                         </div>
                     </div>
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -211,7 +238,6 @@ $qttUnreadNotifications = count(
                                                         99+
                                                     @endif
                                                 </b>
-                                                <span class="visually-hidden">unread messages</span>
                                             </span>
                                         @endif
                                     </i>
@@ -271,18 +297,10 @@ $qttUnreadNotifications = count(
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <button class="dropdown-item" type="button" id="btn_edit_profile">
                                         <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>
                                         {{__('header.profile_button_text')}}
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>
-                                        {{__('header.settings_button_text')}}
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>
-                                        {{__('header.activity_log_button_text')}}
-                                    </a>
+                                    </button>
                                     <div class="dropdown-divider"></div>
                                     <form action="/logout" method="post">
                                         @csrf
