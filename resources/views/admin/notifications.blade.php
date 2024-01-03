@@ -23,6 +23,8 @@ $pageTitle = __('admin.notifications.page_title');
            value="{{__('admin.notifications.create_notification_modal_title')}}">
     <input type="hidden" id="edit_notification_modal_title"
            value="{{__('admin.notifications.edit_notification_modal_title')}}">
+    <input type="hidden" id="error_delete_notification"
+           value="{{__('admin.notifications.error_delete_notification_title')}}">
     <input type="hidden" id="no_user_found" value="{{__('admin.notifications.no_user_found')}}">
     <div class="modal fade" id="modal_edit_notification" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">

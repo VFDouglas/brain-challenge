@@ -153,7 +153,6 @@ window.readNotification = function (notificationId) {
 }
 
 
-
 let ExcelToJSON = function () {
     this.parseExcel = function (file) {
         let reader = new FileReader();
@@ -184,12 +183,10 @@ let ExcelToJSON = function () {
 };
 
 if (document.getElementById("input_arquivo")) {
-    document.getElementById("input_arquivo").
-        addEventListener("change", gera_json, false);
+    document.getElementById("input_arquivo").addEventListener("change", gera_json, false);
 }
 
-function gera_json(event)
-{
+window.gera_json = function (event) {
     let arquivos  = event.target.files; // Objeto de arquivos
     let conversao = new ExcelToJSON();
 
@@ -269,6 +266,27 @@ document.getElementById('btn_detailed_score_modal')?.addEventListener('click', f
             document.querySelector('#btn_detailed_score_modal i').className       = 'fa-solid fa-circle-info';
             document.querySelector('#modal_detailed_score .modal-body').innerHTML = html;
             bootstrap.Modal.getOrCreateInstance('#modal_detailed_score').show();
+        });
+    });
+});
+
+document.getElementById('btn_show_all_notifications')?.addEventListener('click', function () {
+    let options = {
+        method : 'GET',
+        headers: window.ajax_headers
+    }
+
+    fetch(`/get_notifications`, options).then(function (response) {
+        if (!response.ok) {
+            return false;
+        }
+        response.json().then(function (retorno) {
+            console.log(retorno);
+            if (retorno) {
+                //
+            } else {
+                //
+            }
         });
     });
 });

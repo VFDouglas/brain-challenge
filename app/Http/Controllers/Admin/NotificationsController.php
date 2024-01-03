@@ -87,6 +87,7 @@ class NotificationsController extends Controller
                 throw new Exception(__('admin.notifications.notification_already_exists'));
             }
             $notification      = Notification::query()->create([
+                'event_id'    => $request->eventId,
                 'title'       => $request->title,
                 'description' => $request->description,
                 'status'      => $request->input('status', false)
@@ -119,7 +120,7 @@ class NotificationsController extends Controller
         } catch (Exception $e) {
             $response['error'] = match (true) {
                 str_contains(strtoupper($e->getMessage()), 'DUPLICATE ENTRY') => __('admin.users.user_already_exists'),
-                default => $e->getMessage(),
+                default                                                       => $e->getMessage(),
             };
         }
         return $response;
@@ -143,7 +144,7 @@ class NotificationsController extends Controller
                 str_contains($e->getMessage(), 'Cannot delete or update a parent row') => __(
                     'admin.notifications.cannot_delete_parent_user'
                 ),
-                default => $e->getMessage(),
+                default                                                                => $e->getMessage(),
             };
         }
         return $response;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LogRequest;
 use App\Models\DetailedScore;
 use App\Models\Event;
+use App\Models\Notification;
 use App\Models\NotificationUser;
 use App\Models\SimplifiedScore;
 use App\Models\StudentLog;
@@ -13,6 +14,7 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Application as FoundationApplication;
 
 /**
@@ -55,5 +57,16 @@ class AppController extends Controller
         $user = User::query()->find(session('user_id'));
 
         return $user->toArray();
+    }
+
+    public function getNotifications(): array
+    {
+        return Notification::query()
+            ->join('notification_user', 'notifications.id', '=', 'notification_user.notification_id')
+            ->where('notification_user.event_id', '=', session('event_access.event_id'))
+            ->where('user_id', '=', session('user_id'))
+            ->orderByDesc('notifications.created_att')
+            ->get()
+            ->toArray();
     }
 }

@@ -13,6 +13,7 @@ $notifications          = Notification::query()
     ->where('notification_user.event_id', '=', session('event_access.event_id'))
     ->where('user_id', '=', session('user_id'))
     ->orderByDesc('notifications.created_at')
+    ->limit(5)
     ->get()
     ->toArray();
 $qttUnreadNotifications = count(
@@ -21,7 +22,7 @@ $qttUnreadNotifications = count(
     })
 );
 ?>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf - 8">
@@ -209,6 +210,23 @@ $qttUnreadNotifications = count(
                                         </button>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" tabindex="-1" id="modal_notifications">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">{{__('header.profile_button_text')}}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body"></div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn bg-gradient-success">
+                                        {{__('header.save_profile_button_text')}}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -47,7 +47,7 @@ window.deleteNotification = function (id) {
         response.json().then(function (jsonResponse) {
             if (jsonResponse.error) {
                 window.modalMessage({
-                    title      : document.getElementById('error_delete_event').value,
+                    title      : document.getElementById('error_get_notification_title').value,
                     description: jsonResponse.error,
                 });
             } else {
