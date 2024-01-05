@@ -59,13 +59,34 @@ class AppController extends Controller
         return $user->toArray();
     }
 
+    public function updateProfile(): array
+    {
+        $response = [];
+        try {
+            $user = User::query()->find(session('user_id'));
+
+            if (!$user) {
+                $response['error'] = __('header.error_update_profile');
+            } else {
+                $user->name  = request('name');
+                $user->email = request('email');
+                $user->save();
+                $response['name'] = $user->name;
+                session(['name' => $user->name]);
+            }
+        } catch (Exception $e) {
+            $response['error'] = __('header.error_update_profile') ?? $e->getMessage();
+        }
+        return $response;
+    }
+
     public function getNotifications(): array
     {
         return Notification::query()
             ->join('notification_user', 'notifications.id', '=', 'notification_user.notification_id')
             ->where('notification_user.event_id', '=', session('event_access.event_id'))
             ->where('user_id', '=', session('user_id'))
-            ->orderByDesc('notifications.created_att')
+            ->orderByDesc('notifications.created_at')
             ->get()
             ->toArray();
     }

@@ -16,8 +16,8 @@ return new class extends Migration {
             Schema::create('users', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('event_id')->nullable()->constrained('events');
-                $table->string('name')->nullable(false);
-                $table->string('email');
+                $table->string('name', 50)->nullable(false);
+                $table->string('email', 50);
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');
                 $table->boolean('accepted_terms')->default(0);

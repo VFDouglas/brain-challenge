@@ -121,7 +121,7 @@ const DATETIME = new Intl.DateTimeFormat("pt-BR", {
 window.readNotification = function (notificationId) {
     window.logAccess('*', 'Clicked to read notification');
 
-    let qttUnread = +document.getElementById('unread_notifications').getAttribute('data-unread-notifications');
+    let qttUnread = +document.getElementById('unread_notifications')?.getAttribute('data-unread-notifications') || 0;
 
     let options = {
         method : 'PUT',
@@ -138,6 +138,7 @@ window.readNotification = function (notificationId) {
                     'data-unread-notifications', (qttUnread - 1).toString()
                 );
                 document.getElementById(`btn_notification_${notificationId}`).removeAttribute('onclick');
+                document.getElementById(`btn_notification_modal_${notificationId}`).removeAttribute('onclick');
                 document.getElementById(`icon_notification_${notificationId}`).remove();
 
                 if (qttUnread - 1 === 0) {
@@ -150,49 +151,6 @@ window.readNotification = function (notificationId) {
             }
         });
     })
-}
-
-
-let ExcelToJSON = function () {
-    this.parseExcel = function (file) {
-        let reader = new FileReader();
-
-        let json_planilha = "";
-
-        reader.onload = function (e) {
-            let data     = e.target.result;
-            let workbook = XLSX.read(data, {
-                type: 'binary'
-            });
-            workbook.SheetNames.forEach(function (sheetName) {
-                // Here is your object
-                let XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-                let json_object   = JSON.stringify(XL_row_object);
-                json_planilha += json_object.replace(/[“”‘’]/g, ''); // Adiciona o retorno após cada execução e retira
-                                                                     // aspas especiais
-            })
-            upload_arquivo(json_planilha)
-        };
-
-        reader.onerror = function (ex) {
-            modalMessage("Erro ao ler a planilha.", "alert-danger", "S", "S", null, "far fa-times-circle", 2500);
-        };
-
-        reader.readAsBinaryString(file);
-    };
-};
-
-if (document.getElementById("input_arquivo")) {
-    document.getElementById("input_arquivo").addEventListener("change", gera_json, false);
-}
-
-window.gera_json = function (event) {
-    let arquivos  = event.target.files; // Objeto de arquivos
-    let conversao = new ExcelToJSON();
-
-    Array.from(arquivos).forEach(element => { // Cria um array a partir de um objeto e o percorre
-        conversao.parseExcel(element);
-    });
 }
 
 Array.from(document.getElementsByClassName('div_presentation_name')).forEach(element => {
@@ -212,10 +170,44 @@ document.getElementById('btn_edit_profile')?.addEventListener('click', function 
             return false;
         }
         response.json().then(function (jsonResponse) {
-            if (jsonResponse) {
-                //
+            if (jsonResponse.id) {
+                bootstrap.Modal.getOrCreateInstance('#modal_edit_profile').show();
+                document.getElementById('profile_name_modal').value  = jsonResponse.name;
+                document.getElementById('profile_email_modal').value = jsonResponse.email;
             } else {
                 //
+            }
+        });
+    });
+});
+
+document.getElementById('form_edit_profile').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    let options = {
+        method : 'PUT',
+        headers: window.ajaxHeaders,
+        body   : JSON.stringify({
+            name : document.getElementById('profile_name_modal').value,
+            email: document.getElementById('profile_email_modal').value
+        })
+    }
+
+    fetch(`./update_profile`, options).then(function (response) {
+        if (!response.ok) {
+            return false;
+        }
+        response.json().then(function (jsonResponse) {
+            bootstrap.Modal.getOrCreateInstance('#modal_edit_profile').hide();
+            if (!jsonResponse.error) {
+                document.getElementById('profile_name').innerHTML = jsonResponse.name;
+            } else {
+                window.modalMessage({
+                    title      : document.getElementById('error_update_profile').value,
+                    description: jsonResponse.error,
+                    type       : 'error',
+                    show       : true
+                });
             }
         });
     });
@@ -240,10 +232,10 @@ document.getElementById('btn_detailed_score_modal')?.addEventListener('click', f
             document.querySelector('#btn_detailed_score_modal i').className = 'fa-solid fa-circle-info';
             return false;
         }
-        response.json().then(function (retorno) {
+        response.json().then(function (jsonResponse) {
             let html = '';
-            if (retorno.length > 0) {
-                retorno.forEach(function (element) {
+            if (jsonResponse.length > 0) {
+                jsonResponse.forEach(function (element) {
                     html += `
                         <div class='row align-items-center'>
                             <div class="col-8">${element.description}</div>
@@ -280,13 +272,44 @@ document.getElementById('btn_show_all_notifications')?.addEventListener('click',
         if (!response.ok) {
             return false;
         }
-        response.json().then(function (retorno) {
-            console.log(retorno);
-            if (retorno) {
-                //
-            } else {
-                //
+        response.json().then(function (jsonResponse) {
+            let html = `
+                <div class='row align-items-center'>
+                    <div class="col-12">
+                        <div class="accordion" id="accordionModalNotifications">
+            `;
+            for (const element of jsonResponse) {
+                let iconeNaoLido = '';
+                if (!element.read_at) {
+                    iconeNaoLido = `
+                        <i class="fa-solid fa-circle fs-6 text-warning
+                           position-absolute end-0 me-2" id="icon_notification_modal_${element.id}"></i>
+                    `;
+                }
+                html += `
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed position-relative"
+                                    type="button" id="btn_notification_modal_${element.id}"
+                                    data-bs-toggle="collapse" data-bs-target="#notification_modal_${element.id}"
+                                    onclick="readNotification(${element.id})">
+                                ${element.title}
+                                ${iconeNaoLido}
+                            </button>
+                        </h2>
+                        <div id="notification_modal_${element.id}" class="accordion-collapse collapse">
+                            <div class="accordion-body">${element.description}</div>
+                        </div>
+                    </div>
+                `;
             }
+            html += `    
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.querySelector('#modal_notifications .modal-body').innerHTML = html;
+            bootstrap.Modal.getOrCreateInstance('#modal_notifications').show();
         });
     });
 });

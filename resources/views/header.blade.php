@@ -172,15 +172,15 @@ $qttUnreadNotifications = count(
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body" id="modalMessageBody">
-                                    <p>Modal body text goes here.</p>
-                                </div>
+                                <div class="modal-body" id="modalMessageBody"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" tabindex="-1" id="modalEditProfile">
+                    <div class="modal fade" tabindex="-1" id="modal_edit_profile">
                         <div class="modal-dialog">
                             <div class="modal-content">
+                                <input type="hidden" id="error_update_profile"
+                                       value="{{__('header.error_update_profile')}}">
                                 <form id="form_edit_profile">
                                     <div class="modal-header">
                                         <h5 class="modal-title">{{__('header.profile_button_text')}}</h5>
@@ -191,21 +191,26 @@ $qttUnreadNotifications = count(
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-floating mb-3">
-                                                    <input type="text" class="form-control" id="profile_name"
-                                                           placeholder="Douglas Vicentini">
+                                                    <input type="text" class="form-control" id="profile_name_modal"
+                                                           placeholder="Douglas Vicentini" maxlength="50">
                                                     <label for="profile_name">
                                                         {{__('header.modal_profile_name_label')}}
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
-                                                <img src="" class="img-thumbnail" alt="Profile image"
-                                                     id="profile_image">
+                                            <div class="col-12">
+                                                <div class="form-floating mb-3">
+                                                    <input type="email" class="form-control" id="profile_email_modal"
+                                                           placeholder="admin@admin.com" maxlength="50">
+                                                    <label for="profile_email">
+                                                        {{__('header.modal_profile_email_label')}}
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn bg-gradient-success">
+                                        <button type="submit" class="btn bg-gradient-success text-white">
                                             {{__('header.save_profile_button_text')}}
                                         </button>
                                     </div>
@@ -223,8 +228,9 @@ $qttUnreadNotifications = count(
                                 </div>
                                 <div class="modal-body"></div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn bg-gradient-success">
-                                        {{__('header.save_profile_button_text')}}
+                                    <button type="button" class="btn bg-gradient-secondary text-white"
+                                            data-bs-dismiss="modal">
+                                        {{__('header.close_modal_button_text')}}
                                     </button>
                                 </div>
                             </div>
@@ -293,11 +299,11 @@ $qttUnreadNotifications = count(
                                                 </div>
                                             @endforeach
                                         </div>
+                                        <button class="dropdown-item text-center small text-gray-500"
+                                                id="btn_show_all_notifications">
+                                            {{__('header.show_all_notifications_button_text')}}
+                                        </button>
                                     @endif
-                                    <button class="dropdown-item text-center small text-gray-500"
-                                            id="btn_show_all_notifications">
-                                        {{__('header.show_all_notifications_button_text')}}
-                                    </button>
                                 </div>
                             </li>
                             <!-- Nav Item - Messages -->
@@ -306,8 +312,8 @@ $qttUnreadNotifications = count(
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="me-2 d-none d-lg-inline text-gray-600 small">
-                                        Douglas Vicentini
+                                    <span class="me-2 d-none d-lg-inline text-gray-600 small" id="profile_name">
+                                        {{session('name') ?? 'Profile'}}
                                     </span>
                                     <img class="img-profile rounded-circle"
                                          src="{{asset('images/avatar.webp')}}" alt="">

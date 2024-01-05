@@ -20,5 +20,9 @@ return [
     'notifications_tab_title'            => 'Notificações',
     'notification_read_error'            => 'Erro ao ler notificação',
     'modal_profile_name_label'           => 'Nome',
+    'modal_profile_email_label'          => 'Email',
     'save_profile_button_text'           => 'Salvar',
+    'close_modal_button_text'            => 'Fechar',
+    'error_update_profile_title'         => 'Perfil',
+    'error_update_profile'               => 'Erro ao atualizar o perfil',
 ];

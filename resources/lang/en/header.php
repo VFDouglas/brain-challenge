@@ -20,5 +20,9 @@ return [
     'notifications_tab_title'            => 'Notifications',
     'notification_read_error'            => 'Error reading notification',
     'modal_profile_name_label'           => 'Name',
+    'modal_profile_email_label'          => 'Email',
     'save_profile_button_text'           => 'Save',
+    'close_modal_button_text'            => 'Close',
+    'error_update_profile_title'         => 'Profile',
+    'error_update_profile'               => 'Error updating the profile',
 ];

@@ -42,6 +42,7 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
         Route::post('log_access', 'logAccess');
         Route::get('detailed_score', 'detailedScore');
         Route::get('logged_user', 'getLoggedUser');
+        Route::put('update_profile', 'updateProfile');
         Route::get('get_notifications', 'getNotifications');
         Route::put('read_notification/{id}', 'readNotification')->whereNumber('id');
     });
