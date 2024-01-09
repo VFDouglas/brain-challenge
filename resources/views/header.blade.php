@@ -42,9 +42,7 @@ $qttUnreadNotifications = count(
     </head>
     <body>
         <div id="wrapper">
-            <!-- Sidebar -->
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center"
                    href="@if(request()->getPathInfo() == '/home'){{'#'}}@else{{'/'}}@endif">
                     <div class="sidebar-brand-icon rotate-n-15">
@@ -52,9 +50,7 @@ $qttUnreadNotifications = count(
                     </div>
                     <div class="sidebar-brand-text mx-3 text-capitalize">Brain Challenge</div>
                 </a>
-                <!-- Divider -->
                 <hr class="sidebar-divider my-0">
-                <!-- Nav Item - Dashboard -->
                 <li class="nav-item @if(request()->is('home'))active pe-none @endif">
                     <a class="nav-link" href="/home">
                         <i class="fa-solid fa-house"></i>
@@ -159,10 +155,7 @@ $qttUnreadNotifications = count(
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
             </ul>
-            <!-- End of Sidebar -->
-            <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
-                <!-- Main Content -->
                 <div id="content">
                     <div class="modal fade" tabindex="-1" id="modalMessage">
                         <div class="modal-dialog">
@@ -306,9 +299,7 @@ $qttUnreadNotifications = count(
                                     @endif
                                 </div>
                             </li>
-                            <!-- Nav Item - Messages -->
                             <div class="topbar-divider d-none d-sm-block ms-4 me-0"></div>
-                            <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -318,7 +309,6 @@ $qttUnreadNotifications = count(
                                     <img class="img-profile rounded-circle"
                                          src="{{asset('images/avatar.webp')}}" alt="">
                                 </a>
-                                <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
                                     <button class="dropdown-item" type="button" id="btn_edit_profile">
@@ -338,7 +328,6 @@ $qttUnreadNotifications = count(
                         </ul>
                     </nav>
                     @yield('content')
-                    <!-- End of Topbar -->
                 </div>
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
@@ -349,8 +338,6 @@ $qttUnreadNotifications = count(
                 </footer>
             </div>
         </div>
-        <!-- End of Page Wrapper -->
-        <!-- Scroll to Top Button-->
         <a class="scroll-to-top rounded cursor-pointer" onclick="document.body.scrollIntoView()">
             <i class="fas fa-angle-up"></i>
         </a>
