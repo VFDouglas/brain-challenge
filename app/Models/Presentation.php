@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 /**
@@ -18,7 +19,7 @@ class Presentation extends Model
     use HasFactory;
 
     protected $connection = 'brain_challenge';
-    protected $table      = 'presentations';
+    protected $table = 'presentations';
 
     protected $fillable = ['event_id', 'name', 'user_id', 'starts_at', 'ends_at', 'status'];
 
@@ -81,10 +82,10 @@ class Presentation extends Model
 
     /**
      * Get the presentations the user is participating
-     * @param PresentationRequest $request
+     * @param PresentationRequest|Request $request
      * @return Builder
      */
-    public static function getPresentations(PresentationRequest $request): Builder
+    public static function getPresentations(PresentationRequest|Request $request): Builder
     {
         $presentations = Presentation::query()
             ->from('presentations as p')
@@ -114,7 +115,7 @@ class Presentation extends Model
         return $presentations;
     }
 
-    public static function getAwards(PresentationRequest $request): Builder
+    public static function getAwards(Request $request): Builder
     {
         $awards = Presentation::query()
             ->from('presentations', 'p')

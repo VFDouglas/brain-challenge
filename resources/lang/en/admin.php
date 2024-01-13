@@ -35,6 +35,7 @@ return [
         'error_save_user'              => 'Error saving the user or it already exists',
         'user_name_text'               => 'Name',
         'user_email_text'              => 'Email',
+        'user_password_text'           => 'Password',
         'user_role_text'               => 'Role',
         'user_role_A'                  => 'Administrator',
         'user_role_P'                  => 'Professor',

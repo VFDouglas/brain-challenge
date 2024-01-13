@@ -13,7 +13,7 @@ window.editUser = function (userId) {
             return false;
         }
         response.json().then(function (jsonResponse) {
-            console.log(jsonResponse)
+            document.getElementById('div_password').classList.add('d-none');
             if (jsonResponse.id) {
                 document.getElementById('user_id').value       = jsonResponse.id;
                 document.getElementById('user_name').value     = jsonResponse.name;
@@ -69,6 +69,7 @@ document.getElementById('form_save_user').addEventListener('submit', function (e
         body   : JSON.stringify({
             name    : document.getElementById('user_name').value,
             email   : document.getElementById('user_email').value,
+            password: document.getElementById('user_password').value,
             role    : document.getElementById('user_role').value,
             status  : document.getElementById('user_status').checked,
             event_id: +document.getElementById('user_event').value
@@ -97,5 +98,6 @@ document.getElementById('btn_create_user').addEventListener('click', function ()
     document.getElementById('mode_user_modal').value      = 'create';
     document.getElementById('modal_user_title').innerHTML = document.getElementById('create_user_modal_title').value;
     document.getElementById('form_save_user').reset();
+    document.getElementById('div_password').classList.remove('d-none');
     bootstrap.Modal.getOrCreateInstance('#modal_edit_user').show();
 });

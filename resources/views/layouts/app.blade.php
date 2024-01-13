@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name', 'Brain Challenge') }}</title>
+        <title>Brain Challenge</title>
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <!-- Fonts -->
@@ -19,7 +19,7 @@
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Brain Challenge') }}
+                        Brain Challenge
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

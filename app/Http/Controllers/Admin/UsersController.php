@@ -55,7 +55,7 @@ class UsersController extends Controller
                 'name'     => $request->name,
                 'email'    => $request->email,
                 'role'     => $request->role,
-                'password' => Hash::make(Str::uuid()),
+                'password' => Hash::make($request->password),
                 'status'   => $request->input('status', false),
                 'event_id' => $request->event_id
             ]);

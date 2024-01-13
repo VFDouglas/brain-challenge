@@ -35,6 +35,7 @@ return [
         'error_save_user'              => 'Erro ao salvar o usuário',
         'user_name_text'               => 'Nome',
         'user_email_text'              => 'Email',
+        'user_password_text'           => 'Senha',
         'user_role_text'               => 'Cargo',
         'user_role_A'                  => 'Administrador',
         'user_role_P'                  => 'Professor',

@@ -47,6 +47,13 @@ $pageTitle = __('admin.users.page_title');
                                     <label for="user_email">{{__('admin.users.user_email_text')}}</label>
                                 </div>
                             </div>
+                            <div class="col-12" id="div_password">
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="user_password"
+                                           placeholder="São Paulo" required>
+                                    <label for="user_password">{{__('admin.users.user_password_text')}}</label>
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="user_role">
