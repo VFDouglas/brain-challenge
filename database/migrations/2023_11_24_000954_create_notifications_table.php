@@ -28,7 +28,6 @@ return new class extends Migration {
                     'event_id'    => 1,
                     'title'       => 'Notification Example Title',
                     'description' => 'Notification Example Description',
-                    'user_id'     => 2,
                 ]);
         }
     }
