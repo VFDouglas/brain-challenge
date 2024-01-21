@@ -2,17 +2,20 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 return new class extends Migration {
+    public const TABLE = 'presentations';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        if (!Schema::hasTable('presentations')) {
-            Schema::create('presentations', function (Blueprint $table) {
+        if (!Schema::hasTable(self::TABLE)) {
+            Schema::create(self::TABLE, function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('event_id')->constrained('events');
                 $table->string('name', 50)->comment('Presentation name');
@@ -31,6 +34,18 @@ return new class extends Migration {
                 $table->timestamps();
                 $table->index(['event_id', 'user_id'], 'idx_presentation_event_user');
             });
+            DB::table(self::TABLE)
+                ->insertOrIgnore([
+                    'id'        => 1,
+                    'event_id'  => 1,
+                    'user_id'   => 3,
+                    'name'      => 'Mrs. Keen\'s Psycho Analysis',
+                    'qrcode'    => '12345678',
+                    'confirmed' => 1,
+                    'status'    => 1,
+                    'starts_at' => now(),
+                    'ends_at'   => date('Y-m-d H:i:s', strtotime('+1 month')),
+                ]);
         }
     }
 
@@ -39,6 +54,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('presentations');
+        Schema::dropIfExists(self::TABLE);
     }
 };

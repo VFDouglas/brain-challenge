@@ -6,20 +6,22 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    public const TABLE = 'pages';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        if (!Schema::hasTable('pages')) {
-            Schema::create('pages', function (Blueprint $table) {
+        if (!Schema::hasTable(self::TABLE)) {
+            Schema::create(self::TABLE, function (Blueprint $table) {
                 $table->id();
                 $table->string('name', 30)->nullable(false)->unique();
                 $table->string('url', 50)->nullable(false)->unique();
                 $table->boolean('status')->nullable(false);
                 $table->timestamps();
             });
-            DB::table('pages')
+            DB::table(self::TABLE)
                 ->upsert(
                     [
                         ['name' => 'Schedules', 'url' => '/schedules', 'status' => 1],
@@ -39,6 +41,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists(self::TABLE);
     }
 };

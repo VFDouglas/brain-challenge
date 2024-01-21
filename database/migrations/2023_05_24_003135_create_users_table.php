@@ -7,13 +7,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    private const TABLE = 'users';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        if (!Schema::hasTable('users')) {
-            Schema::create('users', function (Blueprint $table) {
+        if (!Schema::hasTable(self::TABLE)) {
+            Schema::create(self::TABLE, function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('event_id')->nullable()->constrained('events');
                 $table->string('name', 50)->nullable(false);
@@ -30,12 +32,30 @@ return new class extends Migration {
                 $table->timestamps();
                 $table->unique(['event_id', 'email'], 'users_email_unique');
             });
-            DB::table('users')
+            // Example data
+            DB::table(self::TABLE)
                 ->insertOrIgnore([
+                    'id'       => 1,
                     'name'     => 'Administrator',
                     'email'    => 'admin@admin.com',
                     'role'     => 'A',
-                    'password' => Hash::make('adm123A*@') // Change the password ASAP
+                    'password' => Hash::make('admin')
+                ]);
+            DB::table(self::TABLE)
+                ->insertOrIgnore([
+                    'id'       => 2,
+                    'name'     => 'Student Example',
+                    'email'    => 'student@student.com',
+                    'role'     => 'A',
+                    'password' => Hash::make('student')
+                ]);
+            DB::table(self::TABLE)
+                ->insertOrIgnore([
+                    'id'       => 3,
+                    'name'     => 'Professor Example',
+                    'email'    => 'professor@professor.com',
+                    'role'     => 'A',
+                    'password' => Hash::make('professor')
                 ]);
         }
     }
@@ -45,6 +65,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists(self::TABLE);
     }
 };

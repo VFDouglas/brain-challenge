@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -21,6 +22,14 @@ return new class extends Migration {
                 $table->boolean('status')->default(1);
                 $table->timestamps();
             });
+            DB::table(self::TABLE)
+                ->insertOrIgnore([
+                    'id'          => 1,
+                    'event_id'    => 1,
+                    'title'       => 'Notification Example Title',
+                    'description' => 'Notification Example Description',
+                    'user_id'     => 2,
+                ]);
         }
     }
 
