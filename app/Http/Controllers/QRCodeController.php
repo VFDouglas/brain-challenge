@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PresentationRequest;
 use App\Models\Presentation;
 use Exception;
 use Illuminate\Contracts\Foundation\Application as FactoryApplication;
@@ -21,11 +22,8 @@ class QRCodeController extends Controller
         ]);
     }
 
-    public function scanQRCode(): array
+    public function scanQRCode(PresentationRequest $request): array
     {
-        request()->validate([
-            'qrcode' => 'required|alpha_num|max:8'
-        ]);
-        return Presentation::saveQRCode();
+        return Presentation::saveQRCode($request);
     }
 }

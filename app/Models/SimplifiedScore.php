@@ -11,6 +11,7 @@ class SimplifiedScore extends Model
     use HasFactory;
 
     protected $table = 'simplified_score';
+    public $timestamps = false;
 
     public static function getScore(): Builder
     {

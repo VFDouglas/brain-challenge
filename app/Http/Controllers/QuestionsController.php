@@ -63,7 +63,7 @@ class QuestionsController extends Controller
             }
 
             $answerInsert = Answer::query()
-                ->insertOrIgnore([
+                ->create([
                     'event_id'        => session('event_access.event_id'),
                     'presentation_id' => session('presentation_id'),
                     'question_id'     => session('question_id'),

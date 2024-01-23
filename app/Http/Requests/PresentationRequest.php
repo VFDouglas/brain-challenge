@@ -30,9 +30,9 @@ class PresentationRequest extends FormRequest
     {
         $rules = [];
         switch (request()->getPathInfo()) {
-            case '':
+            case '/scan_qrcode':
                 $rules = [
-                    'presentation_name' => 'nullable|alpha'
+                    'qrcode' => 'required|alpha_num|max:8'
                 ];
                 break;
             default:

@@ -11,6 +11,18 @@ class DetailedScore extends Model
     use HasFactory;
 
     protected $table = 'detailed_score';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'event_id',
+        'user_id',
+        'presentation_id',
+        'answer_id',
+        'question_id',
+        'option_id',
+        'description',
+        'score'
+    ];
 
     /**
      * Retrieve a detailed score for a specific event and user.

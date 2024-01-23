@@ -16,6 +16,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Application as FoundationApplication;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @author Douglas Vicentini (douglas.dvferreira@gmail.com)
@@ -45,7 +46,7 @@ class AppController extends Controller
                 ->where('event_id', '=', session('event_access.event_id'))
                 ->where('user_id', '=', session('user_id'))
                 ->where('notification_id', '=', $notificationId)
-                ->update(['read_at' => now()->format('Y-m-d H:i:s')]);
+                ->update(['read_at' => DB::raw('now()')]);
         } catch (Exception $e) {
             $response['error'] = __('admin.notifications.error_read_notification') ?? $e->getMessage();
         }

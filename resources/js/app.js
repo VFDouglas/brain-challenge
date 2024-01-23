@@ -137,8 +137,8 @@ window.readNotification = function (notificationId) {
                 document.getElementById('unread_notifications').setAttribute(
                     'data-unread-notifications', (qttUnread - 1).toString()
                 );
-                document.getElementById(`btn_notification_${notificationId}`).removeAttribute('onclick');
-                document.getElementById(`btn_notification_modal_${notificationId}`).removeAttribute('onclick');
+                document.getElementById(`btn_notification_${notificationId}`)?.removeAttribute('onclick');
+                document.getElementById(`btn_notification_modal_${notificationId}`)?.removeAttribute('onclick');
                 document.getElementById(`icon_notification_${notificationId}`).remove();
 
                 if (qttUnread - 1 === 0) {

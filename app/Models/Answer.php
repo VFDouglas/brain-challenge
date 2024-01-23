@@ -13,7 +13,9 @@ class Answer extends Model
     use HasFactory;
 
     protected $connection = 'brain_challenge';
-    protected $table      = 'answers';
+    protected $table = 'answers';
+    protected $fillable = ['event_id', 'user_id', 'presentation_id', 'question_id', 'option_id'];
+    public $timestamps = false;
 
     /**
      * Get the amount of answers the user has for the current day
