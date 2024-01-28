@@ -5,7 +5,6 @@ namespace App\Observers;
 use App\Models\Answer;
 use App\Models\DetailedScore;
 use App\Models\Presentation;
-use Illuminate\Support\Facades\Log;
 
 class AnswerObserver
 {
