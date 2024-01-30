@@ -3,7 +3,7 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: nginx/staging/Dockerfile
+      dockerfile: nginx/Dockerfile
     ports:
       - "8080:80"
     networks:
@@ -21,7 +21,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: php/staging/Dockerfile
+      dockerfile: php/${APP_ENV:-local}/Dockerfile
     networks:
       - internal
     volumes:
@@ -36,13 +36,14 @@ services:
       - internal
     image: 'mysql:latest'
     volumes:
-      - ./docker/dbdata:/var/lib/mysql
+      - ./.docker/mysql/dbdata:/var/lib/mysql
     ports:
       - '3306:3306'
     environment:
-      MYSQL_DATABASE: brain_challenge
+      MYSQL_DATABASE: ${DB_DATABASE:-laravel}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-}
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      MYSQL_ROOT_PASSWORD: 'root'
     container_name: ${APP_NAME}_mysql_${APP_ENV}
   redis:
     image: redis:latest

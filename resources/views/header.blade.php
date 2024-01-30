@@ -29,6 +29,7 @@ $qttUnreadNotifications = count(
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="google-signin-client_id" content="{{env('GOOGLE_SSO_CLIENT_ID')}}">
         <title>{{$titulo_pagina ?? 'Home'}}</title>
         <link rel="stylesheet" type="text/css" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('vendor/fontawesome/css/all.min.css')}}">
