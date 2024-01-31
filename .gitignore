@@ -20,3 +20,4 @@ yarn-error.log
 /docker
 /logs
 /nginx/default.conf
+.docker/

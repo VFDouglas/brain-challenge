@@ -19,6 +19,7 @@ use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\PageAccess;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,5 +135,8 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
     })->withoutMiddleware(PageAccess::class)->name('403');
 });
 
+Route::get('/login/google', function () {
+    return Socialite::driver('google')->redirect();
+});
 Auth::routes();
 
