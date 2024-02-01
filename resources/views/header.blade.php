@@ -31,6 +31,7 @@ $qttUnreadNotifications = count(
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="google-signin-client_id" content="{{env('GOOGLE_SSO_CLIENT_ID')}}">
         <title>{{$titulo_pagina ?? 'Home'}}</title>
+        <link rel="icon" type="image/png" href="{{asset('images/school-icon.png')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('vendor/fontawesome/css/all.min.css')}}">
         @vite(['resources/css/fonts.css', 'resources/css/app.css', 'resources/css/sidebar.css'])
