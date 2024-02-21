@@ -58,13 +58,14 @@
                             <div class="row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <div class="g-signin2" data-onsuccess="onSignIn">
-                                        <button class="btn btn-light" type="button">
+                                        <a class="btn btn-light" href="/auth/google">
+                                            <i class="fa-brands fa-google"></i>
                                             Login with Google
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Login') }}
                                         </button>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Login') }}
-                                    </button>
                                     {{--@if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}

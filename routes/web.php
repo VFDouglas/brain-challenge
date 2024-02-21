@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SchedulesController as AdminSchedulesController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AwardsController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\PresentationsController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\QuestionsController;
@@ -135,8 +136,9 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
     })->withoutMiddleware(PageAccess::class)->name('403');
 });
 
-Route::get('/login/google', function () {
-    return Socialite::driver('google')->redirect();
+Route::controller(GoogleController::class)->group(function () {
+    Route::get('auth/google', 'redirectToGoogle');
+    Route::get('auth/google/callback', 'googleCallback');
 });
 Auth::routes();
 
