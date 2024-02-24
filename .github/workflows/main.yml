@@ -15,7 +15,7 @@ jobs:
     - name: Sync Files
       uses: SamKirkland/web-deploy@v1
       with:
-        target-server: example.com
-        remote-user: username
-        private-ssh-key: ${{ secrets.SSH_KEY }}
-        destination-path: ~/destinationFolder/
+        target-server: ${{ secrets.SFTP_HOST }}
+        remote-user: ${{ secrets.SFTP_USER }}
+        private-ssh-key: ${{ secrets.SFTP_SSH_PRIVATE_KEY }}
+        destination-path: ${{ secrets.SFTP_DESTINATION_FOLDER }}
