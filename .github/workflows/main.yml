@@ -13,9 +13,8 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Sync Files
-      uses: SamKirkland/web-deploy@v1
-      with:
-        target-server: ${{ secrets.SFTP_HOST }}
-        remote-user: ${{ secrets.SFTP_USER }}
-        private-ssh-key: ${{ secrets.SFTP_SSH_PRIVATE_KEY }}
-        destination-path: ${{ secrets.SFTP_DESTINATION_FOLDER }}
+      run: |
+        apt-get update && apt-get install -y git-ftp
+        git reset --hard
+        git config git-ftp.syncroot ${{ secrets.SFTP_DESTINATION_FOLDER }}
+        git ftp init -u ${{ secrets.USER }} -p ${{ secrets.TARGET_DIR }} ${{ secrets.HOST }} || git ftp push -u ${{ secrets.USER }} -p ${{ secrets.TARGET_DIR }} ${{ secrets.HOST }}
