@@ -14,7 +14,7 @@ jobs:
 
     - name: Sync Files
       run: |
-        sudo apt-get update && sudo apt-get install -y git-ftp
-        git reset --hard
-        git config git-ftp.syncroot ${{ secrets.SFTP_DESTINATION_FOLDER }}
+        sudo apt-get update && sudo apt-get install -y git-ftp \
+        git reset --hard \
+        git config git-ftp.syncroot ${{ secrets.SFTP_DESTINATION_FOLDER }} \
         git ftp init -u ${{ secrets.USER }} -p ${{ secrets.TARGET_DIR }} ${{ secrets.HOST }} || git ftp push -u ${{ secrets.USER }} -p ${{ secrets.TARGET_DIR }} ${{ secrets.HOST }}
