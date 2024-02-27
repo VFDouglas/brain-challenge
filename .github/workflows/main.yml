@@ -17,4 +17,4 @@ jobs:
         sudo apt-get update && sudo apt-get install -y git git-ftp \
         git reset --hard \
         git config git-ftp.syncroot ${{ secrets.SFTP_DESTINATION_FOLDER }} \
-        git ftp init -u ${{ secrets.USER }} -p ${{ secrets.TARGET_DIR }} ${{ secrets.HOST }} || git ftp push -u ${{ secrets.USER }} -p ${{ secrets.TARGET_DIR }} ${{ secrets.HOST }}
+        git ftp push -u ${{ secrets.USER }} -p ${{ secrets.TARGET_DIR }} ${{ secrets.HOST }}
