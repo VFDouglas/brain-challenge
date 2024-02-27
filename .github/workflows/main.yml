@@ -16,7 +16,7 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y git git-ftp 
     
     - name: Directory configuration
-      run: git reset --hard && git config git-ftp.syncroot -vv ${{ secrets.SFTP_DESTINATION_FOLDER }}
+      run: git reset --hard && git config git-ftp.syncroot -vv ${{ secrets.TARGET_DIR }}
 
     - name: File upload to the server
       run: git ftp push -u ${{ secrets.USER }} --key ${{ secrets.SFTP_SSH_PRIVATE_KEY }} ${{ secrets.HOST }}
