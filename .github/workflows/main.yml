@@ -19,4 +19,5 @@ jobs:
       run: git reset --hard && git config git-ftp.syncroot ${{ secrets.TARGET_DIR }}
 
     - name: File upload to the server
-      run: echo ${{ secrets.SFTP_SSH_PRIVATE_KEY }} && git ftp push -vv -u ${{ secrets.USER }} --key ${{ secrets.SFTP_SSH_PRIVATE_KEY }} ${{ secrets.HOST }}
+      #run: git ftp push -vv -u ${{ secrets.USER }} --key ${{ secrets.SFTP_SSH_PRIVATE_KEY }} ${{ secrets.HOST }}
+      run: git ftp push -vv -u opc --key ${{ secrets.SFTP_SSH_PRIVATE_KEY }} sftp://159.112.182.247/var/www/html
