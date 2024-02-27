@@ -18,6 +18,9 @@ jobs:
     - name: Directory configuration
       run: git reset --hard && git config git-ftp.syncroot ${{ secrets.TARGET_DIR }}
 
+    - name: Creating file to receive SSH key
+      run: mkdir -p ~/.ssh && echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa && ssh-keyscan -t rsa ftp.example.com >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
+
     - name: File upload to the server
-      #run: git ftp push -vv -u ${{ secrets.USER }} --key ${{ secrets.SFTP_SSH_PRIVATE_KEY }} ${{ secrets.HOST }}
-      run: git ftp push -vv -u opc --key ${{ secrets.SFTP_SSH_PRIVATE_KEY }} sftp://159.112.182.247/var/www/html
+      #run: git ftp push -vv -u ${{ secrets.USER }} --key ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.HOST }}
+      run: git ftp push --insecure -vv -u opc --key ${{ secrets.SSH_PRIVATE_KEY }} sftp://159.112.182.247/var/www/html
