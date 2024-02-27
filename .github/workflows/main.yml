@@ -12,6 +12,11 @@ jobs:
     - name: Get Latest Code
       uses: actions/checkout@v3
 
-    - name: Sync Files
-      run: |
-        sudo apt-get update && sudo apt-get install -y git git-ftp && git reset --hard && git config git-ftp.syncroot ${{ secrets.SFTP_DESTINATION_FOLDER }} && git ftp push -u ${{ secrets.USER }} --key ${{ secrets.SFTP_SSH_PRIVATE_KEY }} ${{ secrets.HOST }}
+    - name: Install Packages
+      run: sudo apt-get update && sudo apt-get install -y git git-ftp 
+    
+    - name: Directory configuration
+      run: git reset --hard && git config git-ftp.syncroot ${{ secrets.SFTP_DESTINATION_FOLDER }}
+
+    - name: File upload to the server
+      run: git ftp push -u ${{ secrets.USER }} --key ${{ secrets.SFTP_SSH_PRIVATE_KEY }} ${{ secrets.HOST }}
