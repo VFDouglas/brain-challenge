@@ -22,4 +22,4 @@ jobs:
       run: mkdir -p ~/.ssh && echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
     - name: File upload to the server
-      run: git ftp --insecure push --force -u ${{ secrets.USER }} --key ~/.ssh/id_rsa sftp://159.112.182.247/var/www/html
+      run: git ftp --insecure push --force -u ${{ secrets.USER }} --key ~/.ssh/id_rsa ${{ secrets.HOST }}
