@@ -5,9 +5,9 @@ services:
       context: .
       dockerfile: nginx/Dockerfile
     ports:
-      - "80:80"
+      - "${NGINX_PORT}:${NGINX_PORT}"
     networks:
-      - internal
+      - brain_challenge
     volumes:
       - ./:/var/www/html/
       - ./logs/nginx:/var/log/nginx/
@@ -22,14 +22,14 @@ services:
       context: .
       dockerfile: php/${APP_ENV:-local}/Dockerfile
     networks:
-      - internal
+      - brain_challenge
     volumes:
       - ./:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
     container_name: ${APP_NAME}_php_${APP_ENV}
   mysql:
     networks:
-      - internal
+      - brain_challenge
     image: 'mysql:latest'
     volumes:
       - ./.docker/mysql/dbdata:/var/lib/mysql
@@ -46,8 +46,8 @@ services:
     ports:
       - '6379:6379'
     networks:
-      - internal
+      - brain_challenge
     container_name: ${APP_NAME}_redis_${APP_ENV}
 networks:
-  internal:
+  brain_challenge:
     driver: bridge
