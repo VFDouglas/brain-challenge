@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
@@ -30,13 +32,13 @@ class GoogleController extends Controller
                 $newUser = User::query()->create([
                     'name'     => $user->name,
                     'email'    => $user->email,
-                    'password' => encrypt('123456dummy')
+                    'password' => Hash::make(Str::random(8))
                 ]);
                 session(['user_id' => $newUser->id]);
 
                 Auth::login($newUser);
 
-                return redirect()->intended('dashboard');
+                return redirect()->intended();
             }
         } catch (Exception $e) {
             dd($e->getMessage());
