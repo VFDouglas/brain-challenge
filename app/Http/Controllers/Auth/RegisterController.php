@@ -15,6 +15,7 @@ use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -49,6 +50,7 @@ class RegisterController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
@@ -64,6 +66,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param array $data
+     *
      * @return User
      */
     protected function create(array $data): User
@@ -81,6 +84,11 @@ class RegisterController extends Controller
     {
         event(new Registered($user = $this->create($request->all())));
 
+        session([
+            'user_id' => $user->id,
+            'name'    => $user->name,
+            'email'   => $user->email,
+        ]);
         $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
@@ -91,4 +99,5 @@ class RegisterController extends Controller
             ? new JsonResponse([], 201)
             : redirect($this->redirectPath());
     }
+
 }
