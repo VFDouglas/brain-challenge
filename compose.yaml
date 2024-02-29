@@ -34,7 +34,7 @@ services:
     volumes:
       - ./.docker/mysql/dbdata:/var/lib/mysql
     ports:
-      - '3306:3306'
+      - '${DB_PORT}:${DB_PORT}'
     environment:
       MYSQL_DATABASE: ${DB_DATABASE:-brain_challenge}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
@@ -44,7 +44,7 @@ services:
   redis:
     image: redis:latest
     ports:
-      - '6379:6379'
+      - '${REDIS_PORT}:${REDIS_PORT}'
     networks:
       - brain_challenge
     container_name: ${APP_NAME}_redis_${APP_ENV}
