@@ -23,3 +23,6 @@ jobs:
 
     - name: File upload to the server
       run: git ftp --insecure push --force -u ${{ secrets.USER }} --key ~/.ssh/id_rsa ${{ secrets.HOST }}
+
+    - name: Run deploy post-script
+      run: ssh -i ~/.ssh/id_rsa ${{ secrets.USER }}@${{ secrets.IP }} -f "${{ secrets.DEPLOY_POST_SCRIPT }}"
