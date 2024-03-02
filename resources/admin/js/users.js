@@ -14,12 +14,15 @@ window.editUser = function (userId) {
         }
         response.json().then(function (jsonResponse) {
             document.getElementById('div_password').classList.add('d-none');
+            document.getElementById('div_password').querySelector('input').required = false;
+
             if (jsonResponse.id) {
-                document.getElementById('user_id').value       = jsonResponse.id;
-                document.getElementById('user_name').value     = jsonResponse.name;
-                document.getElementById('user_email').value    = jsonResponse.email;
-                document.getElementById('user_role').value     = jsonResponse.role;
-                document.getElementById('user_status').checked = !!jsonResponse.status;
+                document.getElementById('user_id').value          = jsonResponse.id;
+                document.getElementById('user_name').value        = jsonResponse.name;
+                document.getElementById('user_email').value       = jsonResponse.email;
+                document.getElementById('user_role').value        = jsonResponse.role;
+                document.getElementById('user_status').checked    = !!jsonResponse.status;
+                document.getElementById('user_event_modal').value = jsonResponse.event_id || '';
 
                 document.getElementById('mode_user_modal').value      = 'edit';
                 document.getElementById('modal_user_title').innerHTML = document.getElementById('edit_user_modal_title').value;
@@ -72,7 +75,7 @@ document.getElementById('form_save_user').addEventListener('submit', function (e
             password: document.getElementById('user_password').value,
             role    : document.getElementById('user_role').value,
             status  : document.getElementById('user_status').checked,
-            event_id: +document.getElementById('user_event').value
+            event_id: document.getElementById('user_event_modal').value
         })
     }
 
@@ -99,5 +102,6 @@ document.getElementById('btn_create_user').addEventListener('click', function ()
     document.getElementById('modal_user_title').innerHTML = document.getElementById('create_user_modal_title').value;
     document.getElementById('form_save_user').reset();
     document.getElementById('div_password').classList.remove('d-none');
+    document.getElementById('div_password').querySelector('input').required = true;
     bootstrap.Modal.getOrCreateInstance('#modal_edit_user').show();
 });

@@ -41,6 +41,7 @@ return [
         'user_role_P'                  => 'Professor',
         'user_role_S'                  => 'Estudante',
         'user_status_text'             => 'Status',
+        'user_event_text'              => 'Evento',
         'user_close_modal_button_text' => 'Fechar',
         'user_save_modal_button_text'  => 'Salvar',
         'create_user_button_text'      => 'Criar Usuário',
@@ -49,6 +50,7 @@ return [
         'cannot_delete_parent_user'    => 'O usuário está associado a um evento ou outra entidade do sistema.
             Para excluí-lo, remova todos os relacionamentos antes.',
         'duplicate_entry'              => 'Um usuário já existe com este email',
+        'user_without_event'           => 'Usuário sem evento',
     ],
     'presentations' => [
         'page_title'                           => 'Apresentações',

@@ -3,6 +3,7 @@
 
 /**
  * @var Builder $users
+ * @var Builder $events
  */
 $roleLabel = [
     'A' => __('admin.users.user_role_A'),
@@ -67,6 +68,21 @@ $pageTitle = __('admin.users.page_title');
                                 </div>
                             </div>
                             <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="user_event_modal">
+                                        <option value="">{{__('admin.users.user_without_event')}}</option>
+                                        @php($eventList = $events->get()->all())
+                                        @foreach($eventList as $item)
+                                            <option value="{{$item['id']}}"
+                                                    @if($item['id'] == $eventId) selected @endif>
+                                                {{$item['name']}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label for="user_role">{{__('admin.users.user_event_text')}}</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" role="switch" id="user_status">
                                     <label class="form-check-label" for="user_status">Status</label>
@@ -96,7 +112,7 @@ $pageTitle = __('admin.users.page_title');
             <div class="col-12 col-sm-5 col-lg-5 col-xxl-3">
                 <form>
                     <select name="eventId" id="user_event" class="form-select" onchange="this.form.submit()">
-                        @php($eventList = $events->get()->all())
+                        <option value="0">{{__('admin.users.user_without_event')}}</option>
                         @foreach($eventList as $item)
                             <option value="{{$item['id']}}" @if($item['id'] == $eventId) selected @endif>
                                 {{$item['name']}}

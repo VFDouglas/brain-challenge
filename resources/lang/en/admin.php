@@ -41,6 +41,7 @@ return [
         'user_role_P'                  => 'Professor',
         'user_role_S'                  => 'Student',
         'user_status_text'             => 'Status',
+        'user_event_text'              => 'Event',
         'user_close_modal_button_text' => 'Close',
         'user_save_modal_button_text'  => 'Save',
         'create_user_button_text'      => 'Create User',
@@ -48,6 +49,8 @@ return [
         'user_not_found'               => 'User not found',
         'cannot_delete_parent_user'    => 'The user is associated with an event or other system entity.
             To delete it, delete all associations first.',
+        'duplicate_entry'              => 'An user already exists with this email',
+        'user_without_event'           => 'User without event',
     ],
     'presentations' => [
         'page_title'                           => 'Presentations',

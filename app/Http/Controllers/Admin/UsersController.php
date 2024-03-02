@@ -22,8 +22,14 @@ class UsersController extends Controller
         $firstEvent = $events->count() > 0 ? $events->get()->toArray()[0]['id'] : null;
         $eventId    = request('eventId') ?? $firstEvent;
 
+        $users = User::query();
+        if ($eventId == 0) {
+            $users = $users->whereNull('event_id');
+        } else {
+            $users = $users->where('event_id', '=', $eventId);
+        }
         return view('admin.users', [
-            'users'   => User::query()->where('event_id', '=', $eventId),
+            'users'   => $users,
             'events'  => $events,
             'eventId' => $eventId
         ]);
@@ -77,10 +83,11 @@ class UsersController extends Controller
                 throw new Exception(__('admin.users.user_not_found'));
             }
 
-            $user->name   = $request->name;
-            $user->email  = $request->email;
-            $user->role   = $request->role;
-            $user->status = $request->status;
+            $user->name     = $request->name;
+            $user->email    = $request->email;
+            $user->role     = $request->role;
+            $user->status   = $request->status;
+            $user->event_id = $request->event_id;
             $user->save();
 
             $response['error'] = '';
