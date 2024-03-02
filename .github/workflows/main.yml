@@ -22,7 +22,7 @@ jobs:
       run: mkdir -p ~/.ssh && echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 
     - name: File upload to the server
-      run: git ftp --insecure push --force -u ${{ secrets.USER }} --key ~/.ssh/id_rsa ${{ secrets.HOST }}
+      run: git ftp --insecure init --force -u ${{ secrets.USER }} --key ~/.ssh/id_rsa ${{ secrets.HOST }}
 
     - name: Run deploy post-script
       run: ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.USER }}@${{ secrets.IP }} -f "${{ secrets.DEPLOY_POST_SCRIPT }}"
