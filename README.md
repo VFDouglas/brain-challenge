@@ -14,7 +14,7 @@ environment to help them improve their processes.
 
 ## How to use it
 
-The project can be accessed through the link: http://159.112.182.247.
+The project can be accessed through the link: http://144.22.158.0.
 
 There are three types of users:
 
