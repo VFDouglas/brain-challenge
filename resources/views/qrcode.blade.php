@@ -24,7 +24,7 @@ $pageTitle = 'QRCode';
             <div class="row mt-3">
                 <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 d-flex">
                     <input type="text" name="codigo" maxlength="8" class="form-control" required
-                           id="presentation_qrcode" placeholder="Digite o c&oacute;digo da apresenta&ccedil;&atilde;o">
+                           id="presentation_qrcode" placeholder="{{__('qrcode.inform_presentation_code')}}">
                     <button type="submit" class="btn bg-gradient-primary text-white px-5 ml-1 text-uppercase"
                             id="btn_send_qrcode">
                         {{__('questions.send_answer_button_name')}}
