@@ -10,7 +10,7 @@
                             @csrf
                             <div class="row mb-3">
                                 <label for="email" class="col-md-4 col-form-label text-md-end">
-                                    {{ __('Email Address') }}
+                                    {{ __('login.email_address') }}
                                 </label>
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -27,7 +27,7 @@
 
                             <div class="row mb-3">
                                 <label for="password"
-                                       class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                                       class="col-md-4 col-form-label text-md-end">{{ __('login.password') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -49,7 +49,7 @@
                                                id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                         <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
+                                            {{ __('login.remember_me') }}
                                         </label>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                                     <div class="g-signin2" data-onsuccess="onSignIn">
                                         <a class="btn btn-light" href="/auth/google">
                                             <i class="fa-brands fa-google"></i>
-                                            Login with Google
+                                            {{__('login.login_with_google')}}
                                         </a>
                                         <button type="submit" class="btn btn-primary">
                                             {{ __('Login') }}
