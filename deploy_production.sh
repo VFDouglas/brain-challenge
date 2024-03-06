@@ -6,3 +6,4 @@ docker compose exec php php artisan route:cache
 docker compose exec php php artisan view:cache
 docker compose exec php npm install
 docker compose exec php npm run build
+docker compose restart nginx php
