@@ -18,7 +18,7 @@ class PresentationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return (bool)$this->validatePageWithSession('/presentations');
+        return true;
     }
 
     /**
