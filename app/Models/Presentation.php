@@ -105,6 +105,7 @@ class Presentation extends Model
                     ->select(['presentation_id'])
                     ->join('presentations', 'presentations.event_id', '=', 'pa.event_id')
                     ->where('pa.event_id', '=', session('event_access.event_id'))
+                    ->where('pa.presentation_id', '=', 'presentations.id')
                     ->where('pa.user_id', '=', session('event_access.user_id')),
                 'award_indicator'
             )
