@@ -89,7 +89,7 @@ class Presentation extends Model
     {
         $presentations = Presentation::query()
             ->from('presentations as p')
-            ->select(['id', 'name'])
+            ->select(['name', 'pa.presentation_id as award_indicator'])
             ->selectSub(
                 PresentationVisit::query()
                     ->from('presentation_visits as pv')
@@ -99,16 +99,11 @@ class Presentation extends Model
                     ->where('pv.user_id', '=', session('event_access.user_id')),
                 'amount_visit'
             )
-            ->selectSub(
-                PresentationAward::query()
-                    ->from('presentation_awards as pa')
-                    ->select(['presentation_id'])
-                    ->join('presentations', 'presentations.event_id', '=', 'pa.event_id')
-                    ->where('pa.event_id', '=', session('event_access.event_id'))
-                    ->where('pa.presentation_id', '=', 'presentations.id')
-                    ->where('pa.user_id', '=', session('event_access.user_id')),
-                'award_indicator'
-            )
+            ->leftJoin('presentation_awards as pa', function (JoinClause $join) {
+                $join
+                    ->on('pa.presentation_id', '=', 'p.id')
+                    ->on('pa.event_id', '=', 'p.event_id');
+            })
             ->where('p.event_id', '=', session('event_access.event_id'));
         if (request()->has('presentation_name')) {
             $presentations->where('p.name', 'like', '%' . $request->presentation_name . '%');
