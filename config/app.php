@@ -229,5 +229,5 @@ return [
         'View'         => Illuminate\Support\Facades\View::class,
 
     ],
-    'supported_locales' => ['en', 'pt'],
+    'supported_locales' => ['en', 'pt']
 ];

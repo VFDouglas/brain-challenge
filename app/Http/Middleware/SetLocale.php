@@ -18,7 +18,7 @@ class SetLocale
         $locale = $request->hasHeader('Accept-Language') ? substr($request->header('Accept-Language'), 0, 2) : null;
 
         // Check if the locale is supported
-        if ($locale && in_array($locale, config('app.supported_locales'))) {
+        if ($locale && in_array($locale, config('app.supported_locales', []))) {
             app()->setLocale($locale);
         } else {
             app()->setLocale(config('app.locale'));
