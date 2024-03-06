@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PresentationRequest;
 use App\Models\Presentation;
-use Exception;
 use Illuminate\Contracts\Foundation\Application as FactoryApplication;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

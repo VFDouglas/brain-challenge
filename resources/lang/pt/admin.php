@@ -98,7 +98,8 @@ return [
         'create_schedule_button_text'      => 'Criar Programação',
         'schedule_event_text'              => 'Evento',
         'no_user_create_schedules'         => 'Nenhum evento encontrado. Crie um para poder criar uma programação.',
-        'schedule_already_exists'          => 'Uma programação com esse título já existe.'
+        'schedule_already_exists'          => 'Uma programação com esse título já existe.',
+        'edit_schedule_modal_title'        => 'Editar Programação',
     ],
     'awards'        => [
         'page_title'                    => 'Premios',
@@ -117,7 +118,8 @@ return [
         'create_award_button_text'      => 'Criar Premio',
         'award_event_text'              => 'Evento',
         'no_user_create_awards'         => 'Nenhum evento encontrado. Crie um para poder criar um premio.',
-        'award_already_exists'          => 'Um premio já existe para este estudante nessa apresentação.'
+        'award_already_exists'          => 'Um premio já existe para este estudante nessa apresentação.',
+        'edit_award_modal_title'        => 'Editar Prêmio',
     ],
     'pages'         => [
         'page_title'                    => 'Página',

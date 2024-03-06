@@ -37,7 +37,7 @@ return new class extends Migration {
                 ->insertOrIgnore([
                     'id'       => 1,
                     'event_id' => 1,
-                    'name'     => 'Administrator',
+                    'name'     => 'Lucas Ferreira',
                     'email'    => 'admin@admin.com',
                     'role'     => 'A',
                     'password' => Hash::make('admin')
@@ -46,7 +46,7 @@ return new class extends Migration {
                 ->insertOrIgnore([
                     'id'       => 2,
                     'event_id' => 1,
-                    'name'     => 'Student Example',
+                    'name'     => 'Douglas Vicentini',
                     'email'    => 'student@student.com',
                     'role'     => 'S',
                     'password' => Hash::make('student')
@@ -55,8 +55,17 @@ return new class extends Migration {
                 ->insertOrIgnore([
                     'id'       => 3,
                     'event_id' => 1,
-                    'name'     => 'Professor Example',
+                    'name'     => 'João da Silva',
                     'email'    => 'professor@professor.com',
+                    'role'     => 'P',
+                    'password' => Hash::make('professor')
+                ]);
+            DB::table(self::TABLE)
+                ->insertOrIgnore([
+                    'id'       => 4,
+                    'event_id' => 1,
+                    'name'     => 'Luiz Fernando',
+                    'email'    => 'professor2@professor.com',
                     'role'     => 'P',
                     'password' => Hash::make('professor')
                 ]);

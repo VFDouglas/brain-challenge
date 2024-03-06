@@ -29,7 +29,7 @@ return new class extends Migration {
             DB::table(self::TABLE)
                 ->insertOrIgnore([
                     'id'        => 1,
-                    'name'      => 'First Event',
+                    'name'      => 'Primeira feira escolar',
                     'location'  => 'Brasília',
                     'starts_at' => now(),
                     'ends_at'   => date('Y-m-d H:i:s', strtotime('+1 month')),

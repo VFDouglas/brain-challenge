@@ -28,19 +28,31 @@ return new class extends Migration {
                 ->upsert(
                     [
                         [
-                            'id'          => 1,
                             'event_id'    => 1,
-                            'title'       => 'First Schedule Title',
-                            'description' => 'First schedule description',
+                            'title'       => 'Apresentação da feira',
+                            'description' => 'Apresentação feita pelo diretor da escola no início do evento',
                             'starts_at'   => now(),
                             'ends_at'     => date('Y-m-d H:i:s', strtotime('+1 month'))
                         ],
                         [
-                            'id'          => 2,
                             'event_id'    => 1,
-                            'title'       => 'Second Schedule Title',
-                            'description' => 'Second schedule description',
+                            'title'       => 'Feira com professores',
+                            'description' => 'Os alunos irão visitar os estandes dos professores e irão se apresentar',
                             'starts_at'   => now(),
+                            'ends_at'     => date('Y-m-d H:i:s', strtotime('+1 month'))
+                        ],
+                        [
+                            'event_id'    => 1,
+                            'title'       => 'Apresentação do segundo dia',
+                            'description' => 'Apresentação feita pelo diretor da escola no início do segundo dia',
+                            'starts_at'   => date('Y-m-d H:i:s', strtotime('+1 day')),
+                            'ends_at'     => date('Y-m-d H:i:s', strtotime('+1 month'))
+                        ],
+                        [
+                            'event_id'    => 1,
+                            'title'       => 'Feira com professores do segundo dia',
+                            'description' => 'Os alunos irão visitar os estandes dos professores e irão se apresentar',
+                            'starts_at'   => date('Y-m-d H:i:s', strtotime('+1 day')),
                             'ends_at'     => date('Y-m-d H:i:s', strtotime('+1 month'))
                         ]
                     ],

@@ -39,8 +39,20 @@ return new class extends Migration {
                     'id'        => 1,
                     'event_id'  => 1,
                     'user_id'   => 3,
-                    'name'      => 'Mrs. Keen\'s Psycho Analysis',
-                    'qrcode'    => '12345678',
+                    'name'      => 'Matemática',
+                    'qrcode'    => '1234',
+                    'confirmed' => 1,
+                    'status'    => 1,
+                    'starts_at' => now(),
+                    'ends_at'   => date('Y-m-d H:i:s', strtotime('+1 month')),
+                ]);
+            DB::table(self::TABLE)
+                ->insertOrIgnore([
+                    'id'        => 2,
+                    'event_id'  => 1,
+                    'user_id'   => 4,
+                    'name'      => 'Ciências',
+                    'qrcode'    => '5678',
                     'confirmed' => 1,
                     'status'    => 1,
                     'starts_at' => now(),

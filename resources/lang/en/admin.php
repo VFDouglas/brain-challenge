@@ -97,6 +97,7 @@ return [
         'schedule_event_text'              => 'Event',
         'no_user_create_schedules'         => 'No event found. Create one to be able to create a schedule.',
         'schedule_already_exists'          => 'A schedule with this name already exists for this event.',
+        'edit_schedule_modal_title'        => 'Edit Schedule',
     ],
     'awards'        => [
         'page_title'                    => 'Awards',
@@ -115,6 +116,7 @@ return [
         'award_event_text'              => 'Event',
         'no_user_create_awards'         => 'No event found. Create one to be able to create an award.',
         'award_already_exists'          => 'There is already an award for this user in this presentation.',
+        'edit_award_modal_title'        => 'Edit Award',
     ],
     'pages'         => [
         'page_title'                    => 'Pages',

@@ -24,26 +24,44 @@ return new class extends Migration {
             });
             DB::table(self::TABLE)
                 ->insertOrIgnore([
-                    'id'              => 1,
                     'presentation_id' => 1,
                     'question_id'     => 1,
-                    'description'     => 'Paris',
+                    'description'     => '1',
                     'correct'         => 0,
                 ]);
             DB::table(self::TABLE)
                 ->insertOrIgnore([
-                    'id'              => 2,
                     'presentation_id' => 1,
                     'question_id'     => 1,
-                    'description'     => 'Madrid',
+                    'description'     => '3',
                     'correct'         => 1,
                 ]);
             DB::table(self::TABLE)
                 ->insertOrIgnore([
-                    'id'              => 3,
                     'presentation_id' => 1,
                     'question_id'     => 1,
-                    'description'     => 'Barcelona',
+                    'description'     => '5',
+                    'correct'         => 0,
+                ]);
+            DB::table(self::TABLE)
+                ->insertOrIgnore([
+                    'presentation_id' => 2,
+                    'question_id'     => 2,
+                    'description'     => 'Lobo',
+                    'correct'         => 0,
+                ]);
+            DB::table(self::TABLE)
+                ->insertOrIgnore([
+                    'presentation_id' => 2,
+                    'question_id'     => 2,
+                    'description'     => 'Cachorro',
+                    'correct'         => 1,
+                ]);
+            DB::table(self::TABLE)
+                ->insertOrIgnore([
+                    'presentation_id' => 2,
+                    'question_id'     => 2,
+                    'description'     => 'Leão',
                     'correct'         => 0,
                 ]);
         }

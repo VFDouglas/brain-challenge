@@ -26,7 +26,14 @@ return new class extends Migration {
                 ->insertOrIgnore([
                     'id'              => 1,
                     'presentation_id' => 1,
-                    'description'     => 'What is the capital of Spain?',
+                    'description'     => 'Qual o primeiro número primo ímpar?',
+                    'points'          => 10,
+                ]);
+            DB::table(self::TABLE)
+                ->insertOrIgnore([
+                    'id'              => 2,
+                    'presentation_id' => 2,
+                    'description'     => 'Qual o animal da espécie "canis familiaris"?',
                     'points'          => 10,
                 ]);
         }
