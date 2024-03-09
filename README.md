@@ -1,6 +1,6 @@
 # Brain Challenge
 
-### Also available in Portuguese
+### Also available in [Portuguese](https://github.com/VFDouglas/brain-challenge/blob/master/README_PT.md)
 
 ## About the project
 
