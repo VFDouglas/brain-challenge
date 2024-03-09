@@ -52,3 +52,24 @@ The responsibles to manage the event.
 
 They can create the events, teachers, students and everything else in the system.
 All features can be managed via the admin control panel.
+
+## Installation guide
+
+Clone the project and enter the directory:
+```
+git clone https://github.com/VFDouglas/brain-challenge.git && cd brain-challenge
+```
+Create a `.env` file:
+```
+cp .env.example .env
+```
+Run the commands:
+```
+docker compose up --build -d
+
+# Enter the container
+docker compose exec php sh
+composer install
+php artisan key:generate
+npm ci && npm run dev
+```
