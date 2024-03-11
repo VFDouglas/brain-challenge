@@ -1,6 +1,6 @@
 server {
-    listen      80;
-    listen      [::]:80;
+    listen      $NGINX_PORT_HTTP;
+    listen      [::]:$NGINX_PORT_HTTP;
 
     root        /var/www/html/public;
 

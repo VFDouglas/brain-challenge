@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: nginx/Dockerfile
     ports:
-      - "${NGINX_PORT}:${NGINX_PORT}"
+      - "${NGINX_PORT_HTTP}:${NGINX_PORT_HTTP}"
     networks:
       - brain_challenge
     volumes:
@@ -15,6 +15,7 @@ services:
     container_name: ${APP_NAME}_nginx_${APP_ENV}
     environment:
       - FASTCGI_PASS=${APP_NAME}_php_${APP_ENV}:9000
+      - NGINX_PORT_HTTP=${NGINX_PORT_HTTP}
     depends_on:
       - php
   php:

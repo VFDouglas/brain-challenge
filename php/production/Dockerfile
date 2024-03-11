@@ -6,4 +6,5 @@ RUN apt-get update && apt-get install -y git libjpeg62-turbo-dev libpng-dev libf
 RUN apt-get install -y nodejs npm && apt-get clean
 RUN docker-php-ext-install intl ldap zip mysqli pdo pdo_mysql gd ftp
 RUN mkdir -p /var/www/html
+RUN chown -R www-data:www-data . && chmod -R 775 storage/*
 COPY . /var/www/html
