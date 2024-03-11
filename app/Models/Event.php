@@ -14,6 +14,9 @@ class Event extends Model
     public static function getCurrentEvent(): Builder
     {
         return self::query()
+            ->select([
+                'events.*',
+            ])
             ->join('users', 'users.event_id', '=', 'events.id')
             ->whereRaw('now() between starts_at and ends_at')
             ->where('events.status', '=', 1);
