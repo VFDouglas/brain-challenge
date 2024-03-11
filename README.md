@@ -73,3 +73,6 @@ composer install
 php artisan key:generate
 npm ci && npm run dev
 ```
+
+To login with Google, you must change the variables `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` and `GOOGLE_REDIRECT_URL` on the `.env` file.
+P.S.: On a localhost environment, the redirect URL can be `/auth/google/callback`
