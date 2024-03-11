@@ -23,6 +23,7 @@ return [
         'event_close_modal_button_text' => 'Fechar',
         'event_save_modal_button_text'  => 'Salvar',
         'create_event_button_text'      => 'Criar Evento',
+        'export_excel_button_text'      => 'Exportar para Excel',
     ],
     'users'         => [
         'page_title'                   => 'Usuários',

@@ -47,6 +47,7 @@ Route::middleware([Authenticate::class, PageAccess::class])->group(function () {
         Route::put('update_profile', 'updateProfile');
         Route::get('get_notifications', 'getNotifications');
         Route::put('read_notification/{id}', 'readNotification')->whereNumber('id');
+        Route::get('export/excel/{model}', 'exportDataToExcel')->whereAlpha('model');
     });
 
     Route::controller(AcceptanceTermsController::class)->group(function () {

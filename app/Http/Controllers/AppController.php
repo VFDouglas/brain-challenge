@@ -10,19 +10,23 @@ use App\Models\NotificationUser;
 use App\Models\SimplifiedScore;
 use App\Models\StudentLog;
 use App\Models\User;
+use App\Traits\FileTrait;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application as FoundationApplication;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * @author Douglas Vicentini (douglas.dvferreira@gmail.com)
  */
 class AppController extends Controller
 {
+    use FileTrait;
+
     public function index(): View|FoundationApplication|Factory|Application
     {
         return view('home', ['event' => Event::getCurrentEvent(), 'score' => SimplifiedScore::getScore()]);
@@ -90,5 +94,21 @@ class AppController extends Controller
             ->orderByDesc('notifications.created_at')
             ->get()
             ->toArray();
+    }
+
+    public function exportDataToExcel($modelName): string
+    {
+        $modelFullName = "App\\Models\\" . Str::singular(Str::studly($modelName));
+
+        if (!class_exists($modelFullName)) {
+            return 'Parâmetro inválido';
+        }
+        /**
+         * @var Model $model
+         */
+        $model = new $modelFullName();
+
+        $data = $model::query()->get()->toArray();
+        return $this->exportToExcel($data, $modelName);
     }
 }

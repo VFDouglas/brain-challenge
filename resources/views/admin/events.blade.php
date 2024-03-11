@@ -80,8 +80,12 @@ $pageTitle = __('admin.events.page_title');
                 <button class="btn bg-gradient-primary text-white px-5" id="btn_create_event">
                     {{__('admin.events.create_event_button_text')}}
                 </button>
+                <a class="btn bg-gradient-success" data-bs-toggle="tooltip" href="/export/excel/event" target="_blank"
+                        title="{{__('admin.events.export_excel_button_text')}}">
+                    <i class="fa-solid fa-file-excel"></i>
+                </a>
             </div>
-            <div class="col-12">
+            <div class="col-12 table-responsive">
                 @if($events->count() > 0)
                     @php($eventList = $events->get()->toArray())
                     <table class="table table-hover">

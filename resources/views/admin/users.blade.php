@@ -125,10 +125,14 @@ $pageTitle = __('admin.users.page_title');
                 <button class="btn bg-gradient-primary text-white px-5" id="btn_create_user">
                     {{__('admin.users.create_user_button_text')}}
                 </button>
+                <a class="btn bg-gradient-success" data-bs-toggle="tooltip" href="/export/excel/user" target="_blank"
+                   title="{{__('admin.events.export_excel_button_text')}}">
+                    <i class="fa-solid fa-file-excel"></i>
+                </a>
             </div>
         </div>
         <div class="row mt-5">
-            <div class="col-12">
+            <div class="col-12 table-responsive">
                 @if($users->count() > 0)
                     @php($userList = $users->get()->toArray())
                     <table class="table table-hover">

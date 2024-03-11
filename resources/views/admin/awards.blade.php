@@ -117,13 +117,17 @@ $pageTitle = __('admin.awards.page_title');
                 </form>
             </div>
             <div class="col-12 col-sm-7 col-lg-5 col-xxl-3 text-end my-4">
-                <button class="btn bg-gradient-primary col-12 text-white px-5" id="btn_create_award">
+                <button class="btn bg-gradient-primary text-white px-5" id="btn_create_award">
                     {{__('admin.awards.create_award_button_text')}}
                 </button>
+                <a class="btn bg-gradient-success" data-bs-toggle="tooltip" href="/export/excel/award" target="_blank"
+                   title="{{__('admin.events.export_excel_button_text')}}">
+                    <i class="fa-solid fa-file-excel"></i>
+                </a>
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 table-responsive">
                 @if($awards->count() > 0)
                     @php($awardList = $awards->get()->toArray())
                     <table class="table table-hover">
