@@ -3,8 +3,6 @@
 /**
  * @author Douglas Vicentini Ferreira
  * @email dvferreira@bartofil.com.br
- * @Agency Bartofil Distribuidora SA
- * @link https://www.bartofil.com.br
  * @date 11/03/2024
  */
 declare(strict_types = 1);
