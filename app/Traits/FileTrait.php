@@ -2,7 +2,7 @@
 
 /**
  * @author Douglas Vicentini Ferreira
- * @email dvferreira@bartofil.com.br
+ * @email douglas.dvferreira@gmail.com
  * @date 11/03/2024
  */
 declare(strict_types = 1);
